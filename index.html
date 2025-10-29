@@ -1,0 +1,1068 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ManhvaUZ - Manhvalarni O'zbek Tilida O'qing</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #667eea;
+            --secondary: #764ba2;
+            --text-dark: #333;
+            --text-light: #666;
+            --bg-light: #f5f5f5;
+            --border: #e0e0e0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            min-height: 100vh;
+            color: var(--text-dark);
+        }
+
+        /* Header - Mobile First */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .nav-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .menu-toggle {
+            display: block;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-dark);
+        }
+
+        .nav-links {
+            display: none;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .nav-links.active {
+            display: flex;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            padding: 0.5rem;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .search-box {
+            padding: 0.7rem 1rem;
+            border: 2px solid var(--border);
+            border-radius: 25px;
+            outline: none;
+            transition: border-color 0.3s;
+            width: 100%;
+            font-size: 1rem;
+        }
+
+        .search-box:focus {
+            border-color: var(--primary);
+        }
+
+        /* Container - Responsive */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem;
+        }
+
+        /* AdSense - Responsive */
+        .ad-banner {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            padding: 1rem;
+            margin: 1rem 0;
+            text-align: center;
+            min-height: 90px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            font-size: 0.875rem;
+        }
+
+        /* Filters - Mobile Optimized */
+        .filters {
+            display: flex;
+            gap: 0.5rem;
+            margin: 1rem 0;
+            flex-wrap: wrap;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            padding-bottom: 0.5rem;
+        }
+
+        .filter-btn {
+            padding: 0.6rem 1.2rem;
+            border: 2px solid white;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s;
+            white-space: nowrap;
+            font-size: 0.9rem;
+            flex-shrink: 0;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: white;
+            color: var(--primary);
+        }
+
+        /* Manhva Grid - Fully Responsive */
+        .manhva-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .manhva-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+
+        .manhva-card:active {
+            transform: scale(0.98);
+        }
+
+        .manhva-cover {
+            width: 100%;
+            aspect-ratio: 3/4;
+            object-fit: cover;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.9rem;
+            text-align: center;
+            padding: 1rem;
+        }
+
+        .manhva-cover img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .manhva-info {
+            padding: 0.8rem;
+        }
+
+        .manhva-title {
+            font-size: 0.95rem;
+            font-weight: bold;
+            margin-bottom: 0.4rem;
+            color: var(--text-dark);
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+
+        .manhva-genre {
+            font-size: 0.8rem;
+            color: var(--primary);
+            margin-bottom: 0.4rem;
+        }
+
+        .manhva-chapters {
+            font-size: 0.8rem;
+            color: var(--text-light);
+        }
+
+        /* Chapter List - Mobile Optimized */
+        .chapter-list {
+            display: none;
+            background: white;
+            border-radius: 12px;
+            padding: 1rem;
+            margin-top: 1rem;
+        }
+
+        .manhva-detail-header {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .manhva-detail-cover {
+            width: 100%;
+            max-width: 200px;
+            aspect-ratio: 3/4;
+            object-fit: cover;
+            border-radius: 10px;
+            margin: 0 auto;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .manhva-detail-info h2 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .manhva-detail-description {
+            color: var(--text-light);
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        .chapter-item {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border);
+            cursor: pointer;
+            transition: background 0.3s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .chapter-item:active {
+            background: var(--bg-light);
+        }
+
+        .chapter-number {
+            font-weight: bold;
+            color: var(--primary);
+            font-size: 0.95rem;
+        }
+
+        .chapter-date {
+            font-size: 0.8rem;
+            color: #999;
+            white-space: nowrap;
+        }
+
+        /* Reader View - Touch Optimized */
+        .reader-container {
+            display: none;
+            background: white;
+            border-radius: 12px;
+            padding: 1rem;
+            margin-top: 1rem;
+        }
+
+        .reader-header {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .back-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background 0.3s;
+            width: 100%;
+            font-size: 1rem;
+        }
+
+        .back-btn:active {
+            background: var(--secondary);
+        }
+
+        .chapter-nav {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chapter-nav button {
+            background: var(--bg-light);
+            border: 2px solid var(--border);
+            padding: 0.7rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+            flex: 1;
+        }
+
+        .chapter-nav button:active:not(:disabled) {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .chapter-nav button:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        .chapter-nav span {
+            font-weight: bold;
+            color: var(--primary);
+            white-space: nowrap;
+            font-size: 0.9rem;
+        }
+
+        .reader-pages {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+
+        .reader-page {
+            width: 100%;
+            background: #000;
+            position: relative;
+        }
+
+        .reader-page img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .reader-page-placeholder {
+            width: 100%;
+            aspect-ratio: 2/3;
+            background: var(--bg-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-light);
+        }
+
+        /* Loading */
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 3rem 1rem;
+            color: white;
+            font-size: 1.1rem;
+        }
+
+        .spinner {
+            border: 4px solid rgba(255,255,255,0.3);
+            border-top: 4px solid white;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 1rem auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(255, 255, 255, 0.95);
+            margin-top: 2rem;
+            padding: 2rem 1rem;
+            text-align: center;
+        }
+
+        .footer-content p {
+            margin: 0.3rem 0;
+            font-size: 0.9rem;
+        }
+
+        /* Tablet Styles */
+        @media (min-width: 600px) {
+            .manhva-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 1.5rem;
+            }
+
+            .manhva-title {
+                font-size: 1rem;
+            }
+
+            .ad-banner {
+                min-height: 100px;
+            }
+
+            .manhva-detail-header {
+                flex-direction: row;
+                align-items: flex-start;
+            }
+
+            .manhva-detail-cover {
+                margin: 0;
+            }
+        }
+
+        /* Desktop Styles */
+        @media (min-width: 1024px) {
+            nav {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+                padding: 1rem 2rem;
+            }
+
+            .nav-top {
+                width: auto;
+            }
+
+            .menu-toggle {
+                display: none;
+            }
+
+            .nav-links {
+                display: flex;
+                flex-direction: row;
+                gap: 2rem;
+                align-items: center;
+            }
+
+            .logo {
+                font-size: 1.8rem;
+            }
+
+            .search-box {
+                width: 300px;
+            }
+
+            .container {
+                padding: 2rem;
+            }
+
+            .manhva-grid {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 2rem;
+            }
+
+            .manhva-card:hover {
+                transform: translateY(-10px);
+                box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+            }
+
+            .chapter-item:hover {
+                background: var(--bg-light);
+            }
+
+            .back-btn {
+                width: auto;
+            }
+
+            .back-btn:hover {
+                background: var(--secondary);
+            }
+
+            .chapter-nav button:hover:not(:disabled) {
+                background: var(--primary);
+                color: white;
+                border-color: var(--primary);
+            }
+
+            .reader-header {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            .chapter-nav {
+                width: auto;
+            }
+        }
+
+        /* Large Desktop */
+        @media (min-width: 1400px) {
+            .manhva-grid {
+                grid-template-columns: repeat(5, 1fr);
+            }
+        }
+
+        /* Ultra Wide */
+        @media (min-width: 1800px) {
+            .manhva-grid {
+                grid-template-columns: repeat(6, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="nav-top">
+                <div class="logo">🎭 ManhvaUZ</div>
+                <button class="menu-toggle" id="menuToggle">☰</button>
+            </div>
+            <div class="nav-links" id="navLinks">
+                <a href="#" id="homeLink">🏠 Asosiy</a>
+                <a href="#" id="popularLink">🔥 Mashhur</a>
+                <a href="#" id="newLink">✨ Yangi</a>
+                <input type="text" class="search-box" id="searchInput" placeholder="🔍 Manhva qidirish...">
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+        <!-- Top Banner Ad -->
+        <div class="ad-banner">
+            📢 Bu yerda AdSense reklama
+        </div>
+
+        <!-- Main View -->
+        <div id="mainView">
+            <div class="filters">
+                <button class="filter-btn active" data-genre="all">Barchasi</button>
+                <button class="filter-btn" data-genre="action">⚔️ Action</button>
+                <button class="filter-btn" data-genre="romance">💕 Romance</button>
+                <button class="filter-btn" data-genre="fantasy">🔮 Fantasy</button>
+                <button class="filter-btn" data-genre="drama">🎭 Drama</button>
+                <button class="filter-btn" data-genre="comedy">😄 Comedy</button>
+                <button class="filter-btn" data-genre="horror">👻 Horror</button>
+            </div>
+
+            <div class="manhva-grid" id="manhvaGrid"></div>
+        </div>
+
+        <!-- Chapter List View -->
+        <div class="chapter-list" id="chapterList">
+            <div class="manhva-detail-header">
+                <div class="manhva-detail-cover" id="detailCover">Cover</div>
+                <div class="manhva-detail-info">
+                    <h2 id="manhvaTitle"></h2>
+                    <div class="manhva-genre" id="manhvaGenre"></div>
+                    <p class="manhva-detail-description" id="manhvaDescription"></p>
+                </div>
+            </div>
+            <button class="back-btn" onclick="showMainView()">← Orqaga</button>
+            <div id="chapterItems"></div>
+        </div>
+
+        <!-- Reader View -->
+        <div class="reader-container" id="readerView">
+            <div class="reader-header">
+                <button class="back-btn" onclick="showChapterList()">← Chapterlar</button>
+                <div class="chapter-nav">
+                    <button id="prevChapter">← Oldingi</button>
+                    <span id="currentChapter">Ch 1</span>
+                    <button id="nextChapter">Keyingi →</button>
+                </div>
+            </div>
+
+            <div class="ad-banner">
+                📢 Bu yerda AdSense reklama
+            </div>
+
+            <div class="reader-pages" id="readerPages"></div>
+
+            <div class="ad-banner">
+                📢 Bu yerda AdSense reklama
+            </div>
+        </div>
+
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            Yuklanmoqda...
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <p>📚 <strong>ManhvaUZ</strong> &copy; 2024</p>
+            <p>O'zbek tilida manhva o'qish platformasi</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+        // ========== SUPABASE CONFIG ==========
+        const SUPABASE_URL = 'https://slyvzbqtflcypdiurcju.supabase.co';
+        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNseXZ6YnF0ZmxjeXBkaXVyY2p1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjEwNzM1MTcsImV4cCI6MjA3NjY0OTUxN30.g4r-gpXptgewpEW0LhI_R7Znr8BSk0UcdTh-QUE8OcE';
+        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+        // ========== GLOBAL STATE ==========
+        let manhvas = [];
+        let currentManhva = null;
+        let currentChapterIndex = 0;
+
+        // ========== INITIALIZATION ==========
+        document.addEventListener('DOMContentLoaded', () => {
+            loadManhvas();
+            setupEventListeners();
+        });
+
+        // ========== EVENT LISTENERS ==========
+        function setupEventListeners() {
+            // Mobile menu toggle
+            document.getElementById('menuToggle').addEventListener('click', () => {
+                document.getElementById('navLinks').classList.toggle('active');
+            });
+
+            // Search
+            document.getElementById('searchInput').addEventListener('input', (e) => {
+                filterManhvas(e.target.value);
+            });
+
+            // Genre filters
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                    e.target.classList.add('active');
+                    filterByGenre(e.target.dataset.genre);
+                });
+            });
+
+            // Navigation links
+            document.getElementById('homeLink').addEventListener('click', (e) => {
+                e.preventDefault();
+                showMainView();
+                closeMenu();
+            });
+
+            document.getElementById('popularLink').addEventListener('click', (e) => {
+                e.preventDefault();
+                filterByGenre('action');
+                closeMenu();
+            });
+
+            document.getElementById('newLink').addEventListener('click', (e) => {
+                e.preventDefault();
+                loadManhvas(true);
+                closeMenu();
+            });
+
+            // Chapter navigation
+            document.getElementById('prevChapter').addEventListener('click', () => {
+                if (currentChapterIndex > 0) {
+                    currentChapterIndex--;
+                    loadChapter(currentChapterIndex);
+                }
+            });
+
+            document.getElementById('nextChapter').addEventListener('click', () => {
+                if (currentChapterIndex < currentManhva.chapters.length - 1) {
+                    currentChapterIndex++;
+                    loadChapter(currentChapterIndex);
+                }
+            });
+        }
+
+        function closeMenu() {
+            document.getElementById('navLinks').classList.remove('active');
+        }
+
+        // ========== LOAD MANHVAS ==========
+        async function loadManhvas(newOnly = false) {
+            showLoading(true);
+            
+            try {
+                // Supabase dan ma'lumotlarni olish
+                let query = supabase
+                    .from('manhvas')
+                    .select('*')
+                    .order('created_at', { ascending: false });
+
+                const { data, error } = await query;
+
+                if (error) throw error;
+
+                if (data && data.length > 0) {
+                    manhvas = data;
+                } else {
+                    // Demo data agar database bo'sh bo'lsa
+                    manhvas = [
+                        {
+                            id: 1,
+                            title: "Solo Leveling",
+                            genre: "action",
+                            cover_url: "",
+                            description: "Sung Jin-Woo - dunyodagi eng zaif E-rank Hunter. Bir kun u sirli dungeondan tirik qoladi va noyob kuchga ega bo'ladi - darajasini ko'tarish qobiliyati. Endi u dunyo bo'yicha eng kuchli hunter bo'lish yo'lida!",
+                            chapters: []
+                        },
+                        {
+                            id: 2,
+                            title: "Tower of God",
+                            genre: "fantasy",
+                            cover_url: "",
+                            description: "Rachel - Bam uchun hamma narsa edi. Va u uni tark etib Tower ga kirdi. Endi Bam ham minoraga kiradi va har bir qavatda muammolarni yechib Rachelni topishga harakat qiladi.",
+                            chapters: []
+                        },
+                        {
+                            id: 3,
+                            title: "The Beginning After The End",
+                            genre: "fantasy",
+                            cover_url: "",
+                            description: "Qirol Grey eng yosh yoshda shon-shuhratga erishdi, ammo u yolg'izlik hissini his qildi. Ikkinchi imkoniyat - yangi dunyoda chaqaloq sifatida qayta tug'ilish. Endi u ilgari qila olmagan narsalarni amalga oshirish imkoniyatiga ega.",
+                            chapters: []
+                        },
+                        {
+                            id: 4,
+                            title: "Omniscient Reader's Viewpoint",
+                            genre: "action",
+                            cover_url: "",
+                            description: "Kim Dokja 10 yil davomida 'Three Ways to Survive the Apocalypse' web romanini o'qib kelgan. Bir kuni roman haqiqatga aylanadi va faqat u oxirigacha o'qigan yagona odam!",
+                            chapters: []
+                        },
+                        {
+                            id: 5,
+                            title: "True Beauty",
+                            genre: "romance",
+                            cover_url: "",
+                            description: "Lim Ju-kyung - oddiy qiz, lekin makiyaj san'atida mohir. Yangi maktabda u go'zal qiz sifatida mashhur bo'ladi. Ammo uning sirini kim bilib qolsa?",
+                            chapters: []
+                        },
+                        {
+                            id: 6,
+                            title: "Noblesse",
+                            genre: "action",
+                            cover_url: "",
+                            description: "Cadis Etrama Di Raizel - qudratli vampir noble 820 yil uxlab yotgan edi. U zamonaviy dunyoda uyg'onadi va yangi hayotga moslashishi kerak.",
+                            chapters: []
+                        }
+                    ];
+                }
+
+                renderManhvas();
+            } catch (error) {
+                console.error('Xatolik:', error);
+                alert('Manhvalarni yuklashda xatolik: ' + error.message);
+            } finally {
+                showLoading(false);
+            }
+        }
+
+        // ========== RENDER MANHVAS ==========
+        function renderManhvas(filteredManhvas = manhvas) {
+            const grid = document.getElementById('manhvaGrid');
+            grid.innerHTML = '';
+
+            if (filteredManhvas.length === 0) {
+                grid.innerHTML = '<p style="color: white; text-align: center; grid-column: 1/-1; padding: 2rem;">Hech narsa topilmadi</p>';
+                return;
+            }
+
+            filteredManhvas.forEach(manhva => {
+                const card = document.createElement('div');
+                card.className = 'manhva-card';
+                card.onclick = () => showManhvaDetails(manhva);
+                
+                card.innerHTML = `
+                    <div class="manhva-cover">
+                        ${manhva.cover_url ? 
+                            `<img src="${manhva.cover_url}" alt="${manhva.title}">` : 
+                            manhva.title}
+                    </div>
+                    <div class="manhva-info">
+                        <div class="manhva-title">${manhva.title}</div>
+                        <div class="manhva-genre">${translateGenre(manhva.genre)}</div>
+                        <div class="manhva-chapters">${manhva.chapters?.length || 0} ta chapter</div>
+                    </div>
+                `;
+                
+                grid.appendChild(card);
+            });
+        }
+
+        // ========== SHOW MANHVA DETAILS ==========
+        async function showManhvaDetails(manhva) {
+            showLoading(true);
+            currentManhva = manhva;
+
+            try {
+                // Chapterlarni yuklash
+                const { data: chapters, error } = await supabase
+                    .from('chapters')
+                    .select('*')
+                    .eq('manhva_id', manhva.id)
+                    .order('chapter_number', { ascending: false });
+
+                if (error) throw error;
+
+                currentManhva.chapters = chapters || [];
+
+                // UI ni yangilash
+                document.getElementById('mainView').style.display = 'none';
+                document.getElementById('readerView').style.display = 'none';
+                document.getElementById('chapterList').style.display = 'block';
+                
+                document.getElementById('manhvaTitle').textContent = manhva.title;
+                document.getElementById('manhvaGenre').textContent = translateGenre(manhva.genre);
+                document.getElementById('manhvaDescription').textContent = manhva.description || 'Hozircha tavsif yo\'q';
+                
+                const detailCover = document.getElementById('detailCover');
+                if (manhva.cover_url) {
+                    detailCover.innerHTML = `<img src="${manhva.cover_url}" alt="${manhva.title}">`;
+                } else {
+                    detailCover.textContent = manhva.title;
+                }
+
+                const chapterItems = document.getElementById('chapterItems');
+                chapterItems.innerHTML = '';
+
+                if (currentManhva.chapters.length === 0) {
+                    chapterItems.innerHTML = '<p style="padding: 2rem; text-align: center; color: #999;">Hozircha chapterlar yo\'q</p>';
+                } else {
+                    currentManhva.chapters.forEach((chapter, index) => {
+                        const item = document.createElement('div');
+                        item.className = 'chapter-item';
+                        item.onclick = () => openChapter(currentManhva.chapters.length - 1 - index);
+                        
+                        const date = new Date(chapter.created_at);
+                        item.innerHTML = `
+                            <div>
+                                <span class="chapter-number">Chapter ${chapter.chapter_number}</span>
+                                ${chapter.title ? `<span> - ${chapter.title}</span>` : ''}
+                            </div>
+                            <div class="chapter-date">${date.toLocaleDateString('uz-UZ')}</div>
+                        `;
+                        
+                        chapterItems.appendChild(item);
+                    });
+                }
+
+                window.scrollTo(0, 0);
+            } catch (error) {
+                console.error('Xatolik:', error);
+                alert('Chapterlarni yuklashda xatolik');
+            } finally {
+                showLoading(false);
+            }
+        }
+
+        // ========== OPEN CHAPTER ==========
+        function openChapter(chapterIndex) {
+            currentChapterIndex = chapterIndex;
+            loadChapter(chapterIndex);
+            
+            document.getElementById('chapterList').style.display = 'none';
+            document.getElementById('readerView').style.display = 'block';
+            window.scrollTo(0, 0);
+        }
+
+        // ========== LOAD CHAPTER ==========
+        async function loadChapter(chapterIndex) {
+            showLoading(true);
+
+            try {
+                const chapter = currentManhva.chapters[chapterIndex];
+                const actualIndex = currentManhva.chapters.length - 1 - chapterIndex;
+                
+                document.getElementById('currentChapter').textContent = `Ch ${chapter.chapter_number}`;
+
+                // Navigation tugmalarini yangilash
+                document.getElementById('prevChapter').disabled = chapterIndex === 0;
+                document.getElementById('nextChapter').disabled = chapterIndex === currentManhva.chapters.length - 1;
+
+                // Sahifalarni yuklash
+                const { data: pages, error } = await supabase
+                    .from('pages')
+                    .select('*')
+                    .eq('chapter_id', chapter.id)
+                    .order('page_number', { ascending: true });
+
+                if (error) throw error;
+
+                const pagesContainer = document.getElementById('readerPages');
+                pagesContainer.innerHTML = '';
+
+                if (pages && pages.length > 0) {
+                    pages.forEach(page => {
+                        const pageDiv = document.createElement('div');
+                        pageDiv.className = 'reader-page';
+                        
+                        if (page.image_url) {
+                            const img = document.createElement('img');
+                            img.src = page.image_url;
+                            img.alt = `Sahifa ${page.page_number}`;
+                            img.loading = 'lazy';
+                            pageDiv.appendChild(img);
+                        } else {
+                            const placeholder = document.createElement('div');
+                            placeholder.className = 'reader-page-placeholder';
+                            placeholder.textContent = `Sahifa ${page.page_number}`;
+                            pageDiv.appendChild(placeholder);
+                        }
+                        
+                        pagesContainer.appendChild(pageDiv);
+                    });
+                } else {
+                    pagesContainer.innerHTML = '<div class="reader-page-placeholder">Bu chapterda hozircha sahifalar yo\'q</div>';
+                }
+
+                window.scrollTo(0, 0);
+            } catch (error) {
+                console.error('Xatolik:', error);
+                alert('Sahifalarni yuklashda xatolik');
+            } finally {
+                showLoading(false);
+            }
+        }
+
+        // ========== SHOW CHAPTER LIST ==========
+        function showChapterList() {
+            document.getElementById('readerView').style.display = 'none';
+            document.getElementById('chapterList').style.display = 'block';
+            window.scrollTo(0, 0);
+        }
+
+        // ========== SHOW MAIN VIEW ==========
+        function showMainView() {
+            document.getElementById('mainView').style.display = 'block';
+            document.getElementById('chapterList').style.display = 'none';
+            document.getElementById('readerView').style.display = 'none';
+            closeMenu();
+            window.scrollTo(0, 0);
+        }
+
+        // ========== FILTER MANHVAS ==========
+        function filterManhvas(query) {
+            const filtered = manhvas.filter(m => 
+                m.title.toLowerCase().includes(query.toLowerCase()) ||
+                m.description?.toLowerCase().includes(query.toLowerCase())
+            );
+            renderManhvas(filtered);
+        }
+
+        // ========== FILTER BY GENRE ==========
+        function filterByGenre(genre) {
+            if (genre === 'all') {
+                renderManhvas();
+            } else {
+                const filtered = manhvas.filter(m => m.genre === genre);
+                renderManhvas(filtered);
+            }
+        }
+
+        // ========== SHOW LOADING ==========
+        function showLoading(show) {
+            document.getElementById('loading').style.display = show ? 'block' : 'none';
+        }
+
+        // ========== TRANSLATE GENRE ==========
+        function translateGenre(genre) {
+            const translations = {
+                action: '⚔️ Jangari',
+                romance: '💕 Romantik',
+                fantasy: '🔮 Fantastika',
+                drama: '🎭 Drama',
+                comedy: '😄 Komediya',
+                horror: '👻 Horror',
+                mystery: '🔍 Sirli',
+                slice_of_life: '🌸 Hayot',
+                sports: '⚽ Sport',
+                supernatural: '✨ G\'ayritabiiy'
+            };
+            return translations[genre] || genre;
+        }
+
+        // ========== ADMIN FUNCTIONS (optional) ==========
+        // Bu funksiyalarni admin panel uchun ishlatishingiz mumkin
+
+        async function addManhva(title, genre, coverUrl, description) {
+            const { data, error } = await supabase
+                .from('manhvas')
+                .insert([
+                    { title, genre, cover_url: coverUrl, description }
+                ])
+                .select();
+
+            if (error) {
+                console.error('Xatolik:', error);
+                return null;
+            }
+            return data[0];
+        }
+
+        async function addChapter(manhvaId, chapterNumber, title = '') {
+            const { data, error } = await supabase
+                .from('chapters')
+                .insert([
+                    { manhva_id: manhvaId, chapter_number: chapterNumber, title }
+                ])
+                .select();
+
+            if (error) {
+                console.error('Xatolik:', error);
+                return null;
+            }
+            return data[0];
+        }
+
+        async function addPage(chapterId, pageNumber, imageUrl) {
+            const { data, error } = await supabase
+                .from('pages')
+                .insert([
+                    { chapter_id: chapterId, page_number: pageNumber, image_url: imageUrl }
+                ])
+                .select();
+
+            if (error) {
+                console.error('Xatolik:', error);
+                return null;
+            }
+            return data[0];
+        }
+    </script>
+</body>
+</html>
