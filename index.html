@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ManhvaUZ - Manhvalarni O'zbek Tilida O'qing</title>
+    
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1670894419218881"
+     crossorigin="anonymous"></script>
+    
     <style>
         * {
             margin: 0;
@@ -12,29 +17,50 @@
         }
 
         :root {
-            --primary: #667eea;
-            --secondary: #764ba2;
-            --text-dark: #333;
-            --text-light: #666;
-            --bg-light: #f5f5f5;
-            --border: #e0e0e0;
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #8b5cf6;
+            --accent: #ec4899;
+            --text-dark: #1e293b;
+            --text-light: #64748b;
+            --bg-light: #f8fafc;
+            --bg-card: #ffffff;
+            --border: #e2e8f0;
+            --shadow: rgba(0, 0, 0, 0.1);
+            --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --gradient-3: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            min-height: 100vh;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: var(--bg-light);
             color: var(--text-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
         }
 
-        /* Header - Mobile First */
+        /* ============================================
+           HEADER - Yangilangan Zamonaviy Dizayn
+        ============================================ */
         header {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+            background: var(--bg-card);
+            box-shadow: 0 1px 3px var(--shadow);
             position: sticky;
             top: 0;
             z-index: 1000;
+            animation: slideDown 0.3s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
         }
 
         nav {
@@ -54,26 +80,68 @@
 
         .logo {
             font-size: 1.5rem;
-            font-weight: bold;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            font-weight: 800;
+            background: var(--gradient-1);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
         }
 
         .menu-toggle {
-            display: block;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
             background: none;
             border: none;
-            font-size: 1.5rem;
             cursor: pointer;
-            color: var(--text-dark);
+            padding: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .menu-toggle span {
+            width: 24px;
+            height: 3px;
+            background: var(--primary);
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+
+        .menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 6px);
+        }
+
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
         }
 
         .nav-links {
             display: none;
             flex-direction: column;
-            gap: 1rem;
+            gap: 0.5rem;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .nav-links.active {
@@ -83,96 +151,264 @@
         .nav-links a {
             text-decoration: none;
             color: var(--text-dark);
-            font-weight: 500;
-            padding: 0.5rem;
-            transition: color 0.3s;
+            font-weight: 600;
+            padding: 0.75rem 1rem;
+            border-radius: 0.75rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
         .nav-links a:hover {
+            background: var(--bg-light);
             color: var(--primary);
+            transform: translateX(5px);
+        }
+
+        .search-container {
+            position: relative;
+            width: 100%;
         }
 
         .search-box {
-            padding: 0.7rem 1rem;
-            border: 2px solid var(--border);
-            border-radius: 25px;
-            outline: none;
-            transition: border-color 0.3s;
             width: 100%;
-            font-size: 1rem;
+            padding: 0.875rem 1rem 0.875rem 2.75rem;
+            border: 2px solid var(--border);
+            border-radius: 1rem;
+            outline: none;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+            background: var(--bg-light);
         }
 
         .search-box:focus {
             border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+            background: white;
         }
 
-        /* Container - Responsive */
+        .search-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-light);
+            pointer-events: none;
+        }
+
+        /* ============================================
+           HERO SECTION - Yangi Qo'shildi
+        ============================================ */
+        .hero {
+            background: var(--gradient-1);
+            color: white;
+            padding: 3rem 1rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="2" fill="white" opacity="0.1"/></svg>');
+            animation: float 20s linear infinite;
+        }
+
+        @keyframes float {
+            to {
+                transform: translateY(-100px);
+            }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 2rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+            margin-bottom: 2rem;
+            animation: fadeInUp 0.6s ease-out 0.2s both;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ============================================
+           CONTAINER
+        ============================================ */
         .container {
             max-width: 1400px;
             margin: 0 auto;
-            padding: 1rem;
+            padding: 1.5rem 1rem;
         }
 
-        /* AdSense - Responsive */
+        /* ============================================
+           ADSENSE - Belgilangan Joylar
+        ============================================ */
         .ad-banner {
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 10px;
-            padding: 1rem;
-            margin: 1rem 0;
+            background: white;
+            border: 2px dashed var(--border);
+            border-radius: 1rem;
+            padding: 2rem 1rem;
+            margin: 2rem 0;
             text-align: center;
-            min-height: 90px;
+            min-height: 100px;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            color: #999;
+            color: var(--text-light);
             font-size: 0.875rem;
+            font-weight: 600;
+            position: relative;
+            overflow: hidden;
         }
 
-        /* Filters - Mobile Optimized */
+        .ad-banner::before {
+            content: '📢';
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        /* 
+        ============================================
+        ADSENSE INTEGRATION JOYLARI:
+        ============================================
+        
+        1. HEADER BANNER (Desktop 728x90, Mobile 320x100):
+           .ad-banner.header-ad elementiga AdSense kodini qo'shing
+        
+        2. CONTENT TOP (Desktop 728x90, Mobile 320x100):
+           .ad-banner.content-top elementiga AdSense kodini qo'shing
+        
+        3. MANHVA GRID ORASIDA (Desktop 336x280, Mobile 300x250):
+           .ad-banner.grid-ad elementiga AdSense kodini qo'shing
+        
+        4. CHAPTER LIST TEPASIDA (Desktop 728x90, Mobile 320x100):
+           .ad-banner.chapter-ad elementiga AdSense kodini qo'shing
+        
+        5. READER ORASIDA (Desktop 728x90, Mobile 320x100):
+           .ad-banner.reader-ad elementiga AdSense kodini qo'shing
+        
+        RESPONSIVE SIZES:
+        - Desktop: 728x90, 336x280, 300x600
+        - Tablet: 468x60, 300x250
+        - Mobile: 320x100, 320x50, 300x250
+        
+        AUTO ADS: <head> bo'limiga qo'yish mumkin
+        */
+
+        /* ============================================
+           FILTERS - Zamonaviy Chiplar
+        ============================================ */
         .filters {
             display: flex;
-            gap: 0.5rem;
-            margin: 1rem 0;
-            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin: 1.5rem 0;
             overflow-x: auto;
             -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
             padding-bottom: 0.5rem;
         }
 
+        .filters::-webkit-scrollbar {
+            display: none;
+        }
+
         .filter-btn {
-            padding: 0.6rem 1.2rem;
-            border: 2px solid white;
-            background: rgba(255, 255, 255, 0.2);
-            color: white;
-            border-radius: 20px;
-            cursor: pointer;
-            font-weight: 500;
-            transition: all 0.3s;
-            white-space: nowrap;
-            font-size: 0.9rem;
-            flex-shrink: 0;
-        }
-
-        .filter-btn:hover, .filter-btn.active {
+            padding: 0.75rem 1.5rem;
+            border: 2px solid var(--border);
             background: white;
-            color: var(--primary);
+            color: var(--text-dark);
+            border-radius: 2rem;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            flex-shrink: 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
         }
 
-        /* Manhva Grid - Fully Responsive */
+        .filter-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .filter-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+        }
+
+        /* ============================================
+           MANHVA GRID - Yangilangan Cards
+        ============================================ */
         .manhva-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1rem;
-            margin-top: 1rem;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 1.25rem;
+            margin-top: 1.5rem;
         }
 
         .manhva-card {
             background: white;
-            border-radius: 12px;
+            border-radius: 1rem;
             overflow: hidden;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 4px 6px -1px var(--shadow);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             cursor: pointer;
+            position: relative;
+        }
+
+        .manhva-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--gradient-1);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .manhva-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        .manhva-card:hover::before {
+            opacity: 0.1;
         }
 
         .manhva-card:active {
@@ -182,66 +418,115 @@
         .manhva-cover {
             width: 100%;
             aspect-ratio: 3/4;
-            object-fit: cover;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            background: var(--gradient-1);
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
             font-size: 0.9rem;
+            font-weight: 600;
             text-align: center;
             padding: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .manhva-cover::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% {
+                transform: translate(0, 0);
+            }
+            50% {
+                transform: translate(30%, 30%);
+            }
         }
 
         .manhva-cover img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            position: relative;
+            z-index: 1;
         }
 
         .manhva-info {
-            padding: 0.8rem;
+            padding: 1rem;
+            position: relative;
+            z-index: 2;
         }
 
         .manhva-title {
             font-size: 0.95rem;
-            font-weight: bold;
-            margin-bottom: 0.4rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
             color: var(--text-dark);
             overflow: hidden;
             text-overflow: ellipsis;
             display: -webkit-box;
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
+            line-height: 1.4;
         }
 
         .manhva-genre {
             font-size: 0.8rem;
             color: var(--primary);
-            margin-bottom: 0.4rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background: rgba(99, 102, 241, 0.1);
+            border-radius: 1rem;
         }
 
         .manhva-chapters {
             font-size: 0.8rem;
             color: var(--text-light);
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
         }
 
-        /* Chapter List - Mobile Optimized */
+        .manhva-chapters::before {
+            content: '📖';
+        }
+
+        /* ============================================
+           CHAPTER LIST - Yangilangan
+        ============================================ */
         .chapter-list {
             display: none;
-            background: white;
-            border-radius: 12px;
-            padding: 1rem;
-            margin-top: 1rem;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
         }
 
         .manhva-detail-header {
             display: flex;
             flex-direction: column;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-            padding-bottom: 1rem;
-            border-bottom: 2px solid var(--border);
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            padding: 2rem;
+            background: white;
+            border-radius: 1.5rem;
+            box-shadow: 0 4px 6px -1px var(--shadow);
         }
 
         .manhva-detail-cover {
@@ -249,111 +534,164 @@
             max-width: 200px;
             aspect-ratio: 3/4;
             object-fit: cover;
-            border-radius: 10px;
+            border-radius: 1rem;
             margin: 0 auto;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            background: var(--gradient-1);
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
+            font-weight: 600;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+        }
+
+        .manhva-detail-cover img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 1rem;
         }
 
         .manhva-detail-info h2 {
-            font-size: 1.3rem;
-            margin-bottom: 0.5rem;
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 0.75rem;
+            color: var(--text-dark);
         }
 
         .manhva-detail-description {
             color: var(--text-light);
-            line-height: 1.6;
+            line-height: 1.7;
             font-size: 0.95rem;
         }
 
+        .chapters-container {
+            background: white;
+            border-radius: 1.5rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px -1px var(--shadow);
+        }
+
+        .chapters-header {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+        }
+
         .chapter-item {
-            padding: 1rem;
+            padding: 1.25rem;
             border-bottom: 1px solid var(--border);
             cursor: pointer;
-            transition: background 0.3s;
+            transition: all 0.3s ease;
             display: flex;
             justify-content: space-between;
             align-items: center;
             gap: 1rem;
+            border-radius: 0.75rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .chapter-item:last-child {
+            border-bottom: none;
+        }
+
+        .chapter-item:hover {
+            background: var(--bg-light);
+            transform: translateX(5px);
         }
 
         .chapter-item:active {
-            background: var(--bg-light);
+            transform: scale(0.98);
         }
 
         .chapter-number {
-            font-weight: bold;
+            font-weight: 700;
             color: var(--primary);
-            font-size: 0.95rem;
+            font-size: 1rem;
         }
 
         .chapter-date {
             font-size: 0.8rem;
-            color: #999;
+            color: var(--text-light);
             white-space: nowrap;
         }
 
-        /* Reader View - Touch Optimized */
+        /* ============================================
+           READER VIEW - Zamonaviy
+        ============================================ */
         .reader-container {
             display: none;
-            background: white;
-            border-radius: 12px;
-            padding: 1rem;
-            margin-top: 1rem;
+            animation: fadeIn 0.3s ease-out;
         }
 
         .reader-header {
             display: flex;
             flex-direction: column;
             gap: 1rem;
-            margin-bottom: 1.5rem;
-            padding-bottom: 1rem;
-            border-bottom: 2px solid var(--border);
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: white;
+            border-radius: 1.5rem;
+            box-shadow: 0 4px 6px -1px var(--shadow);
         }
 
         .back-btn {
             background: var(--primary);
             color: white;
             border: none;
-            padding: 0.8rem 1.5rem;
-            border-radius: 25px;
+            padding: 1rem 2rem;
+            border-radius: 0.75rem;
             cursor: pointer;
-            font-weight: 500;
-            transition: background 0.3s;
-            width: 100%;
+            font-weight: 600;
             font-size: 1rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+        }
+
+        .back-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(99, 102, 241, 0.4);
         }
 
         .back-btn:active {
-            background: var(--secondary);
+            transform: scale(0.98);
         }
 
         .chapter-nav {
             display: flex;
-            gap: 0.5rem;
+            gap: 0.75rem;
             justify-content: space-between;
             align-items: center;
         }
 
         .chapter-nav button {
-            background: var(--bg-light);
+            background: white;
             border: 2px solid var(--border);
-            padding: 0.7rem 1rem;
-            border-radius: 20px;
+            padding: 0.875rem 1.25rem;
+            border-radius: 0.75rem;
             cursor: pointer;
-            font-weight: 500;
-            transition: all 0.3s;
+            font-weight: 600;
             font-size: 0.9rem;
+            transition: all 0.3s ease;
             flex: 1;
+            color: var(--text-dark);
         }
 
-        .chapter-nav button:active:not(:disabled) {
+        .chapter-nav button:hover:not(:disabled) {
             background: var(--primary);
             color: white;
             border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .chapter-nav button:active:not(:disabled) {
+            transform: scale(0.98);
         }
 
         .chapter-nav button:disabled {
@@ -362,16 +700,21 @@
         }
 
         .chapter-nav span {
-            font-weight: bold;
+            font-weight: 700;
             color: var(--primary);
             white-space: nowrap;
-            font-size: 0.9rem;
+            font-size: 1rem;
+            padding: 0 0.5rem;
         }
 
         .reader-pages {
             display: flex;
             flex-direction: column;
             gap: 0;
+            background: #000;
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         }
 
         .reader-page {
@@ -394,25 +737,29 @@
             align-items: center;
             justify-content: center;
             color: var(--text-light);
+            font-weight: 600;
         }
 
-        /* Loading */
+        /* ============================================
+           LOADING
+        ============================================ */
         .loading {
             display: none;
             text-align: center;
-            padding: 3rem 1rem;
-            color: white;
+            padding: 4rem 1rem;
+            color: var(--primary);
             font-size: 1.1rem;
+            font-weight: 600;
         }
 
         .spinner {
-            border: 4px solid rgba(255,255,255,0.3);
-            border-top: 4px solid white;
+            border: 4px solid var(--border);
+            border-top: 4px solid var(--primary);
             border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
-            margin: 1rem auto;
+            width: 50px;
+            height: 50px;
+            animation: spin 0.8s linear infinite;
+            margin: 1.5rem auto;
         }
 
         @keyframes spin {
@@ -420,32 +767,44 @@
             100% { transform: rotate(360deg); }
         }
 
-        /* Footer */
+        /* ============================================
+           FOOTER
+        ============================================ */
         footer {
-            background: rgba(255, 255, 255, 0.95);
-            margin-top: 2rem;
-            padding: 2rem 1rem;
+            background: white;
+            margin-top: 3rem;
+            padding: 3rem 1rem;
             text-align: center;
+            border-top: 1px solid var(--border);
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
         }
 
         .footer-content p {
-            margin: 0.3rem 0;
-            font-size: 0.9rem;
+            margin: 0.5rem 0;
+            font-size: 0.95rem;
+            color: var(--text-light);
         }
 
-        /* Tablet Styles */
-        @media (min-width: 600px) {
+        .footer-content strong {
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        /* ============================================
+           RESPONSIVE - TABLET
+        ============================================ */
+        @media (min-width: 640px) {
             .manhva-grid {
-                grid-template-columns: repeat(3, 1fr);
+                grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
                 gap: 1.5rem;
             }
 
-            .manhva-title {
-                font-size: 1rem;
-            }
-
-            .ad-banner {
-                min-height: 100px;
+            .hero h1 {
+                font-size: 2.5rem;
             }
 
             .manhva-detail-header {
@@ -458,13 +817,15 @@
             }
         }
 
-        /* Desktop Styles */
+        /* ============================================
+           RESPONSIVE - DESKTOP
+        ============================================ */
         @media (min-width: 1024px) {
             nav {
                 flex-direction: row;
                 justify-content: space-between;
                 align-items: center;
-                padding: 1rem 2rem;
+                padding: 1.25rem 2rem;
             }
 
             .nav-top {
@@ -478,16 +839,36 @@
             .nav-links {
                 display: flex;
                 flex-direction: row;
-                gap: 2rem;
+                gap: 0.5rem;
                 align-items: center;
             }
 
-            .logo {
-                font-size: 1.8rem;
+            .nav-links a {
+                padding: 0.75rem 1.25rem;
             }
 
-            .search-box {
-                width: 300px;
+            .nav-links a:hover {
+                transform: translateY(-2px);
+            }
+
+            .logo {
+                font-size: 1.75rem;
+            }
+
+            .search-container {
+                width: 350px;
+            }
+
+            .hero {
+                padding: 4rem 2rem;
+            }
+
+            .hero h1 {
+                font-size: 3rem;
+            }
+
+            .hero p {
+                font-size: 1.25rem;
             }
 
             .container {
@@ -495,31 +876,8 @@
             }
 
             .manhva-grid {
-                grid-template-columns: repeat(4, 1fr);
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
                 gap: 2rem;
-            }
-
-            .manhva-card:hover {
-                transform: translateY(-10px);
-                box-shadow: 0 15px 30px rgba(0,0,0,0.2);
-            }
-
-            .chapter-item:hover {
-                background: var(--bg-light);
-            }
-
-            .back-btn {
-                width: auto;
-            }
-
-            .back-btn:hover {
-                background: var(--secondary);
-            }
-
-            .chapter-nav button:hover:not(:disabled) {
-                background: var(--primary);
-                color: white;
-                border-color: var(--primary);
             }
 
             .reader-header {
@@ -528,23 +886,29 @@
                 align-items: center;
             }
 
+            .back-btn {
+                width: auto;
+            }
+
             .chapter-nav {
                 width: auto;
             }
         }
 
-        /* Large Desktop */
+        /* ============================================
+           RESPONSIVE - LARGE DESKTOP
+        ============================================ */
         @media (min-width: 1400px) {
             .manhva-grid {
-                grid-template-columns: repeat(5, 1fr);
+                grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
             }
         }
 
-        /* Ultra Wide */
-        @media (min-width: 1800px) {
-            .manhva-grid {
-                grid-template-columns: repeat(6, 1fr);
-            }
+        /* ============================================
+           DARK MODE SUPPORT (Optional)
+        ============================================ */
+        @media (prefers-color-scheme: dark) {
+            /* Dark mode styles can be added here */
         }
     </style>
 </head>
@@ -553,25 +917,79 @@
         <nav>
             <div class="nav-top">
                 <div class="logo">🎭 ManhvaUZ</div>
-                <button class="menu-toggle" id="menuToggle">☰</button>
+                <button class="menu-toggle" id="menuToggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
             </div>
             <div class="nav-links" id="navLinks">
                 <a href="#" id="homeLink">🏠 Asosiy</a>
                 <a href="#" id="popularLink">🔥 Mashhur</a>
                 <a href="#" id="newLink">✨ Yangi</a>
-                <input type="text" class="search-box" id="searchInput" placeholder="🔍 Manhva qidirish...">
+                <div class="search-container">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" class="search-box" id="searchInput" placeholder="Manhva qidirish...">
+                </div>
             </div>
         </nav>
     </header>
 
+    <!-- HERO SECTION -->
+    <div class="hero">
+        <div class="hero-content">
+            <h1>🎭 O'zbek Tilida Manhvalar</h1>
+            <p>Eng zo'r manhvalarni o'zbek tilida bepul o'qing. Har kuni yangi chapterlar!</p>
+        </div>
+    </div>
+
     <div class="container">
-        <!-- Top Banner Ad -->
-        <div class="ad-banner">
-            📢 Bu yerda AdSense reklama
+        <!-- 
+        =============================================
+        ADSENSE AD #1: HEADER BANNER
+        =============================================
+        Joylashuvi: Header ostida, hero bo'limi ostida
+        O'lcham: Desktop 728x90, Mobile 320x100
+        Format: Display Banner
+        =============================================
+        -->
+        <div class="ad-banner header-ad">
+            <!-- AdSense Display Ad -->
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-1670894419218881"
+                 data-ad-slot="SIZNING_SLOT_ID_1"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
         </div>
 
-        <!-- Main View -->
+        <!-- MAIN VIEW -->
         <div id="mainView">
+            <!-- 
+            =============================================
+            ADSENSE AD #2: CONTENT TOP
+            =============================================
+            Joylashuvi: Filterlar tepasida
+            O'lcham: Desktop 728x90, Mobile 320x100
+            Format: Display Banner
+            =============================================
+            -->
+            <div class="ad-banner content-top">
+                <!-- AdSense Display Ad -->
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-1670894419218881"
+                     data-ad-slot="SIZNING_SLOT_ID_2"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
+                <script>
+                     (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+
             <div class="filters">
                 <button class="filter-btn active" data-genre="all">Barchasi</button>
                 <button class="filter-btn" data-genre="action">⚔️ Action</button>
@@ -583,9 +1001,31 @@
             </div>
 
             <div class="manhva-grid" id="manhvaGrid"></div>
+
+            <!-- 
+            =============================================
+            ADSENSE AD #3: MID CONTENT
+            =============================================
+            Joylashuvi: Manhva grid ostida
+            O'lcham: Desktop 336x280, Mobile 300x250
+            Format: Display Rectangle
+            =============================================
+            -->
+            <div class="ad-banner grid-ad">
+                <!-- AdSense Display Ad -->
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-1670894419218881"
+                     data-ad-slot="SIZNING_SLOT_ID_3"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
+                <script>
+                     (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
         </div>
 
-        <!-- Chapter List View -->
+        <!-- CHAPTER LIST VIEW -->
         <div class="chapter-list" id="chapterList">
             <div class="manhva-detail-header">
                 <div class="manhva-detail-cover" id="detailCover">Cover</div>
@@ -595,11 +1035,38 @@
                     <p class="manhva-detail-description" id="manhvaDescription"></p>
                 </div>
             </div>
+
             <button class="back-btn" onclick="showMainView()">← Orqaga</button>
-            <div id="chapterItems"></div>
+
+            <!-- 
+            =============================================
+            ADSENSE AD #4: CHAPTER LIST TOP
+            =============================================
+            Joylashuvi: Chapterlar ro'yxati tepasida
+            O'lcham: Desktop 728x90, Mobile 320x100
+            Format: Display Banner
+            =============================================
+            -->
+            <div class="ad-banner chapter-ad">
+                <!-- AdSense Display Ad -->
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-1670894419218881"
+                     data-ad-slot="SIZNING_SLOT_ID_4"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
+                <script>
+                     (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+
+            <div class="chapters-container">
+                <h3 class="chapters-header">📖 Chapterlar</h3>
+                <div id="chapterItems"></div>
+            </div>
         </div>
 
-        <!-- Reader View -->
+        <!-- READER VIEW -->
         <div class="reader-container" id="readerView">
             <div class="reader-header">
                 <button class="back-btn" onclick="showChapterList()">← Chapterlar</button>
@@ -610,14 +1077,50 @@
                 </div>
             </div>
 
-            <div class="ad-banner">
-                📢 Bu yerda AdSense reklama
+            <!-- 
+            =============================================
+            ADSENSE AD #5: READER TOP
+            =============================================
+            Joylashuvi: Reader tepasida, sahifalar oldidan
+            O'lcham: Desktop 728x90, Mobile 320x100
+            Format: Display Banner
+            =============================================
+            -->
+            <div class="ad-banner reader-ad">
+                <!-- AdSense Display Ad -->
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-1670894419218881"
+                     data-ad-slot="SIZNING_SLOT_ID_5"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
+                <script>
+                     (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
             </div>
 
             <div class="reader-pages" id="readerPages"></div>
 
-            <div class="ad-banner">
-                📢 Bu yerda AdSense reklama
+            <!-- 
+            =============================================
+            ADSENSE AD #6: READER BOTTOM
+            =============================================
+            Joylashuvi: Reader oxirida, sahifalar ostida
+            O'lcham: Desktop 728x90, Mobile 320x100
+            Format: Display Banner
+            =============================================
+            -->
+            <div class="ad-banner reader-ad">
+                <!-- AdSense Display Ad -->
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-1670894419218881"
+                     data-ad-slot="SIZNING_SLOT_ID_6"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
+                <script>
+                     (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
             </div>
         </div>
 
@@ -631,6 +1134,7 @@
         <div class="footer-content">
             <p>📚 <strong>ManhvaUZ</strong> &copy; 2024</p>
             <p>O'zbek tilida manhva o'qish platformasi</p>
+            <p style="margin-top: 1rem; font-size: 0.85rem;">Barcha huquqlar himoyalangan</p>
         </div>
     </footer>
 
@@ -654,14 +1158,22 @@
 
         // ========== EVENT LISTENERS ==========
         function setupEventListeners() {
-            // Mobile menu toggle
-            document.getElementById('menuToggle').addEventListener('click', () => {
-                document.getElementById('navLinks').classList.toggle('active');
+            // Mobile menu toggle with animation
+            const menuToggle = document.getElementById('menuToggle');
+            const navLinks = document.getElementById('navLinks');
+            
+            menuToggle.addEventListener('click', () => {
+                menuToggle.classList.toggle('active');
+                navLinks.classList.toggle('active');
             });
 
-            // Search
+            // Search with debounce
+            let searchTimeout;
             document.getElementById('searchInput').addEventListener('input', (e) => {
-                filterManhvas(e.target.value);
+                clearTimeout(searchTimeout);
+                searchTimeout = setTimeout(() => {
+                    filterManhvas(e.target.value);
+                }, 300);
             });
 
             // Genre filters
@@ -710,6 +1222,7 @@
 
         function closeMenu() {
             document.getElementById('navLinks').classList.remove('active');
+            document.getElementById('menuToggle').classList.remove('active');
         }
 
         // ========== LOAD MANHVAS ==========
@@ -717,7 +1230,6 @@
             showLoading(true);
             
             try {
-                // Supabase dan ma'lumotlarni olish
                 let query = supabase
                     .from('manhvas')
                     .select('*')
@@ -730,7 +1242,7 @@
                 if (data && data.length > 0) {
                     manhvas = data;
                 } else {
-                    // Demo data agar database bo'sh bo'lsa
+                    // Demo data
                     manhvas = [
                         {
                             id: 1,
@@ -761,7 +1273,7 @@
                             title: "Omniscient Reader's Viewpoint",
                             genre: "action",
                             cover_url: "",
-                            description: "Kim Dokja 10 yil davomida 'Three Ways to Survive the Apocalypse' web romanini o'qib kelgan. Bir kuni roman haqiqatga aylanadi va faqat u oxirigacha o'qigan yagona odam!",
+                            description: "Kim Dokja 10 yil davomida 'Three Ways to Survive the Apocalypse' web romanini o'qib kelgan. Bir kuni roman haqiqatga aylanadi va faqat u oxirigacha o'qagan yagona odam!",
                             chapters: []
                         },
                         {
@@ -778,6 +1290,22 @@
                             genre: "action",
                             cover_url: "",
                             description: "Cadis Etrama Di Raizel - qudratli vampir noble 820 yil uxlab yotgan edi. U zamonaviy dunyoda uyg'onadi va yangi hayotga moslashishi kerak.",
+                            chapters: []
+                        },
+                        {
+                            id: 7,
+                            title: "Eleceed",
+                            genre: "action",
+                            cover_url: "",
+                            description: "Jiwoo - tezlik qobiliyatiga ega oddiy o'g'il bola. U yarador mushukka yordam beradi va bu mushuk aslida eng kuchli awakenerlardan biri ekan!",
+                            chapters: []
+                        },
+                        {
+                            id: 8,
+                            title: "The Gamer",
+                            genre: "fantasy",
+                            cover_url: "",
+                            description: "Han Jee-Han haqiqiy dunyoni video o'yin kabi ko'rish qobiliyatiga ega bo'ladi. U level up qilishi, skilllar o'rganishi va quest bajarishi mumkin!",
                             chapters: []
                         }
                     ];
@@ -798,7 +1326,7 @@
             grid.innerHTML = '';
 
             if (filteredManhvas.length === 0) {
-                grid.innerHTML = '<p style="color: white; text-align: center; grid-column: 1/-1; padding: 2rem;">Hech narsa topilmadi</p>';
+                grid.innerHTML = '<p style="color: var(--text-dark); text-align: center; grid-column: 1/-1; padding: 3rem; background: white; border-radius: 1rem;">🔍 Hech narsa topilmadi</p>';
                 return;
             }
 
@@ -830,7 +1358,6 @@
             currentManhva = manhva;
 
             try {
-                // Chapterlarni yuklash
                 const { data: chapters, error } = await supabase
                     .from('chapters')
                     .select('*')
@@ -841,7 +1368,6 @@
 
                 currentManhva.chapters = chapters || [];
 
-                // UI ni yangilash
                 document.getElementById('mainView').style.display = 'none';
                 document.getElementById('readerView').style.display = 'none';
                 document.getElementById('chapterList').style.display = 'block';
@@ -861,7 +1387,7 @@
                 chapterItems.innerHTML = '';
 
                 if (currentManhva.chapters.length === 0) {
-                    chapterItems.innerHTML = '<p style="padding: 2rem; text-align: center; color: #999;">Hozircha chapterlar yo\'q</p>';
+                    chapterItems.innerHTML = '<p style="padding: 2rem; text-align: center; color: var(--text-light);">📚 Hozircha chapterlar yo\'q</p>';
                 } else {
                     currentManhva.chapters.forEach((chapter, index) => {
                         const item = document.createElement('div');
@@ -881,7 +1407,7 @@
                     });
                 }
 
-                window.scrollTo(0, 0);
+                window.scrollTo({top: 0, behavior: 'smooth'});
             } catch (error) {
                 console.error('Xatolik:', error);
                 alert('Chapterlarni yuklashda xatolik');
@@ -897,7 +1423,7 @@
             
             document.getElementById('chapterList').style.display = 'none';
             document.getElementById('readerView').style.display = 'block';
-            window.scrollTo(0, 0);
+            window.scrollTo({top: 0, behavior: 'smooth'});
         }
 
         // ========== LOAD CHAPTER ==========
@@ -906,15 +1432,12 @@
 
             try {
                 const chapter = currentManhva.chapters[chapterIndex];
-                const actualIndex = currentManhva.chapters.length - 1 - chapterIndex;
                 
                 document.getElementById('currentChapter').textContent = `Ch ${chapter.chapter_number}`;
 
-                // Navigation tugmalarini yangilash
                 document.getElementById('prevChapter').disabled = chapterIndex === 0;
                 document.getElementById('nextChapter').disabled = chapterIndex === currentManhva.chapters.length - 1;
 
-                // Sahifalarni yuklash
                 const { data: pages, error } = await supabase
                     .from('pages')
                     .select('*')
@@ -947,10 +1470,10 @@
                         pagesContainer.appendChild(pageDiv);
                     });
                 } else {
-                    pagesContainer.innerHTML = '<div class="reader-page-placeholder">Bu chapterda hozircha sahifalar yo\'q</div>';
+                    pagesContainer.innerHTML = '<div class="reader-page-placeholder">📖 Bu chapterda hozircha sahifalar yo\'q</div>';
                 }
 
-                window.scrollTo(0, 0);
+                window.scrollTo({top: 0, behavior: 'smooth'});
             } catch (error) {
                 console.error('Xatolik:', error);
                 alert('Sahifalarni yuklashda xatolik');
@@ -963,7 +1486,7 @@
         function showChapterList() {
             document.getElementById('readerView').style.display = 'none';
             document.getElementById('chapterList').style.display = 'block';
-            window.scrollTo(0, 0);
+            window.scrollTo({top: 0, behavior: 'smooth'});
         }
 
         // ========== SHOW MAIN VIEW ==========
@@ -972,7 +1495,7 @@
             document.getElementById('chapterList').style.display = 'none';
             document.getElementById('readerView').style.display = 'none';
             closeMenu();
-            window.scrollTo(0, 0);
+            window.scrollTo({top: 0, behavior: 'smooth'});
         }
 
         // ========== FILTER MANHVAS ==========
@@ -1014,54 +1537,6 @@
                 supernatural: '✨ G\'ayritabiiy'
             };
             return translations[genre] || genre;
-        }
-
-        // ========== ADMIN FUNCTIONS (optional) ==========
-        // Bu funksiyalarni admin panel uchun ishlatishingiz mumkin
-
-        async function addManhva(title, genre, coverUrl, description) {
-            const { data, error } = await supabase
-                .from('manhvas')
-                .insert([
-                    { title, genre, cover_url: coverUrl, description }
-                ])
-                .select();
-
-            if (error) {
-                console.error('Xatolik:', error);
-                return null;
-            }
-            return data[0];
-        }
-
-        async function addChapter(manhvaId, chapterNumber, title = '') {
-            const { data, error } = await supabase
-                .from('chapters')
-                .insert([
-                    { manhva_id: manhvaId, chapter_number: chapterNumber, title }
-                ])
-                .select();
-
-            if (error) {
-                console.error('Xatolik:', error);
-                return null;
-            }
-            return data[0];
-        }
-
-        async function addPage(chapterId, pageNumber, imageUrl) {
-            const { data, error } = await supabase
-                .from('pages')
-                .insert([
-                    { chapter_id: chapterId, page_number: pageNumber, image_url: imageUrl }
-                ])
-                .select();
-
-            if (error) {
-                console.error('Xatolik:', error);
-                return null;
-            }
-            return data[0];
         }
     </script>
 </body>

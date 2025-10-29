@@ -1,0 +1,1406 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ManhvaUZ Admin Panel</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #667eea;
+            --secondary: #764ba2;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --dark: #1f2937;
+            --light: #f3f4f6;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--light);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            padding: 1rem 2rem;
+            background: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .tab-btn:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .tab-btn.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        .tab-content {
+            display: none;
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--secondary);
+            transform: translateY(-2px);
+        }
+
+        .btn-success {
+            background: var(--success);
+            color: white;
+        }
+
+        .btn-danger {
+            background: var(--danger);
+            color: white;
+        }
+
+        .btn-warning {
+            background: var(--warning);
+            color: white;
+        }
+
+        .alert {
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            display: none;
+        }
+
+        .alert.show {
+            display: block;
+        }
+
+        .alert-success {
+            background: #d1fae5;
+            color: #065f46;
+            border: 1px solid #10b981;
+        }
+
+        .alert-danger {
+            background: #fee2e2;
+            color: #991b1b;
+            border: 1px solid #ef4444;
+        }
+
+        .manhva-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .manhva-item {
+            background: var(--light);
+            padding: 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .manhva-item:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .manhva-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+        }
+
+        .manhva-item h3 {
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+
+        .manhva-item p {
+            color: #6b7280;
+            font-size: 0.875rem;
+        }
+
+        .chapter-list {
+            max-height: 400px;
+            overflow-y: auto;
+            margin-top: 1rem;
+        }
+
+        .chapter-item {
+            background: var(--light);
+            padding: 1rem;
+            margin-bottom: 0.5rem;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .loading.show {
+            display: block;
+        }
+
+        .spinner {
+            border: 4px solid #f3f4f6;
+            border-top: 4px solid var(--primary);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .file-input-group {
+            border: 2px dashed #d1d5db;
+            border-radius: 8px;
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-bottom: 1rem;
+        }
+
+        .file-input-group:hover {
+            border-color: var(--primary);
+            background: #f9fafb;
+        }
+
+        .file-input-group input {
+            display: none;
+        }
+
+        .file-preview {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: var(--light);
+            border-radius: 8px;
+            display: none;
+        }
+
+        .file-preview.show {
+            display: block;
+        }
+
+        .file-preview img {
+            max-width: 200px;
+            max-height: 200px;
+            border-radius: 8px;
+        }
+
+        .preview-images {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .preview-image {
+            position: relative;
+            aspect-ratio: 3/4;
+            background: var(--light);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .preview-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .preview-image .remove-btn {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: var(--danger);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 25px;
+            height: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            line-height: 1;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 20px;
+            background: #e5e7eb;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 1rem;
+            display: none;
+        }
+
+        .progress-bar.show {
+            display: block;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            transition: width 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .bulk-chapter-form {
+            background: #f9fafb;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .info-box {
+            background: #dbeafe;
+            border: 1px solid #3b82f6;
+            color: #1e40af;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+
+            .tabs {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎭 ManhvaUZ Admin Panel</h1>
+            <p>Manhvalar, chapterlar va sahifalarni boshqarish</p>
+        </header>
+
+        <div class="tabs">
+            <button class="tab-btn active" onclick="switchTab('settings')">⚙️ Sozlamalar</button>
+            <button class="tab-btn" onclick="switchTab('manhvas')">📚 Manhvalar</button>
+            <button class="tab-btn" onclick="switchTab('chapters')">📖 Chapterlar</button>
+            <button class="tab-btn" onclick="switchTab('pages')">📄 Sahifalar</button>
+            <button class="tab-btn" onclick="switchTab('bulk')">⚡ Ommaviy PDF</button>
+        </div>
+
+        <div id="alertSuccess" class="alert alert-success"></div>
+        <div id="alertError" class="alert alert-danger"></div>
+
+        <!-- Settings Tab -->
+        <div id="settings" class="tab-content active">
+            <h2>⚙️ Supabase Sozlamalari</h2>
+            
+            <div class="info-box">
+                <strong>📝 Qo'llanma:</strong><br>
+                1. Supabase.com ga kiring<br>
+                2. Project Settings > API dan URL va anon key ni nusxa oling<br>
+                3. Storage > Create bucket > "manhva-files" nomli public bucket yarating
+            </div>
+            
+            <div class="form-group">
+                <label>Supabase URL</label>
+                <input type="text" id="supabaseUrl" placeholder="https://xxxxx.supabase.co">
+            </div>
+
+            <div class="form-group">
+                <label>Supabase Anon Key</label>
+                <input type="text" id="supabaseKey" placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...">
+            </div>
+
+            <div class="form-group">
+                <label>Storage Bucket Nomi</label>
+                <input type="text" id="bucketName" value="manhva-files" placeholder="manhva-files">
+                <p style="color: #6b7280; font-size: 0.875rem; margin-top: 0.5rem;">
+                    Supabase Storage da yaratilgan bucket nomi (odatda: manhva-files)
+                </p>
+            </div>
+
+            <button class="btn btn-primary" onclick="saveSettings()">💾 Sozlamalarni Saqlash</button>
+            <button class="btn btn-success" onclick="testConnection()" style="margin-left: 1rem;">✅ Ulanishni Tekshirish</button>
+
+            <div class="loading" id="settingsLoading">
+                <div class="spinner"></div>
+                <p>Tekshirilmoqda...</p>
+            </div>
+        </div>
+
+        <!-- Manhvas Tab -->
+        <div id="manhvas" class="tab-content">
+            <h2>📚 Yangi Manhva Qo'shish</h2>
+            
+            <div class="form-group">
+                <label>Manhva Nomi *</label>
+                <input type="text" id="manhvaTitle" placeholder="Masalan: Solo Leveling">
+            </div>
+
+            <div class="form-group">
+                <label>Janr *</label>
+                <select id="manhvaGenre">
+                    <option value="action">⚔️ Action</option>
+                    <option value="romance">💕 Romance</option>
+                    <option value="fantasy">🔮 Fantasy</option>
+                    <option value="drama">🎭 Drama</option>
+                    <option value="comedy">😄 Comedy</option>
+                    <option value="horror">👻 Horror</option>
+                    <option value="mystery">🔍 Mystery</option>
+                    <option value="slice_of_life">🌸 Slice of Life</option>
+                    <option value="sports">⚽ Sport</option>
+                    <option value="supernatural">✨ Supernatural</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Cover Rasim (JPG, PNG) *</label>
+                <div class="file-input-group" onclick="document.getElementById('coverImage').click()">
+                    <p style="font-size: 3rem;">🖼️</p>
+                    <p style="font-weight: 600; margin-top: 1rem;">Cover rasmini tanlang</p>
+                    <p style="color: #6b7280; font-size: 0.875rem;">PNG yoki JPG format</p>
+                    <input type="file" id="coverImage" accept="image/*" onchange="previewCover(event)">
+                </div>
+                <div class="file-preview" id="coverPreview"></div>
+            </div>
+
+            <div class="form-group">
+                <label>Tavsif</label>
+                <textarea id="manhvaDescription" placeholder="Manhva haqida qisqacha ma'lumot..."></textarea>
+            </div>
+
+            <button class="btn btn-success" onclick="addManhva()">➕ Manhva Qo'shish</button>
+
+            <div class="loading" id="manhvaLoading">
+                <div class="spinner"></div>
+            </div>
+
+            <div class="progress-bar" id="manhvaProgress">
+                <div class="progress-fill" id="manhvaProgressFill">0%</div>
+            </div>
+
+            <h3 style="margin-top: 2rem;">Mavjud Manhvalar</h3>
+            <div class="manhva-list" id="manhvaList"></div>
+        </div>
+
+        <!-- Chapters Tab -->
+        <div id="chapters" class="tab-content">
+            <h2>📖 Chapter Qo'shish (PDF)</h2>
+            <p style="color: #6b7280; margin-bottom: 1rem;">Avval manhva tanlang, keyin PDF yuklang</p>
+
+            <div class="form-group">
+                <label>Manhva Tanlang *</label>
+                <select id="chapterManhvaSelect" onchange="loadChapters()">
+                    <option value="">-- Manhva tanlang --</option>
+                </select>
+            </div>
+
+            <div id="chapterForm" style="display: none;">
+                <div class="form-group">
+                    <label>Chapter Raqami *</label>
+                    <input type="number" id="chapterNumber" placeholder="1" min="1">
+                </div>
+
+                <div class="form-group">
+                    <label>Chapter Nomi (ixtiyoriy)</label>
+                    <input type="text" id="chapterTitle" placeholder="Masalan: Boshlanish">
+                </div>
+
+                <div class="form-group">
+                    <label>Chapter PDF Fayli *</label>
+                    <div class="file-input-group" onclick="document.getElementById('chapterPdf').click()">
+                        <p style="font-size: 3rem;">📄</p>
+                        <p style="font-weight: 600; margin-top: 1rem;">PDF faylni tanlang</p>
+                        <p style="color: #6b7280; font-size: 0.875rem;">Faqat PDF format</p>
+                        <input type="file" id="chapterPdf" accept=".pdf" onchange="previewPdf(event)">
+                    </div>
+                    <div class="file-preview" id="pdfPreview"></div>
+                </div>
+
+                <button class="btn btn-success" onclick="addChapter()">➕ Chapter Qo'shish</button>
+            </div>
+
+            <div class="loading" id="chapterLoading">
+                <div class="spinner"></div>
+                <p id="chapterLoadingText">Yuklanmoqda...</p>
+            </div>
+
+            <div class="progress-bar" id="chapterProgress">
+                <div class="progress-fill" id="chapterProgressFill">0%</div>
+            </div>
+
+            <div id="chapterListContainer" style="display: none;">
+                <h3 style="margin-top: 2rem;">Mavjud Chapterlar</h3>
+                <div class="chapter-list" id="chapterList"></div>
+            </div>
+        </div>
+
+        <!-- Pages Tab -->
+        <div id="pages" class="tab-content">
+            <h2>📄 Sahifalar Qo'shish (Rasmlar)</h2>
+            <p style="color: #6b7280; margin-bottom: 1rem;">Bir nechta rasmni birga yuklang</p>
+            
+            <div class="form-group">
+                <label>Manhva Tanlang *</label>
+                <select id="pageManhvaSelect" onchange="loadChaptersForPages()">
+                    <option value="">-- Manhva tanlang --</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Chapter Tanlang *</label>
+                <select id="pageChapterSelect">
+                    <option value="">-- Avval manhva tanlang --</option>
+                </select>
+            </div>
+
+            <div id="pageForm" style="display: none;">
+                <div class="file-input-group" onclick="document.getElementById('pageImages').click()">
+                    <p style="font-size: 3rem;">📁</p>
+                    <p style="font-weight: 600; margin-top: 1rem;">Rasmlarni tanlang</p>
+                    <p style="color: #6b7280; font-size: 0.875rem;">PNG, JPG (Bir nechta rasmni birga tanlang)</p>
+                    <input type="file" id="pageImages" multiple accept="image/*" onchange="previewImages(event)">
+                </div>
+
+                <div class="preview-images" id="previewImages"></div>
+
+                <div class="progress-bar" id="uploadProgress">
+                    <div class="progress-fill" id="progressFill">0%</div>
+                </div>
+
+                <button class="btn btn-success" onclick="uploadPages()" style="margin-top: 1rem; width: 100%;">
+                    ⬆️ Sahifalarni Yuklash
+                </button>
+            </div>
+
+            <div class="loading" id="pageLoading">
+                <div class="spinner"></div>
+                <p id="pageLoadingText">Yuklanmoqda...</p>
+            </div>
+        </div>
+
+        <!-- Bulk Upload Tab -->
+        <div id="bulk" class="tab-content">
+            <h2>⚡ Ommaviy PDF Yuklash</h2>
+            <p style="color: #6b7280; margin-bottom: 1rem;">Bir nechta PDF fayllarni birga yuklang</p>
+
+            <div class="form-group">
+                <label>Manhva Tanlang *</label>
+                <select id="bulkManhvaSelect">
+                    <option value="">-- Manhva tanlang --</option>
+                </select>
+            </div>
+
+            <div class="bulk-chapter-form">
+                <h3>PDF Fayllar</h3>
+                
+                <div class="form-group">
+                    <label>Boshlang'ich Chapter Raqami *</label>
+                    <input type="number" id="bulkStartChapter" value="1" min="1">
+                </div>
+
+                <div class="file-input-group" onclick="document.getElementById('bulkPdfs').click()">
+                    <p style="font-size: 3rem;">📚</p>
+                    <p style="font-weight: 600; margin-top: 1rem;">PDF fayllarni tanlang</p>
+                    <p style="color: #6b7280; font-size: 0.875rem;">Bir nechta PDF ni birga yuklang (maksimal 100 ta)</p>
+                    <input type="file" id="bulkPdfs" multiple accept=".pdf" onchange="previewBulkPdfs(event)">
+                </div>
+
+                <div id="bulkPdfList" style="margin-top: 1rem;"></div>
+
+                <button class="btn btn-warning" onclick="bulkUploadPdfs()" style="width: 100%; margin-top: 1rem;">
+                    ⚡ PDF'larni Yuklash
+                </button>
+            </div>
+
+            <div class="progress-bar" id="bulkProgress">
+                <div class="progress-fill" id="bulkProgressFill">0%</div>
+            </div>
+
+            <div class="loading" id="bulkLoading">
+                <div class="spinner"></div>
+                <p id="bulkLoadingText">Yuklanmoqda...</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script>
+        let supabase = null;
+        let selectedFiles = [];
+        let selectedCover = null;
+        let selectedPdf = null;
+        let bulkPdfs = [];
+        let bucketName = 'manhva-files';
+
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadStoredSettings();
+        });
+
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            
+            event.target.classList.add('active');
+            document.getElementById(tabName).classList.add('active');
+
+            if (tabName === 'manhvas') loadManhvasList();
+            if (tabName === 'chapters') loadManhvasForSelect('chapterManhvaSelect');
+            if (tabName === 'pages') loadManhvasForSelect('pageManhvaSelect');
+            if (tabName === 'bulk') loadManhvasForSelect('bulkManhvaSelect');
+        }
+
+        function saveSettings() {
+            const url = document.getElementById('supabaseUrl').value.trim();
+            const key = document.getElementById('supabaseKey').value.trim();
+            bucketName = document.getElementById('bucketName').value.trim() || 'manhva-files';
+
+            if (!url || !key) {
+                showAlert('error', 'URL va Key ni kiriting!');
+                return;
+            }
+
+            localStorage.setItem('supabase_url', url);
+            localStorage.setItem('supabase_key', key);
+            localStorage.setItem('bucket_name', bucketName);
+
+            supabase = window.supabase.createClient(url, key);
+            
+            showAlert('success', 'Sozlamalar saqlandi! ✅');
+        }
+
+        function loadStoredSettings() {
+            const url = localStorage.getItem('supabase_url');
+            const key = localStorage.getItem('supabase_key');
+            const bucket = localStorage.getItem('bucket_name');
+
+            if (url && key) {
+                document.getElementById('supabaseUrl').value = url;
+                document.getElementById('supabaseKey').value = key;
+                document.getElementById('bucketName').value = bucket || 'manhva-files';
+                bucketName = bucket || 'manhva-files';
+                supabase = window.supabase.createClient(url, key);
+                showAlert('success', 'Sozlamalar yuklandi! ✅');
+            }
+        }
+
+        async function testConnection() {
+            if (!supabase) {
+                showAlert('error', 'Avval sozlamalarni saqlang!');
+                return;
+            }
+
+            showLoading('settingsLoading', true);
+
+            try {
+                const { data, error } = await supabase.from('manhvas').select('count');
+                
+                if (error) throw error;
+                
+                showAlert('success', 'Ulanish muvaffaqiyatli! ✅');
+            } catch (error) {
+                showAlert('error', 'Ulanish xatosi: ' + error.message);
+            } finally {
+                showLoading('settingsLoading', false);
+            }
+        }
+
+        // ========== COVER PREVIEW ==========
+        function previewCover(event) {
+            selectedCover = event.target.files[0];
+            const preview = document.getElementById('coverPreview');
+            
+            if (selectedCover) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    preview.innerHTML = `
+                        <p style="font-weight: 600; margin-bottom: 0.5rem;">✅ Tanlangan fayl:</p>
+                        <img src="${e.target.result}" alt="Cover">
+                        <p style="margin-top: 0.5rem;">${selectedCover.name}</p>
+                    `;
+                    preview.classList.add('show');
+                };
+                reader.readAsDataURL(selectedCover);
+            }
+        }
+
+        // ========== ADD MANHVA WITH COVER ==========
+        async function addManhva() {
+            if (!checkSupabase()) return;
+
+            const title = document.getElementById('manhvaTitle').value.trim();
+            const genre = document.getElementById('manhvaGenre').value;
+            const description = document.getElementById('manhvaDescription').value.trim();
+
+            if (!title || !selectedCover) {
+                showAlert('error', 'Manhva nomi va cover rasmini kiriting!');
+                return;
+            }
+
+            showLoading('manhvaLoading', true);
+            document.getElementById('manhvaProgress').classList.add('show');
+
+            try {
+                // Upload cover image
+                const fileExt = selectedCover.name.split('.').pop();
+                const fileName = `covers/${Date.now()}_${Math.random().toString(36).substr(2, 9)}.${fileExt}`;
+                
+                const { data: uploadData, error: uploadError } = await supabase.storage
+                    .from(bucketName)
+                    .upload(fileName, selectedCover, {
+                        cacheControl: '3600',
+                        upsert: false,
+                        onUploadProgress: (progress) => {
+                            const percent = Math.round((progress.loaded / progress.total) * 100);
+                            document.getElementById('manhvaProgressFill').style.width = percent + '%';
+                            document.getElementById('manhvaProgressFill').textContent = percent + '%';
+                        }
+                    });
+
+                if (uploadError) throw uploadError;
+
+                // Get public URL
+                const { data: urlData } = supabase.storage
+                    .from(bucketName)
+                    .getPublicUrl(fileName);
+
+                // Insert manhva
+                const { data, error } = await supabase
+                    .from('manhvas')
+                    .insert([{
+                        title,
+                        genre,
+                        cover_url: urlData.publicUrl,
+                        description: description || null
+                    }])
+                    .select();
+
+                if (error) throw error;
+
+                showAlert('success', `"${title}" muvaffaqiyatli qo'shildi! ✅`);
+                
+                document.getElementById('manhvaTitle').value = '';
+                document.getElementById('manhvaDescription').value = '';
+                document.getElementById('coverImage').value = '';
+                document.getElementById('coverPreview').classList.remove('show');
+                selectedCover = null;
+
+                loadManhvasList();
+            } catch (error) {
+                showAlert('error', 'Xatolik: ' + error.message);
+            } finally {
+                showLoading('manhvaLoading', false);
+                document.getElementById('manhvaProgress').classList.remove('show');
+            }
+        }
+
+        async function loadManhvasList() {
+            if (!checkSupabase()) return;
+
+            const container = document.getElementById('manhvaList');
+            container.innerHTML = '<div class="loading show"><div class="spinner"></div></div>';
+
+            try {
+                const { data, error } = await supabase
+                    .from('manhvas')
+                    .select('*')
+                    .order('created_at', { ascending: false });
+
+                if (error) throw error;
+
+                container.innerHTML = '';
+
+                if (data.length === 0) {
+                    container.innerHTML = '<p style="text-align: center; color: #6b7280;">Hozircha manhvalar yo\'q</p>';
+                    return;
+                }
+
+                data.forEach(manhva => {
+                    const item = document.createElement('div');
+                    item.className = 'manhva-item';
+                    item.innerHTML = `
+                        ${manhva.cover_url ? `<img src="${manhva.cover_url}" alt="${manhva.title}">` : ''}
+                        <h3>${manhva.title}</h3>
+                        <p>📂 ${translateGenre(manhva.genre)}</p>
+                        <p style="color: #9ca3af; font-size: 0.75rem;">ID: ${manhva.id}</p>
+                    `;
+                    container.appendChild(item);
+                });
+            } catch (error) {
+                container.innerHTML = '<p style="text-align: center; color: #ef4444;">Xatolik yuz berdi</p>';
+                console.error(error);
+            }
+        }
+
+        async function loadManhvasForSelect(selectId) {
+            if (!checkSupabase()) return;
+
+            const select = document.getElementById(selectId);
+            
+            try {
+                const { data, error } = await supabase
+                    .from('manhvas')
+                    .select('*')
+                    .order('title', { ascending: true });
+
+                if (error) throw error;
+
+                select.innerHTML = '<option value="">-- Manhva tanlang --</option>';
+                
+                data.forEach(manhva => {
+                    const option = document.createElement('option');
+                    option.value = manhva.id;
+                    option.textContent = manhva.title;
+                    select.appendChild(option);
+                });
+            } catch (error) {
+                showAlert('error', 'Manhvalar yuklanmadi: ' + error.message);
+            }
+        }
+
+        // ========== PDF PREVIEW ==========
+        function previewPdf(event) {
+            selectedPdf = event.target.files[0];
+            const preview = document.getElementById('pdfPreview');
+            
+            if (selectedPdf) {
+                preview.innerHTML = `
+                    <p style="font-weight: 600; margin-bottom: 0.5rem;">✅ Tanlangan fayl:</p>
+                    <p>📄 ${selectedPdf.name}</p>
+                    <p style="color: #6b7280; font-size: 0.875rem;">Hajm: ${(selectedPdf.size / 1024 / 1024).toFixed(2)} MB</p>
+                `;
+                preview.classList.add('show');
+            }
+        }
+
+        async function loadChapters() {
+            const manhvaId = document.getElementById('chapterManhvaSelect').value;
+            
+            if (!manhvaId) {
+                document.getElementById('chapterForm').style.display = 'none';
+                document.getElementById('chapterListContainer').style.display = 'none';
+                return;
+            }
+
+            document.getElementById('chapterForm').style.display = 'block';
+            document.getElementById('chapterListContainer').style.display = 'block';
+
+            try {
+                const { data, error } = await supabase
+                    .from('chapters')
+                    .select('*')
+                    .eq('manhva_id', manhvaId)
+                    .order('chapter_number', { ascending: false });
+
+                if (error) throw error;
+
+                const container = document.getElementById('chapterList');
+                container.innerHTML = '';
+
+                if (data.length === 0) {
+                    container.innerHTML = '<p style="text-align: center; color: #6b7280;">Hozircha chapterlar yo\'q</p>';
+                    document.getElementById('chapterNumber').value = 1;
+                    return;
+                }
+
+                data.forEach(chapter => {
+                    const item = document.createElement('div');
+                    item.className = 'chapter-item';
+                    item.innerHTML = `
+                        <div>
+                            <strong>Chapter ${chapter.chapter_number}</strong>
+                            ${chapter.title ? ` - ${chapter.title}` : ''}
+                            ${chapter.pdf_url ? ' <span style="color: #10b981;">📄 PDF</span>' : ''}
+                        </div>
+                        <span style="color: #6b7280; font-size: 0.875rem;">ID: ${chapter.id}</span>
+                    `;
+                    container.appendChild(item);
+                });
+
+                const maxChapter = Math.max(...data.map(c => c.chapter_number));
+                document.getElementById('chapterNumber').value = maxChapter + 1;
+            } catch (error) {
+                showAlert('error', 'Chapterlar yuklanmadi: ' + error.message);
+            }
+        }
+
+        // ========== ADD CHAPTER WITH PDF ==========
+        async function addChapter() {
+            if (!checkSupabase()) return;
+
+            const manhvaId = document.getElementById('chapterManhvaSelect').value;
+            const chapterNumber = document.getElementById('chapterNumber').value;
+            const chapterTitle = document.getElementById('chapterTitle').value.trim();
+
+            if (!manhvaId || !chapterNumber || !selectedPdf) {
+                showAlert('error', 'Barcha majburiy maydonlarni to\'ldiring va PDF faylni tanlang!');
+                return;
+            }
+
+            showLoading('chapterLoading', true);
+            document.getElementById('chapterLoadingText').textContent = 'PDF yuklanmoqda...';
+            document.getElementById('chapterProgress').classList.add('show');
+
+            try {
+                // Upload PDF
+                const fileExt = selectedPdf.name.split('.').pop();
+                const fileName = `pdfs/manhva_${manhvaId}_ch_${chapterNumber}.${fileExt}`;
+                
+                const { data: uploadData, error: uploadError } = await supabase.storage
+                    .from(bucketName)
+                    .upload(fileName, selectedPdf, {
+                        cacheControl: '3600',
+                        upsert: false,
+                        onUploadProgress: (progress) => {
+                            const percent = Math.round((progress.loaded / progress.total) * 100);
+                            document.getElementById('chapterProgressFill').style.width = percent + '%';
+                            document.getElementById('chapterProgressFill').textContent = percent + '%';
+                        }
+                    });
+
+                if (uploadError) throw uploadError;
+
+                // Get public URL
+                const { data: urlData } = supabase.storage
+                    .from(bucketName)
+                    .getPublicUrl(fileName);
+
+                document.getElementById('chapterLoadingText').textContent = 'PDF dan sahifalar ajratilmoqda...';
+
+                // Extract pages from PDF
+                const pdfData = await selectedPdf.arrayBuffer();
+                const pdf = await pdfjsLib.getDocument({ data: pdfData }).promise;
+                const numPages = pdf.numPages;
+
+                // Insert chapter
+                const { data: chapterData, error: chapterError } = await supabase
+                    .from('chapters')
+                    .insert([{
+                        manhva_id: manhvaId,
+                        chapter_number: parseInt(chapterNumber),
+                        title: chapterTitle || null,
+                        pdf_url: urlData.publicUrl
+                    }])
+                    .select();
+
+                if (chapterError) throw chapterError;
+
+                const chapterId = chapterData[0].id;
+
+                // Convert PDF pages to images and upload
+                document.getElementById('chapterLoadingText').textContent = 'Sahifalar yuklanmoqda...';
+                
+                for (let pageNum = 1; pageNum <= numPages; pageNum++) {
+                    const page = await pdf.getPage(pageNum);
+                    const viewport = page.getViewport({ scale: 2.0 });
+                    
+                    const canvas = document.createElement('canvas');
+                    const context = canvas.getContext('2d');
+                    canvas.height = viewport.height;
+                    canvas.width = viewport.width;
+
+                    await page.render({ canvasContext: context, viewport: viewport }).promise;
+                    
+                    // Convert canvas to blob
+                    const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/jpeg', 0.9));
+                    
+                    // Upload page image
+                    const pageFileName = `pages/manhva_${manhvaId}_ch_${chapterNumber}_p_${pageNum}.jpg`;
+                    const { data: pageUploadData, error: pageUploadError } = await supabase.storage
+                        .from(bucketName)
+                        .upload(pageFileName, blob, {
+                            cacheControl: '3600',
+                            upsert: false
+                        });
+
+                    if (pageUploadError) throw pageUploadError;
+
+                    // Get page URL
+                    const { data: pageUrlData } = supabase.storage
+                        .from(bucketName)
+                        .getPublicUrl(pageFileName);
+
+                    // Insert page record
+                    await supabase.from('pages').insert([{
+                        chapter_id: chapterId,
+                        page_number: pageNum,
+                        image_url: pageUrlData.publicUrl
+                    }]);
+
+                    const progress = Math.round((pageNum / numPages) * 100);
+                    document.getElementById('chapterProgressFill').style.width = progress + '%';
+                    document.getElementById('chapterProgressFill').textContent = progress + '%';
+                }
+
+                showAlert('success', `Chapter ${chapterNumber} va ${numPages} ta sahifa yuklandi! ✅`);
+                
+                document.getElementById('chapterTitle').value = '';
+                document.getElementById('chapterPdf').value = '';
+                document.getElementById('pdfPreview').classList.remove('show');
+                selectedPdf = null;
+
+                loadChapters();
+            } catch (error) {
+                showAlert('error', 'Xatolik: ' + error.message);
+                console.error(error);
+            } finally {
+                showLoading('chapterLoading', false);
+                document.getElementById('chapterProgress').classList.remove('show');
+            }
+        }
+
+        // ========== PAGES ==========
+        async function loadChaptersForPages() {
+            const manhvaId = document.getElementById('pageManhvaSelect').value;
+            const select = document.getElementById('pageChapterSelect');
+            
+            if (!manhvaId) {
+                select.innerHTML = '<option value="">-- Avval manhva tanlang --</option>';
+                document.getElementById('pageForm').style.display = 'none';
+                return;
+            }
+
+            document.getElementById('pageForm').style.display = 'block';
+
+            try {
+                const { data, error } = await supabase
+                    .from('chapters')
+                    .select('*')
+                    .eq('manhva_id', manhvaId)
+                    .order('chapter_number', { ascending: true });
+
+                if (error) throw error;
+
+                select.innerHTML = '<option value="">-- Chapter tanlang --</option>';
+                
+                data.forEach(chapter => {
+                    const option = document.createElement('option');
+                    option.value = chapter.id;
+                    option.textContent = `Chapter ${chapter.chapter_number}${chapter.title ? ' - ' + chapter.title : ''}`;
+                    select.appendChild(option);
+                });
+            } catch (error) {
+                showAlert('error', 'Chapterlar yuklanmadi: ' + error.message);
+            }
+        }
+
+        function previewImages(event) {
+            selectedFiles = Array.from(event.target.files);
+            const container = document.getElementById('previewImages');
+            container.innerHTML = '';
+
+            selectedFiles.forEach((file, index) => {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const div = document.createElement('div');
+                    div.className = 'preview-image';
+                    div.innerHTML = `
+                        <img src="${e.target.result}" alt="Page ${index + 1}">
+                        <button class="remove-btn" onclick="removeImage(${index})">×</button>
+                    `;
+                    container.appendChild(div);
+                };
+                reader.readAsDataURL(file);
+            });
+        }
+
+        function removeImage(index) {
+            selectedFiles.splice(index, 1);
+            const dataTransfer = new DataTransfer();
+            selectedFiles.forEach(file => dataTransfer.items.add(file));
+            document.getElementById('pageImages').files = dataTransfer.files;
+            
+            const container = document.getElementById('previewImages');
+            container.innerHTML = '';
+            selectedFiles.forEach((file, idx) => {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const div = document.createElement('div');
+                    div.className = 'preview-image';
+                    div.innerHTML = `
+                        <img src="${e.target.result}" alt="Page ${idx + 1}">
+                        <button class="remove-btn" onclick="removeImage(${idx})">×</button>
+                    `;
+                    container.appendChild(div);
+                };
+                reader.readAsDataURL(file);
+            });
+        }
+
+        async function uploadPages() {
+            if (!checkSupabase()) return;
+
+            const chapterId = document.getElementById('pageChapterSelect').value;
+
+            if (!chapterId || selectedFiles.length === 0) {
+                showAlert('error', 'Chapter va rasmlarni tanlang!');
+                return;
+            }
+
+            showLoading('pageLoading', true);
+            document.getElementById('pageLoadingText').textContent = 'Rasmlar yuklanmoqda...';
+            document.getElementById('uploadProgress').classList.add('show');
+
+            try {
+                for (let i = 0; i < selectedFiles.length; i++) {
+                    const file = selectedFiles[i];
+                    const fileExt = file.name.split('.').pop();
+                    const fileName = `pages/chapter_${chapterId}_page_${i + 1}.${fileExt}`;
+                    
+                    // Upload image
+                    const { error: uploadError } = await supabase.storage
+                        .from(bucketName)
+                        .upload(fileName, file, {
+                            cacheControl: '3600',
+                            upsert: false
+                        });
+
+                    if (uploadError) throw uploadError;
+
+                    // Get public URL
+                    const { data: urlData } = supabase.storage
+                        .from(bucketName)
+                        .getPublicUrl(fileName);
+
+                    // Insert page record
+                    const { error: insertError } = await supabase
+                        .from('pages')
+                        .insert([{
+                            chapter_id: chapterId,
+                            page_number: i + 1,
+                            image_url: urlData.publicUrl
+                        }]);
+
+                    if (insertError) throw insertError;
+
+                    const progress = Math.round(((i + 1) / selectedFiles.length) * 100);
+                    document.getElementById('progressFill').style.width = progress + '%';
+                    document.getElementById('progressFill').textContent = progress + '%';
+                }
+
+                showAlert('success', `${selectedFiles.length} ta sahifa yuklandi! ✅`);
+                
+                selectedFiles = [];
+                document.getElementById('pageImages').value = '';
+                document.getElementById('previewImages').innerHTML = '';
+                document.getElementById('uploadProgress').classList.remove('show');
+                document.getElementById('progressFill').style.width = '0%';
+            } catch (error) {
+                showAlert('error', 'Xatolik: ' + error.message);
+            } finally {
+                showLoading('pageLoading', false);
+            }
+        }
+
+        // ========== BULK PDF UPLOAD ==========
+        function previewBulkPdfs(event) {
+            bulkPdfs = Array.from(event.target.files);
+            const container = document.getElementById('bulkPdfList');
+            container.innerHTML = '';
+
+            if (bulkPdfs.length === 0) return;
+
+            const list = document.createElement('div');
+            list.style.cssText = 'background: var(--light); padding: 1rem; border-radius: 8px;';
+            list.innerHTML = `<p style="font-weight: 600; margin-bottom: 0.5rem;">✅ ${bulkPdfs.length} ta PDF tanlandi:</p>`;
+            
+            bulkPdfs.forEach((file, index) => {
+                const item = document.createElement('div');
+                item.style.cssText = 'padding: 0.5rem; border-bottom: 1px solid #e5e7eb;';
+                item.innerHTML = `
+                    <span style="font-weight: 600;">Chapter ${parseInt(document.getElementById('bulkStartChapter').value) + index}:</span>
+                    ${file.name} (${(file.size / 1024 / 1024).toFixed(2)} MB)
+                `;
+                list.appendChild(item);
+            });
+
+            container.appendChild(list);
+        }
+
+        async function bulkUploadPdfs() {
+            if (!checkSupabase()) return;
+
+            const manhvaId = document.getElementById('bulkManhvaSelect').value;
+            const startChapter = parseInt(document.getElementById('bulkStartChapter').value);
+
+            if (!manhvaId || bulkPdfs.length === 0) {
+                showAlert('error', 'Manhva va PDF fayllarni tanlang!');
+                return;
+            }
+
+            if (bulkPdfs.length > 100) {
+                showAlert('error', 'Maksimal 100 ta PDF yuklash mumkin!');
+                return;
+            }
+
+            const confirmed = confirm(`${bulkPdfs.length} ta PDF fayl yuklanadi. Davom ettirilsinmi?`);
+            if (!confirmed) return;
+
+            showLoading('bulkLoading', true);
+            document.getElementById('bulkProgress').classList.add('show');
+
+            try {
+                for (let i = 0; i < bulkPdfs.length; i++) {
+                    const chapterNumber = startChapter + i;
+                    const pdfFile = bulkPdfs[i];
+                    
+                    document.getElementById('bulkLoadingText').textContent = `Chapter ${chapterNumber} yuklanmoqda...`;
+                    
+                    // Upload PDF
+                    const fileExt = pdfFile.name.split('.').pop();
+                    const fileName = `pdfs/manhva_${manhvaId}_ch_${chapterNumber}.${fileExt}`;
+                    
+                    const { data: uploadData, error: uploadError } = await supabase.storage
+                        .from(bucketName)
+                        .upload(fileName, pdfFile, {
+                            cacheControl: '3600',
+                            upsert: false
+                        });
+
+                    if (uploadError) throw uploadError;
+
+                    const { data: urlData } = supabase.storage
+                        .from(bucketName)
+                        .getPublicUrl(fileName);
+
+                    // Extract pages from PDF
+                    const pdfData = await pdfFile.arrayBuffer();
+                    const pdf = await pdfjsLib.getDocument({ data: pdfData }).promise;
+                    const numPages = pdf.numPages;
+
+                    // Insert chapter
+                    const { data: chapterData, error: chapterError } = await supabase
+                        .from('chapters')
+                        .insert([{
+                            manhva_id: manhvaId,
+                            chapter_number: chapterNumber,
+                            title: `Chapter ${chapterNumber}`,
+                            pdf_url: urlData.publicUrl
+                        }])
+                        .select();
+
+                    if (chapterError) throw chapterError;
+
+                    const chapterId = chapterData[0].id;
+
+                    // Convert PDF pages to images
+                    for (let pageNum = 1; pageNum <= numPages; pageNum++) {
+                        const page = await pdf.getPage(pageNum);
+                        const viewport = page.getViewport({ scale: 2.0 });
+                        
+                        const canvas = document.createElement('canvas');
+                        const context = canvas.getContext('2d');
+                        canvas.height = viewport.height;
+                        canvas.width = viewport.width;
+
+                        await page.render({ canvasContext: context, viewport: viewport }).promise;
+                        
+                        const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/jpeg', 0.9));
+                        
+                        const pageFileName = `pages/manhva_${manhvaId}_ch_${chapterNumber}_p_${pageNum}.jpg`;
+                        await supabase.storage
+                            .from(bucketName)
+                            .upload(pageFileName, blob, {
+                                cacheControl: '3600',
+                                upsert: false
+                            });
+
+                        const { data: pageUrlData } = supabase.storage
+                            .from(bucketName)
+                            .getPublicUrl(pageFileName);
+
+                        await supabase.from('pages').insert([{
+                            chapter_id: chapterId,
+                            page_number: pageNum,
+                            image_url: pageUrlData.publicUrl
+                        }]);
+                    }
+
+                    const progress = Math.round(((i + 1) / bulkPdfs.length) * 100);
+                    document.getElementById('bulkProgressFill').style.width = progress + '%';
+                    document.getElementById('bulkProgressFill').textContent = progress + '%';
+                }
+
+                showAlert('success', `${bulkPdfs.length} ta chapter muvaffaqiyatli yuklandi! ✅`);
+                
+                document.getElementById('bulkStartChapter').value = startChapter + bulkPdfs.length;
+                document.getElementById('bulkPdfs').value = '';
+                document.getElementById('bulkPdfList').innerHTML = '';
+                bulkPdfs = [];
+                document.getElementById('bulkProgress').classList.remove('show');
+            } catch (error) {
+                showAlert('error', 'Xatolik: ' + error.message);
+                console.error(error);
+            } finally {
+                showLoading('bulkLoading', false);
+            }
+        }
+
+        // ========== HELPER FUNCTIONS ==========
+        function checkSupabase() {
+            if (!supabase) {
+                showAlert('error', 'Avval Supabase sozlamalarini kiriting!');
+                document.querySelectorAll('.tab-btn')[0].click();
+                return false;
+            }
+            return true;
+        }
+
+        function showAlert(type, message) {
+            const alertId = type === 'success' ? 'alertSuccess' : 'alertError';
+            const alert = document.getElementById(alertId);
+            alert.textContent = message;
+            alert.classList.add('show');
+            
+            setTimeout(() => {
+                alert.classList.remove('show');
+            }, 5000);
+        }
+
+        function showLoading(id, show) {
+            const element = document.getElementById(id);
+            if (show) {
+                element.classList.add('show');
+            } else {
+                element.classList.remove('show');
+            }
+        }
+
+        function translateGenre(genre) {
+            const translations = {
+                action: '⚔️ Jangari',
+                romance: '💕 Romantik',
+                fantasy: '🔮 Fantastika',
+                drama: '🎭 Drama',
+                comedy: '😄 Komediya',
+                horror: '👻 Horror',
+                mystery: '🔍 Sirli',
+                slice_of_life: '🌸 Hayot',
+                sports: '⚽ Sport',
+                supernatural: '✨ G\'ayritabiiy'
+            };
+            return translations[genre] || genre;
+        }
+    </script>
+</body>
+</html>
