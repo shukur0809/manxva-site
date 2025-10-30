@@ -8,19 +8,35 @@
     
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1670894419218881" crossorigin="anonymous"></script>
     <script async src="https://fundingchoices.google.com/fundingchoices.js?snippet_id=pub-1670894419218881"></script>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
     
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
         :root {
-            --primary: #6366f1;
-            --primary-dark: #4f46e5;
-            --text: #1e293b;
-            --light: #64748b;
-            --bg: #f8fafc;
+            --primary: #ff6b6b;
+            --primary-dark: #ee5a52;
+            --secondary: #4ecdc4;
+            --accent: #ffe66d;
+            --text: #2d3436;
+            --light: #636e72;
+            --bg: #f8f9fa;
             --white: #fff;
-            --border: #e2e8f0;
+            --border: #dfe6e9;
             --shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        [data-theme="dark"] {
+            --primary: #ff6b6b;
+            --primary-dark: #ee5a52;
+            --secondary: #4ecdc4;
+            --accent: #ffe66d;
+            --text: #e8eaed;
+            --light: #9aa0a6;
+            --bg: #1a1a1a;
+            --white: #2d2d2d;
+            --border: #3c3c3c;
+            --shadow: 0 2px 8px rgba(0,0,0,0.3);
         }
 
         body {
@@ -28,6 +44,7 @@
             background: var(--bg);
             color: var(--text);
             line-height: 1.5;
+            transition: background 0.3s, color 0.3s;
         }
 
         /* HEADER */
@@ -53,9 +70,16 @@
         .logo {
             font-size: 1.25rem;
             font-weight: 800;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+        }
+
+        .nav-center {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+            flex-wrap: wrap;
         }
 
         .nav-links {
@@ -63,7 +87,7 @@
             gap: 0.5rem;
         }
 
-        .nav-links a {
+        .nav-links a, .theme-toggle, .user-menu-btn {
             text-decoration: none;
             color: var(--text);
             font-weight: 600;
@@ -71,11 +95,62 @@
             border-radius: 0.4rem;
             font-size: 0.9rem;
             transition: 0.2s;
+            cursor: pointer;
+            border: none;
+            background: transparent;
         }
 
-        .nav-links a:hover {
+        .nav-links a:hover, .theme-toggle:hover, .user-menu-btn:hover {
             background: var(--bg);
             color: var(--primary);
+        }
+
+        .theme-toggle {
+            font-size: 1.2rem;
+            padding: 0.4rem;
+        }
+
+        .user-section {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        .user-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid var(--primary);
+        }
+
+        .user-menu {
+            position: absolute;
+            top: 100%;
+            right: 1rem;
+            background: var(--white);
+            border-radius: 0.5rem;
+            box-shadow: var(--shadow);
+            padding: 0.5rem;
+            display: none;
+            min-width: 200px;
+            margin-top: 0.5rem;
+        }
+
+        .user-menu.show { display: block; }
+
+        .user-menu-item {
+            padding: 0.6rem;
+            cursor: pointer;
+            border-radius: 0.3rem;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .user-menu-item:hover {
+            background: var(--bg);
         }
 
         .search-box {
@@ -84,6 +159,8 @@
             border-radius: 0.4rem;
             font-size: 0.9rem;
             width: 180px;
+            background: var(--bg);
+            color: var(--text);
         }
 
         .search-box:focus {
@@ -91,9 +168,30 @@
             border-color: var(--primary);
         }
 
+        /* SOCIAL LINKS */
+        .social-banner {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 0.5rem 1rem;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        .social-banner a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            margin: 0 0.5rem;
+            transition: 0.2s;
+        }
+
+        .social-banner a:hover {
+            opacity: 0.8;
+        }
+
         /* HERO */
         .hero {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
             color: white;
             padding: 2rem 1rem;
             text-align: center;
@@ -115,6 +213,56 @@
             text-align: center;
         }
 
+        /* AUTH MODAL */
+        .auth-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+        }
+
+        .auth-modal.show { display: flex; }
+
+        .auth-content {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 1rem;
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+        }
+
+        .auth-content h2 {
+            margin-bottom: 1rem;
+            color: var(--text);
+        }
+
+        .google-btn {
+            background: white;
+            color: var(--text);
+            border: 2px solid var(--border);
+            padding: 0.8rem 1.5rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            margin: 1rem auto;
+            transition: 0.2s;
+        }
+
+        .google-btn:hover {
+            box-shadow: var(--shadow);
+        }
+
         /* FILTERS */
         .filters {
             display: flex;
@@ -131,6 +279,7 @@
             padding: 0.4rem 0.9rem;
             border: 2px solid var(--border);
             background: var(--white);
+            color: var(--text);
             border-radius: 1.5rem;
             cursor: pointer;
             font-weight: 600;
@@ -145,7 +294,7 @@
             border-color: var(--primary);
         }
 
-        /* MANHVA GRID - IXCHAM */
+        /* MANHVA GRID */
         .manhva-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
@@ -159,6 +308,7 @@
             cursor: pointer;
             transition: 0.2s;
             box-shadow: var(--shadow);
+            position: relative;
         }
 
         .manhva-card:hover {
@@ -166,10 +316,23 @@
             box-shadow: 0 4px 12px rgba(0,0,0,0.12);
         }
 
+        .reading-progress {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255,107,107,0.9);
+            color: white;
+            font-size: 0.7rem;
+            padding: 0.3rem;
+            text-align: center;
+            font-weight: 600;
+        }
+
         .manhva-cover {
             width: 100%;
             aspect-ratio: 3/4;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -203,7 +366,7 @@
         .manhva-genre {
             font-size: 0.7rem;
             color: var(--primary);
-            background: rgba(99,102,241,0.1);
+            background: rgba(255,107,107,0.1);
             padding: 0.15rem 0.4rem;
             border-radius: 0.3rem;
             display: inline-block;
@@ -235,7 +398,7 @@
             aspect-ratio: 3/4;
             border-radius: 0.6rem;
             overflow: hidden;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -247,6 +410,23 @@
 
         .manhva-detail-info h2 { font-size: 1.3rem; margin-bottom: 0.5rem; }
         .manhva-detail-info p { font-size: 0.9rem; color: var(--light); line-height: 1.6; }
+
+        .continue-reading-btn {
+            background: var(--secondary);
+            color: white;
+            border: none;
+            padding: 0.7rem 1.5rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-top: 0.8rem;
+            transition: 0.2s;
+        }
+
+        .continue-reading-btn:hover {
+            opacity: 0.9;
+        }
 
         .back-btn {
             background: var(--primary);
@@ -293,6 +473,10 @@
             background: var(--bg);
         }
 
+        .chapter-item.read {
+            opacity: 0.6;
+        }
+
         .chapter-number {
             font-weight: 700;
             color: var(--primary);
@@ -304,7 +488,7 @@
             color: var(--light);
         }
 
-        /* READER - ZOOM CONTROLS */
+        /* READER */
         .reader-header {
             display: flex;
             justify-content: space-between;
@@ -316,12 +500,16 @@
             border-radius: 0.8rem;
             box-shadow: var(--shadow);
             flex-wrap: wrap;
+            position: sticky;
+            top: 60px;
+            z-index: 50;
         }
 
         .reader-controls {
             display: flex;
             gap: 0.5rem;
             align-items: center;
+            flex-wrap: wrap;
         }
 
         .zoom-controls {
@@ -368,6 +556,7 @@
             padding: 0.5rem 1rem;
             border: 2px solid var(--border);
             background: var(--white);
+            color: var(--text);
             border-radius: 0.4rem;
             cursor: pointer;
             font-weight: 600;
@@ -393,7 +582,6 @@
             padding: 0 0.3rem;
         }
 
-        /* READER PAGES - RESPONSIVE */
         .reader-pages {
             background: #000;
             border-radius: 0.8rem;
@@ -413,6 +601,41 @@
             height: auto;
             display: block;
             transition: transform 0.2s;
+        }
+
+        /* CHAPTER PAGINATION */
+        .chapter-pagination {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            padding: 1.5rem;
+            background: var(--white);
+            border-radius: 0.8rem;
+            box-shadow: var(--shadow);
+        }
+
+        .pagination-btn {
+            flex: 1;
+            padding: 1rem;
+            border: 2px solid var(--border);
+            background: var(--white);
+            color: var(--text);
+            border-radius: 0.5rem;
+            cursor: pointer;
+            font-weight: 600;
+            transition: 0.2s;
+        }
+
+        .pagination-btn:hover:not(:disabled) {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .pagination-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
         }
 
         .loading {
@@ -450,6 +673,10 @@
             z-index: 1000;
             transform: translateY(100%);
             transition: 0.3s;
+        }
+
+        [data-theme="dark"] .cookie-consent {
+            background: rgba(45,45,45,0.98);
         }
 
         .cookie-consent.show {
@@ -492,7 +719,8 @@
         }
 
         .cookie-btn-decline {
-            background: white;
+            background: var(--white);
+            color: var(--text);
             border: 2px solid var(--border);
         }
 
@@ -513,6 +741,7 @@
             .cookie-content { flex-direction: column; text-align: center; }
             .reader-controls { flex-direction: column; width: 100%; }
             .zoom-controls { width: 100%; justify-content: center; }
+            .nav-center { width: 100%; justify-content: center; }
         }
 
         @media (min-width: 640px) {
@@ -524,7 +753,8 @@
         }
     </style>
 </head>
-<body>
+<body data-theme="light">
+    <!-- COOKIE CONSENT -->
     <div class="cookie-consent" id="cookieConsent">
         <div class="cookie-content">
             <div>🍪 Biz cookie-lardan foydalanamiz. Davom etish orqali rozilik bildirasiz.</div>
@@ -535,16 +765,46 @@
         </div>
     </div>
 
+    <!-- AUTH MODAL -->
+    <div class="auth-modal" id="authModal">
+        <div class="auth-content">
+            <h2>🎭 ManhvaUZ</h2>
+            <p style="margin-bottom: 1rem; color: var(--light);">O'qish jarayonini saqlash uchun tizimga kiring</p>
+            <div id="googleSignIn"></div>
+            <button class="google-btn" onclick="signInWithGoogle()">
+                <svg width="20" height="20" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+                Google bilan kirish
+            </button>
+            <button onclick="closeAuthModal()" style="margin-top: 1rem; color: var(--light); background: none; border: none; cursor: pointer;">Yopish</button>
+        </div>
+    </div>
+
+    <!-- SOCIAL BANNER -->
+    <div class="social-banner">
+        📱 Instagram: <a href="https://instagram.com/manhvauz" target="_blank">@manhvauz</a> | 
+        📢 Telegram: <a href="https://t.me/manhvauz" target="_blank">@manhvauz</a>
+    </div>
+
     <header>
         <nav>
             <div class="logo">🎭 ManhvaUZ</div>
-            <div class="nav-links">
-                <a href="#" onclick="showMainView(); return false;">🏠 Asosiy</a>
-                <a href="#" onclick="filterByGenre('action'); return false;">🔥 Mashhur</a>
-                <a href="#" onclick="loadManhvas(); return false;">✨ Yangi</a>
+            <div class="nav-center">
+                <div class="nav-links">
+                    <a href="#" onclick="showMainView(); return false;">🏠 Asosiy</a>
+                    <a href="#" onclick="filterByGenre('action'); return false;">🔥 Mashhur</a>
+                    <a href="#" onclick="loadManhvas(); return false;">✨ Yangi</a>
+                </div>
+                <input type="text" class="search-box" id="searchInput" placeholder="Qidirish...">
             </div>
-            <input type="text" class="search-box" id="searchInput" placeholder="Qidirish...">
+            <div class="user-section">
+                <button class="theme-toggle" onclick="toggleTheme()" title="Tungi/Kunduzgi rejim">🌙</button>
+                <div id="userInfo"></div>
+            </div>
         </nav>
+        <div class="user-menu" id="userMenu">
+            <div class="user-menu-item" onclick="showHistory()">📚 O'qish tarixi</div>
+            <div class="user-menu-item" onclick="signOut()">🚪 Chiqish</div>
+        </div>
     </header>
 
     <div class="hero">
@@ -575,6 +835,7 @@
                     <h2 id="manhvaTitle"></h2>
                     <div class="manhva-genre" id="manhvaGenre"></div>
                     <p id="manhvaDescription"></p>
+                    <button class="continue-reading-btn" id="continueBtn" style="display:none;" onclick="continueReading()">📖 Davom ettirish</button>
                 </div>
             </div>
             <button class="back-btn" onclick="showMainView()">← Orqaga</button>
@@ -602,6 +863,10 @@
                 </div>
             </div>
             <div class="reader-pages" id="readerPages"></div>
+            <div class="chapter-pagination">
+                <button class="pagination-btn" id="prevChapterBottom" onclick="goToPrevChapter()">← Oldingi Chapter</button>
+                <button class="pagination-btn" id="nextChapterBottom" onclick="goToNextChapter()">Keyingi Chapter →</button>
+            </div>
         </div>
 
         <div class="loading" id="loading">
@@ -625,18 +890,27 @@
         let currentManhva = null;
         let currentChapterIndex = 0;
         let currentZoom = 100;
+        let currentUser = null;
+        let readingProgress = {};
 
         const genres = {action:'⚔️ Jangari',romance:'💕 Romantik',fantasy:'🔮 Fantastika',drama:'🎭 Drama'};
 
+        // INITIALIZATION
         window.addEventListener('load', () => {
+            checkAuth();
             if (!getCookie('cookieConsent')) setTimeout(() => document.getElementById('cookieConsent').classList.add('show'), 1000);
-            if (getCookie('cookieConsent') === 'accepted') (adsbygoogle = window.adsbygoogle || []).push({});
+            if (getCookie('cookieConsent') === 'accepted') loadAds();
         });
 
+        function loadAds() {
+            try { (adsbygoogle = window.adsbygoogle || []).push({}); } catch(e) {}
+        }
+
+        // COOKIE FUNCTIONS
         function acceptCookies() {
             setCookie('cookieConsent', 'accepted', 365);
             document.getElementById('cookieConsent').classList.remove('show');
-            (adsbygoogle = window.adsbygoogle || []).push({});
+            loadAds();
         }
 
         function declineCookies() {
@@ -655,10 +929,107 @@
             return c ? c.split('=')[1] : null;
         }
 
+        // THEME TOGGLE
+        function toggleTheme() {
+            const html = document.documentElement;
+            const current = html.getAttribute('data-theme');
+            const newTheme = current === 'light' ? 'dark' : 'light';
+            html.setAttribute('data-theme', newTheme);
+            document.querySelector('.theme-toggle').textContent = newTheme === 'light' ? '🌙' : '☀️';
+            localStorage.setItem('theme', newTheme);
+        }
+
+        // Load saved theme
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+        if (savedTheme === 'dark') document.querySelector('.theme-toggle').textContent = '☀️';
+
+        // AUTH FUNCTIONS
+        function checkAuth() {
+            const user = localStorage.getItem('manhvaUser');
+            if (user) {
+                currentUser = JSON.parse(user);
+                updateUserUI();
+                loadReadingProgress();
+            }
+        }
+
+        function signInWithGoogle() {
+            // Google Sign-In simulation (real implementation requires Google OAuth)
+            const mockUser = {
+                id: 'user_' + Date.now(),
+                name: 'Demo User',
+                email: 'demo@manhvauz.com',
+                avatar: 'https://ui-avatars.com/api/?name=Demo+User&background=ff6b6b&color=fff'
+            };
+            currentUser = mockUser;
+            localStorage.setItem('manhvaUser', JSON.stringify(mockUser));
+            updateUserUI();
+            closeAuthModal();
+            loadReadingProgress();
+        }
+
+        function signOut() {
+            currentUser = null;
+            localStorage.removeItem('manhvaUser');
+            localStorage.removeItem('readingProgress');
+            readingProgress = {};
+            updateUserUI();
+            document.getElementById('userMenu').classList.remove('show');
+            showMainView();
+        }
+
+        function updateUserUI() {
+            const userInfo = document.getElementById('userInfo');
+            if (currentUser) {
+                userInfo.innerHTML = `<img src="${currentUser.avatar}" class="user-avatar" onclick="toggleUserMenu()">`;
+            } else {
+                userInfo.innerHTML = `<button class="user-menu-btn" onclick="openAuthModal()">👤 Kirish</button>`;
+            }
+        }
+
+        function toggleUserMenu() {
+            document.getElementById('userMenu').classList.toggle('show');
+        }
+
+        function openAuthModal() {
+            document.getElementById('authModal').classList.add('show');
+        }
+
+        function closeAuthModal() {
+            document.getElementById('authModal').classList.remove('show');
+        }
+
+        // Close modals on outside click
+        document.addEventListener('click', (e) => {
+            if (e.target.id === 'authModal') closeAuthModal();
+            if (!e.target.closest('.user-avatar') && !e.target.closest('.user-menu')) {
+                document.getElementById('userMenu').classList.remove('show');
+            }
+        });
+
+        // READING PROGRESS FUNCTIONS
+        function loadReadingProgress() {
+            if (!currentUser) return;
+            const saved = localStorage.getItem('readingProgress');
+            readingProgress = saved ? JSON.parse(saved) : {};
+        }
+
+        function saveReadingProgress(manhvaId, chapterIndex) {
+            if (!currentUser) return;
+            readingProgress[manhvaId] = chapterIndex;
+            localStorage.setItem('readingProgress', JSON.stringify(readingProgress));
+        }
+
+        function getReadingProgress(manhvaId) {
+            return readingProgress[manhvaId] || null;
+        }
+
+        // MAIN INITIALIZATION
         document.addEventListener('DOMContentLoaded', () => {
             loadManhvas();
             
-            // Qidiruv
+            // Search
             let t;
             document.getElementById('searchInput').oninput = e => {
                 clearTimeout(t);
@@ -677,18 +1048,8 @@
             };
 
             // Chapter navigation
-            document.getElementById('prevChapter').onclick = () => {
-                if (currentChapterIndex > 0) {
-                    currentChapterIndex--;
-                    loadChapter(currentChapterIndex);
-                }
-            };
-            document.getElementById('nextChapter').onclick = () => {
-                if (currentChapterIndex < currentManhva.chapters.length - 1) {
-                    currentChapterIndex++;
-                    loadChapter(currentChapterIndex);
-                }
-            };
+            document.getElementById('prevChapter').onclick = goToPrevChapter;
+            document.getElementById('nextChapter').onclick = goToNextChapter;
         });
 
         async function loadManhvas() {
@@ -696,11 +1057,11 @@
             const { data } = await supabase.from('manhvas').select('*').order('created_at', {ascending:false});
             allManhvas = manhvas = data || [
                 {id:1,title:"Solo Leveling",genre:"action",description:"Sung Jin-Woo - dunyodagi eng zaif E-rank Hunter. Bir kun u sirli dungeondan tirik qoladi va noyob kuchga ega bo'ladi.",chapters:[]},
-                {id:2,title:"Tower of God",genre:"fantasy",description:"Rachel - Bam uchun hamma narsa edi. Va u uni tark etib Tower ga kirdi. Endi Bam ham minoraga kiradi.",chapters:[]},
-                {id:3,title:"True Beauty",genre:"romance",description:"Lim Ju-kyung - oddiy qiz, lekin makiyaj san'atida mohir. Yangi maktabda u go'zal qiz sifatida mashhur bo'ladi.",chapters:[]},
-                {id:4,title:"The Beginning After The End",genre:"fantasy",description:"Qirol Grey eng yosh yoshda shon-shuhratga erishdi. Ikkinchi imkoniyat - yangi dunyoda chaqaloq sifatida qayta tug'ilish.",chapters:[]},
-                {id:5,title:"Omniscient Reader",genre:"action",description:"Kim Dokja 10 yil davomida web romanini o'qib kelgan. Bir kuni roman haqiqatga aylanadi!",chapters:[]},
-                {id:6,title:"Eleceed",genre:"action",description:"Jiwoo - tezlik qobiliyatiga ega oddiy o'g'il bola. U yarador mushukka yordam beradi.",chapters:[]}
+                {id:2,title:"Tower of God",genre:"fantasy",description:"Rachel - Bam uchun hamma narsa edi. Va u uni tark etib Tower ga kirdi.",chapters:[]},
+                {id:3,title:"True Beauty",genre:"romance",description:"Lim Ju-kyung - oddiy qiz, lekin makiyaj san'atida mohir.",chapters:[]},
+                {id:4,title:"The Beginning After The End",genre:"fantasy",description:"Qirol Grey eng yosh yoshda shon-shuhratga erishdi.",chapters:[]},
+                {id:5,title:"Omniscient Reader",genre:"action",description:"Kim Dokja 10 yil davomida web romanini o'qib kelgan.",chapters:[]},
+                {id:6,title:"Eleceed",genre:"action",description:"Jiwoo - tezlik qobiliyatiga ega oddiy o'g'il bola.",chapters:[]}
             ];
             renderManhvas();
             showLoading(false);
@@ -708,16 +1069,20 @@
 
         function renderManhvas(list = manhvas) {
             const grid = document.getElementById('manhvaGrid');
-            grid.innerHTML = list.length ? list.map(m => `
+            grid.innerHTML = list.length ? list.map(m => {
+                const progress = getReadingProgress(m.id);
+                const progressHTML = progress !== null ? `<div class="reading-progress">Ch ${progress + 1}</div>` : '';
+                return `
                 <div class="manhva-card" onclick='showManhvaDetails(${JSON.stringify(m).replace(/'/g, "&#39;")})'>
+                    ${progressHTML}
                     <div class="manhva-cover">${m.cover_url ? `<img src="${m.cover_url}" alt="${m.title}">` : m.title}</div>
                     <div class="manhva-info">
                         <div class="manhva-title">${m.title}</div>
                         <div class="manhva-genre">${genres[m.genre] || m.genre}</div>
                         <div class="manhva-chapters">📖 ${m.chapters?.length || 0} ta</div>
                     </div>
-                </div>
-            `).join('') : '<p style="grid-column:1/-1;text-align:center;padding:2rem;color:var(--light)">🔍 Hech narsa topilmadi</p>';
+                </div>`;
+            }).join('') : '<p style="grid-column:1/-1;text-align:center;padding:2rem;color:var(--light)">🔍 Hech narsa topilmadi</p>';
         }
 
         function filterByGenre(genre) {
@@ -745,18 +1110,40 @@
             document.getElementById('manhvaDescription').textContent = manhva.description || 'Tavsif yo\'q';
             document.getElementById('detailCover').innerHTML = manhva.cover_url ? `<img src="${manhva.cover_url}" alt="${manhva.title}">` : manhva.title;
             
-            document.getElementById('chapterItems').innerHTML = currentManhva.chapters.length ? currentManhva.chapters.map((c, i) => `
-                <div class="chapter-item" onclick="openChapter(${currentManhva.chapters.length-1-i})">
-                    <span class="chapter-number">Chapter ${c.chapter_number}</span>
+            // Show continue button if has progress
+            const progress = getReadingProgress(manhva.id);
+            const continueBtn = document.getElementById('continueBtn');
+            if (progress !== null && currentManhva.chapters.length > 0) {
+                continueBtn.style.display = 'block';
+                continueBtn.onclick = () => openChapter(progress);
+            } else {
+                continueBtn.style.display = 'none';
+            }
+
+            document.getElementById('chapterItems').innerHTML = currentManhva.chapters.length ? currentManhva.chapters.map((c, i) => {
+                const reversedIndex = currentManhva.chapters.length - 1 - i;
+                const isRead = progress !== null && reversedIndex <= progress;
+                return `
+                <div class="chapter-item ${isRead ? 'read' : ''}" onclick="openChapter(${reversedIndex})">
+                    <span class="chapter-number">${isRead ? '✓ ' : ''}Chapter ${c.chapter_number}</span>
                     <span class="chapter-date">${new Date(c.created_at).toLocaleDateString('uz')}</span>
-                </div>
-            `).join('') : '<p style="text-align:center;padding:2rem;color:var(--light)">📚 Chapterlar yo\'q</p>';
+                </div>`;
+            }).join('') : '<p style="text-align:center;padding:2rem;color:var(--light)">📚 Chapterlar yo\'q</p>';
             
             showLoading(false);
             window.scrollTo(0,0);
         }
 
+        function continueReading() {
+            const progress = getReadingProgress(currentManhva.id);
+            if (progress !== null) openChapter(progress);
+        }
+
         function openChapter(i) {
+            if (!currentUser) {
+                openAuthModal();
+                return;
+            }
             currentChapterIndex = i;
             resetZoom();
             loadChapter(i);
@@ -769,16 +1156,39 @@
             showLoading(true);
             const c = currentManhva.chapters[i];
             document.getElementById('currentChapter').textContent = `Ch ${c.chapter_number}`;
-            document.getElementById('prevChapter').disabled = i === 0;
-            document.getElementById('nextChapter').disabled = i === currentManhva.chapters.length - 1;
+            
+            const prevBtn = document.getElementById('prevChapter');
+            const nextBtn = document.getElementById('nextChapter');
+            const prevBtnBottom = document.getElementById('prevChapterBottom');
+            const nextBtnBottom = document.getElementById('nextChapterBottom');
+            
+            prevBtn.disabled = prevBtnBottom.disabled = i === 0;
+            nextBtn.disabled = nextBtnBottom.disabled = i === currentManhva.chapters.length - 1;
             
             const { data } = await supabase.from('pages').select('*').eq('chapter_id', c.id).order('page_number');
             document.getElementById('readerPages').innerHTML = data?.length ? data.map(p => 
                 `<div class="reader-page"><img src="${p.image_url}" alt="Sahifa ${p.page_number}" loading="lazy" style="transform: scale(${currentZoom/100})"></div>`
             ).join('') : '<p style="color:#fff;padding:2rem;text-align:center">📖 Sahifalar yo\'q</p>';
             
+            // Save progress
+            saveReadingProgress(currentManhva.id, i);
+            
             showLoading(false);
             window.scrollTo(0,0);
+        }
+
+        function goToPrevChapter() {
+            if (currentChapterIndex > 0) {
+                currentChapterIndex--;
+                loadChapter(currentChapterIndex);
+            }
+        }
+
+        function goToNextChapter() {
+            if (currentChapterIndex < currentManhva.chapters.length - 1) {
+                currentChapterIndex++;
+                loadChapter(currentChapterIndex);
+            }
         }
 
         function showChapterList() {
@@ -796,11 +1206,17 @@
             window.scrollTo(0,0);
         }
 
+        function showHistory() {
+            document.getElementById('userMenu').classList.remove('show');
+            // Implement history view
+            alert('O\'qish tarixi tez orada qo\'shiladi');
+        }
+
         function showLoading(s) {
             document.getElementById('loading').style.display = s ? 'block' : 'none';
         }
 
-        // Zoom funksiyalari
+        // ZOOM FUNCTIONS
         function zoomIn() {
             if (currentZoom < 200) {
                 currentZoom += 10;
