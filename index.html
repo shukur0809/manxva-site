@@ -6,7 +6,7 @@
     <meta name="google-adsense-account" content="ca-pub-1670894419218881">
     <title>ManhvaUZ - Manhvalarni O'zbek Tilida O'qing</title>
     
-    <!-- Google AdSense -->
+    <!-- Google AdSense Asosiy Script -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1670894419218881"
      crossorigin="anonymous"></script>
     
@@ -41,9 +41,7 @@
             overflow-x: hidden;
         }
 
-        /* ============================================
-           HEADER - Yangilangan Zamonaviy Dizayn
-        ============================================ */
+        /* HEADER */
         header {
             background: var(--bg-card);
             box-shadow: 0 1px 3px var(--shadow);
@@ -198,9 +196,7 @@
             pointer-events: none;
         }
 
-        /* ============================================
-           HERO SECTION - Yangi Qo'shildi
-        ============================================ */
+        /* HERO SECTION */
         .hero {
             background: var(--gradient-1);
             color: white;
@@ -259,75 +255,30 @@
             }
         }
 
-        /* ============================================
-           CONTAINER
-        ============================================ */
+        /* CONTAINER */
         .container {
             max-width: 1400px;
             margin: 0 auto;
             padding: 1.5rem 1rem;
         }
 
-        /* ============================================
-           ADSENSE - Belgilangan Joylar
-        ============================================ */
+        /* ADSENSE REKLAMA JOYLARI */
         .ad-banner {
-            background: white;
-            border: 2px dashed var(--border);
-            border-radius: 1rem;
-            padding: 2rem 1rem;
+            background: transparent;
             margin: 2rem 0;
             text-align: center;
-            min-height: 100px;
+            min-height: 90px;
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
-            color: var(--text-light);
-            font-size: 0.875rem;
-            font-weight: 600;
-            position: relative;
-            overflow: hidden;
         }
-
-        .ad-banner::before {
-            content: '📢';
-            font-size: 2rem;
-            margin-bottom: 0.5rem;
+        
+        .ad-banner ins {
             display: block;
+            width: 100%;
         }
 
-        /* 
-        ============================================
-        ADSENSE INTEGRATION JOYLARI:
-        ============================================
-        
-        1. HEADER BANNER (Desktop 728x90, Mobile 320x100):
-           .ad-banner.header-ad elementiga AdSense kodini qo'shing
-        
-        2. CONTENT TOP (Desktop 728x90, Mobile 320x100):
-           .ad-banner.content-top elementiga AdSense kodini qo'shing
-        
-        3. MANHVA GRID ORASIDA (Desktop 336x280, Mobile 300x250):
-           .ad-banner.grid-ad elementiga AdSense kodini qo'shing
-        
-        4. CHAPTER LIST TEPASIDA (Desktop 728x90, Mobile 320x100):
-           .ad-banner.chapter-ad elementiga AdSense kodini qo'shing
-        
-        5. READER ORASIDA (Desktop 728x90, Mobile 320x100):
-           .ad-banner.reader-ad elementiga AdSense kodini qo'shing
-        
-        RESPONSIVE SIZES:
-        - Desktop: 728x90, 336x280, 300x600
-        - Tablet: 468x60, 300x250
-        - Mobile: 320x100, 320x50, 300x250
-        
-        AUTO ADS: <head> bo'limiga qo'yish mumkin
-        */
-
-        /* ============================================
-           FILTERS - Zamonaviy Chiplar
-        ============================================ */
+        /* FILTERS */
         .filters {
             display: flex;
             gap: 0.75rem;
@@ -369,9 +320,7 @@
             box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
         }
 
-        /* ============================================
-           MANHVA GRID - Yangilangan Cards
-        ============================================ */
+        /* MANHVA GRID */
         .manhva-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
@@ -502,9 +451,7 @@
             content: '📖';
         }
 
-        /* ============================================
-           CHAPTER LIST - Yangilangan
-        ============================================ */
+        /* CHAPTER LIST */
         .chapter-list {
             display: none;
             animation: fadeIn 0.3s ease-out;
@@ -618,9 +565,7 @@
             white-space: nowrap;
         }
 
-        /* ============================================
-           READER VIEW - Zamonaviy
-        ============================================ */
+        /* READER VIEW */
         .reader-container {
             display: none;
             animation: fadeIn 0.3s ease-out;
@@ -741,9 +686,7 @@
             font-weight: 600;
         }
 
-        /* ============================================
-           LOADING
-        ============================================ */
+        /* LOADING */
         .loading {
             display: none;
             text-align: center;
@@ -768,9 +711,7 @@
             100% { transform: rotate(360deg); }
         }
 
-        /* ============================================
-           FOOTER
-        ============================================ */
+        /* FOOTER */
         footer {
             background: white;
             margin-top: 3rem;
@@ -795,9 +736,7 @@
             font-weight: 700;
         }
 
-        /* ============================================
-           RESPONSIVE - TABLET
-        ============================================ */
+        /* RESPONSIVE - TABLET */
         @media (min-width: 640px) {
             .manhva-grid {
                 grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
@@ -818,9 +757,7 @@
             }
         }
 
-        /* ============================================
-           RESPONSIVE - DESKTOP
-        ============================================ */
+        /* RESPONSIVE - DESKTOP */
         @media (min-width: 1024px) {
             nav {
                 flex-direction: row;
@@ -896,20 +833,11 @@
             }
         }
 
-        /* ============================================
-           RESPONSIVE - LARGE DESKTOP
-        ============================================ */
+        /* RESPONSIVE - LARGE DESKTOP */
         @media (min-width: 1400px) {
             .manhva-grid {
                 grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
             }
-        }
-
-        /* ============================================
-           DARK MODE SUPPORT (Optional)
-        ============================================ */
-        @media (prefers-color-scheme: dark) {
-            /* Dark mode styles can be added here */
         }
     </style>
 </head>
@@ -945,50 +873,26 @@
     </div>
 
     <div class="container">
-        <!-- 
-        =============================================
-        ADSENSE AD #1: HEADER BANNER
-        =============================================
-        Joylashuvi: Header ostida, hero bo'limi ostida
-        O'lcham: Desktop 728x90, Mobile 320x100
-        Format: Display Banner
-        =============================================
-        -->
+        <!-- REKLAMA #1: Header ostida -->
         <div class="ad-banner header-ad">
-            <!-- AdSense Display Ad -->
             <ins class="adsbygoogle"
                  style="display:block"
                  data-ad-client="ca-pub-1670894419218881"
-                 data-ad-slot="SIZNING_SLOT_ID_1"
+                 data-ad-slot="1234567890"
                  data-ad-format="auto"
                  data-full-width-responsive="true"></ins>
-            <script>
-                 (adsbygoogle = window.adsbygoogle || []).push({});
-            </script>
         </div>
 
         <!-- MAIN VIEW -->
         <div id="mainView">
-            <!-- 
-            =============================================
-            ADSENSE AD #2: CONTENT TOP
-            =============================================
-            Joylashuvi: Filterlar tepasida
-            O'lcham: Desktop 728x90, Mobile 320x100
-            Format: Display Banner
-            =============================================
-            -->
+            <!-- REKLAMA #2: Content tepasida -->
             <div class="ad-banner content-top">
-                <!-- AdSense Display Ad -->
                 <ins class="adsbygoogle"
                      style="display:block"
                      data-ad-client="ca-pub-1670894419218881"
-                     data-ad-slot="SIZNING_SLOT_ID_2"
+                     data-ad-slot="1234567891"
                      data-ad-format="auto"
                      data-full-width-responsive="true"></ins>
-                <script>
-                     (adsbygoogle = window.adsbygoogle || []).push({});
-                </script>
             </div>
 
             <div class="filters">
@@ -1003,26 +907,14 @@
 
             <div class="manhva-grid" id="manhvaGrid"></div>
 
-            <!-- 
-            =============================================
-            ADSENSE AD #3: MID CONTENT
-            =============================================
-            Joylashuvi: Manhva grid ostida
-            O'lcham: Desktop 336x280, Mobile 300x250
-            Format: Display Rectangle
-            =============================================
-            -->
+            <!-- REKLAMA #3: Grid ostida -->
             <div class="ad-banner grid-ad">
-                <!-- AdSense Display Ad -->
                 <ins class="adsbygoogle"
                      style="display:block"
                      data-ad-client="ca-pub-1670894419218881"
-                     data-ad-slot="SIZNING_SLOT_ID_3"
+                     data-ad-slot="1234567892"
                      data-ad-format="auto"
                      data-full-width-responsive="true"></ins>
-                <script>
-                     (adsbygoogle = window.adsbygoogle || []).push({});
-                </script>
             </div>
         </div>
 
@@ -1039,26 +931,14 @@
 
             <button class="back-btn" onclick="showMainView()">← Orqaga</button>
 
-            <!-- 
-            =============================================
-            ADSENSE AD #4: CHAPTER LIST TOP
-            =============================================
-            Joylashuvi: Chapterlar ro'yxati tepasida
-            O'lcham: Desktop 728x90, Mobile 320x100
-            Format: Display Banner
-            =============================================
-            -->
+            <!-- REKLAMA #4: Chapterlar ro'yxati tepasida -->
             <div class="ad-banner chapter-ad">
-                <!-- AdSense Display Ad -->
                 <ins class="adsbygoogle"
                      style="display:block"
                      data-ad-client="ca-pub-1670894419218881"
-                     data-ad-slot="SIZNING_SLOT_ID_4"
+                     data-ad-slot="1234567893"
                      data-ad-format="auto"
                      data-full-width-responsive="true"></ins>
-                <script>
-                     (adsbygoogle = window.adsbygoogle || []).push({});
-                </script>
             </div>
 
             <div class="chapters-container">
@@ -1078,50 +958,26 @@
                 </div>
             </div>
 
-            <!-- 
-            =============================================
-            ADSENSE AD #5: READER TOP
-            =============================================
-            Joylashuvi: Reader tepasida, sahifalar oldidan
-            O'lcham: Desktop 728x90, Mobile 320x100
-            Format: Display Banner
-            =============================================
-            -->
+            <!-- REKLAMA #5: Reader tepasida -->
             <div class="ad-banner reader-ad">
-                <!-- AdSense Display Ad -->
                 <ins class="adsbygoogle"
                      style="display:block"
                      data-ad-client="ca-pub-1670894419218881"
-                     data-ad-slot="SIZNING_SLOT_ID_5"
+                     data-ad-slot="1234567894"
                      data-ad-format="auto"
                      data-full-width-responsive="true"></ins>
-                <script>
-                     (adsbygoogle = window.adsbygoogle || []).push({});
-                </script>
             </div>
 
             <div class="reader-pages" id="readerPages"></div>
 
-            <!-- 
-            =============================================
-            ADSENSE AD #6: READER BOTTOM
-            =============================================
-            Joylashuvi: Reader oxirida, sahifalar ostida
-            O'lcham: Desktop 728x90, Mobile 320x100
-            Format: Display Banner
-            =============================================
-            -->
+            <!-- REKLAMA #6: Reader ostida -->
             <div class="ad-banner reader-ad">
-                <!-- AdSense Display Ad -->
                 <ins class="adsbygoogle"
                      style="display:block"
                      data-ad-client="ca-pub-1670894419218881"
-                     data-ad-slot="SIZNING_SLOT_ID_6"
+                     data-ad-slot="1234567895"
                      data-ad-format="auto"
                      data-full-width-responsive="true"></ins>
-                <script>
-                     (adsbygoogle = window.adsbygoogle || []).push({});
-                </script>
             </div>
         </div>
 
@@ -1151,6 +1007,22 @@
         let currentManhva = null;
         let currentChapterIndex = 0;
 
+        // ========== ADSENSE INITIALIZATION ==========
+        // Sahifa yuklangandan keyin reklamalarni yuklash
+        window.addEventListener('load', function() {
+            try {
+                // Barcha reklamalarni yuklash
+                (adsbygoogle = window.adsbygoogle || []).push({});
+                (adsbygoogle = window.adsbygoogle || []).push({});
+                (adsbygoogle = window.adsbygoogle || []).push({});
+                (adsbygoogle = window.adsbygoogle || []).push({});
+                (adsbygoogle = window.adsbygoogle || []).push({});
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            } catch (e) {
+                console.log('AdSense yuklashda xatolik:', e);
+            }
+        });
+
         // ========== INITIALIZATION ==========
         document.addEventListener('DOMContentLoaded', () => {
             loadManhvas();
@@ -1159,7 +1031,7 @@
 
         // ========== EVENT LISTENERS ==========
         function setupEventListeners() {
-            // Mobile menu toggle with animation
+            // Mobile menu toggle
             const menuToggle = document.getElementById('menuToggle');
             const navLinks = document.getElementById('navLinks');
             
@@ -1168,7 +1040,7 @@
                 navLinks.classList.toggle('active');
             });
 
-            // Search with debounce
+            // Search
             let searchTimeout;
             document.getElementById('searchInput').addEventListener('input', (e) => {
                 clearTimeout(searchTimeout);
