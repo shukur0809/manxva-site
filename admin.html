@@ -378,6 +378,39 @@
             margin-bottom: 1rem;
         }
 
+        .user-list {
+            margin-top: 2rem;
+        }
+
+        .user-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .user-table th, .user-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .user-table th {
+            background: var(--light);
+            font-weight: 600;
+        }
+
+        .user-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .user-table tbody tr:hover {
+            background: #f9fafb;
+        }
+
         @media (max-width: 768px) {
             .grid-2 {
                 grid-template-columns: 1fr;
@@ -402,6 +435,7 @@
             <button class="tab-btn" onclick="switchTab('chapters')">📖 Chapterlar</button>
             <button class="tab-btn" onclick="switchTab('pages')">📄 Sahifalar</button>
             <button class="tab-btn" onclick="switchTab('bulk')">⚡ Ommaviy PDF</button>
+            <button class="tab-btn" onclick="switchTab('users')">👥 Foydalanuvchilar</button>
         </div>
 
         <div id="alertSuccess" class="alert alert-success"></div>
@@ -639,6 +673,30 @@
                 <p id="bulkLoadingText">Yuklanmoqda...</p>
             </div>
         </div>
+
+        <!-- Users Tab -->
+        <div id="users" class="tab-content">
+            <h2>👥 Foydalanuvchilar</h2>
+            
+            <div class="loading" id="usersLoading">
+                <div class="spinner"></div>
+                <p>Yuklanmoqda...</p>
+            </div>
+
+            <div class="user-list">
+                <table class="user-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Login</th>
+                            <th>Email</th>
+                            <th>Umumiy Vaqt</th>
+                        </tr>
+                    </thead>
+                    <tbody id="usersTableBody"></tbody>
+                </table>
+            </div>
+        </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -668,6 +726,7 @@
             if (tabName === 'chapters') loadManhvasForSelect('chapterManhvaSelect');
             if (tabName === 'pages') loadManhvasForSelect('pageManhvaSelect');
             if (tabName === 'bulk') loadManhvasForSelect('bulkManhvaSelect');
+            if (tabName === 'users') loadUsersList();
         }
 
         function saveSettings() {
@@ -1353,6 +1412,51 @@
                 console.error(error);
             } finally {
                 showLoading('bulkLoading', false);
+            }
+        }
+
+        // ========== USERS LIST ==========
+        async function loadUsersList() {
+            if (!checkSupabase()) return;
+
+            showLoading('usersLoading', true);
+
+            try {
+                const { data, error } = await supabase
+                    .from('users')
+                    .select('id, username, email, total_time')
+                    .order('total_time', { ascending: false });
+
+                if (error) throw error;
+
+                const tbody = document.getElementById('usersTableBody');
+                tbody.innerHTML = '';
+
+                if (data.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="4" style="text-align: center; padding: 2rem; color: #6b7280;">Foydalanuvchilar yo\'q</td></tr>';
+                    return;
+                }
+
+                data.forEach(user => {
+                    const row = document.createElement('tr');
+                    const time = user.total_time || 0;
+                    const hours = Math.floor(time / 3600);
+                    const minutes = Math.floor((time % 3600) / 60);
+                    const seconds = time % 60;
+                    const timeStr = `${hours} soat ${minutes} minut ${seconds} sekund`;
+                    
+                    row.innerHTML = `
+                        <td>${user.id}</td>
+                        <td>${user.username}</td>
+                        <td>${user.email}</td>
+                        <td>${timeStr}</td>
+                    `;
+                    tbody.appendChild(row);
+                });
+            } catch (error) {
+                showAlert('error', 'Foydalanuvchilar yuklanmadi: ' + error.message);
+            } finally {
+                showLoading('usersLoading', false);
             }
         }
 

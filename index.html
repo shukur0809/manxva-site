@@ -3,1245 +3,1166 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="google-adsense-account" content="ca-pub-1670894419218881">
-    <title>ManhvaUZ - Manhvalarni O'zbek Tilida O'qing</title>
-    
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1670894419218881" crossorigin="anonymous"></script>
-    <script async src="https://fundingchoices.google.com/fundingchoices.js?snippet_id=pub-1670894419218881"></script>
-    <script src="https://accounts.google.com/gsi/client" async defer></script>
-    
+    <title>ManhvaUZ - O'zbek Tilida</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
         :root {
-            --primary: #ff6b6b;
-            --primary-dark: #ee5a52;
-            --secondary: #4ecdc4;
-            --accent: #ffe66d;
-            --text: #2d3436;
-            --light: #636e72;
-            --bg: #f8f9fa;
-            --white: #fff;
-            --border: #dfe6e9;
-            --shadow: 0 2px 8px rgba(0,0,0,0.08);
+            --bg: #f5f5f5;
+            --card: rgba(255,255,255,0.9);
+            --text: #1a1a1a;
+            --text-light: #666;
+            --border: rgba(0,0,0,0.1);
+            --primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --glass: rgba(0,0,0,0.05);
         }
 
         [data-theme="dark"] {
-            --primary: #ff6b6b;
-            --primary-dark: #ee5a52;
-            --secondary: #4ecdc4;
-            --accent: #ffe66d;
-            --text: #e8eaed;
-            --light: #9aa0a6;
-            --bg: #1a1a1a;
-            --white: #2d2d2d;
-            --border: #3c3c3c;
-            --shadow: 0 2px 8px rgba(0,0,0,0.3);
+            --bg: #0a0a0a;
+            --card: rgba(20,20,20,0.9);
+            --text: #e0e0e0;
+            --text-light: #999;
+            --border: rgba(255,255,255,0.1);
+            --glass: rgba(255,255,255,0.05);
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             background: var(--bg);
             color: var(--text);
-            line-height: 1.5;
-            transition: background 0.3s, color 0.3s;
+            transition: 0.3s;
         }
 
-        /* HEADER */
         header {
-            background: var(--white);
-            box-shadow: var(--shadow);
             position: sticky;
             top: 0;
             z-index: 100;
+            background: var(--card);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 10px var(--border);
         }
 
         nav {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0.75rem 1rem;
+            padding: 1rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-wrap: wrap;
             gap: 1rem;
-            flex-wrap: wrap;
         }
 
-        .logo {
-            font-size: 1.25rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
+        .logo { font-size: 1.5rem; font-weight: 800; }
 
-        .nav-center {
-            display: flex;
-            gap: 0.5rem;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 0.5rem;
-        }
-
-        .nav-links a, .theme-toggle, .user-menu-btn {
-            text-decoration: none;
-            color: var(--text);
-            font-weight: 600;
-            padding: 0.4rem 0.8rem;
-            border-radius: 0.4rem;
-            font-size: 0.9rem;
-            transition: 0.2s;
-            cursor: pointer;
+        .btn {
+            padding: 0.6rem 1.2rem;
+            border-radius: 8px;
             border: none;
-            background: transparent;
-        }
-
-        .nav-links a:hover, .theme-toggle:hover, .user-menu-btn:hover {
-            background: var(--bg);
-            color: var(--primary);
-        }
-
-        .theme-toggle {
-            font-size: 1.2rem;
-            padding: 0.4rem;
-        }
-
-        .user-section {
-            display: flex;
-            gap: 0.5rem;
-            align-items: center;
-        }
-
-        .user-avatar {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
             cursor: pointer;
-            border: 2px solid var(--primary);
-        }
-
-        .user-menu {
-            position: absolute;
-            top: 100%;
-            right: 1rem;
-            background: var(--white);
-            border-radius: 0.5rem;
-            box-shadow: var(--shadow);
-            padding: 0.5rem;
-            display: none;
-            min-width: 200px;
-            margin-top: 0.5rem;
-        }
-
-        .user-menu.show { display: block; }
-
-        .user-menu-item {
-            padding: 0.6rem;
-            cursor: pointer;
-            border-radius: 0.3rem;
+            font-weight: 600;
             transition: 0.2s;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
         }
 
-        .user-menu-item:hover {
-            background: var(--bg);
+        .btn-primary {
+            background: var(--glass);
+            color: var(--text);
+        }
+
+        .btn-primary:hover { transform: translateY(-2px); }
+
+        .btn-glass {
+            background: var(--glass);
+            border: 1px solid var(--border);
+            color: var(--text);
         }
 
         .search-box {
-            padding: 0.4rem 0.8rem;
-            border: 2px solid var(--border);
-            border-radius: 0.4rem;
-            font-size: 0.9rem;
-            width: 180px;
-            background: var(--bg);
+            padding: 0.6rem 1rem;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            background: var(--card);
             color: var(--text);
         }
 
-        .search-box:focus {
-            outline: none;
-            border-color: var(--primary);
+        .theme-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--glass);
+            border: 1px solid var(--border);
+            cursor: pointer;
+            font-size: 1.2rem;
         }
 
-        /* SOCIAL LINKS */
-        .social-banner {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            color: white;
-            padding: 0.5rem 1rem;
-            text-align: center;
-            font-size: 0.9rem;
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--glass);
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            cursor: pointer;
         }
 
-        .social-banner a {
-            color: white;
-            text-decoration: none;
-            font-weight: 600;
-            margin: 0 0.5rem;
-            transition: 0.2s;
-        }
-
-        .social-banner a:hover {
-            opacity: 0.8;
-        }
-
-        /* HERO */
-        .hero {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            color: white;
-            padding: 2rem 1rem;
-            text-align: center;
-        }
-
-        .hero h1 { font-size: 1.5rem; margin-bottom: 0.3rem; }
-        .hero p { font-size: 0.95rem; opacity: 0.9; }
-
-        /* CONTAINER */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 1.5rem 1rem;
-        }
-
-        .ad-banner {
-            margin: 1.5rem 0;
-            min-height: 80px;
-            text-align: center;
-        }
-
-        /* AUTH MODAL */
-        .auth-modal {
+        .modal {
+            display: none;
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0,0,0,0.5);
-            display: none;
+            background: rgba(0,0,0,0.7);
+            backdrop-filter: blur(5px);
             align-items: center;
             justify-content: center;
             z-index: 2000;
         }
 
-        .auth-modal.show { display: flex; }
+        .modal.show { display: flex; }
 
-        .auth-content {
-            background: var(--white);
+        .modal-content {
+            background: var(--card);
             padding: 2rem;
-            border-radius: 1rem;
+            border-radius: 16px;
             max-width: 400px;
             width: 90%;
+        }
+
+        .modal-content h2 {
+            background: var(--glass);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1.5rem;
+        }
+
+        .auth-tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            background: var(--border);
+            padding: 0.3rem;
+            border-radius: 8px;
+        }
+
+        .auth-tab {
+            flex: 1;
+            padding: 0.6rem;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            background: transparent;
+            color: var(--text);
+            font-weight: 600;
+        }
+
+        .auth-tab.active {
+            background: var(--glass);
+            color: var(--text);
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 0.8rem;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            background: var(--card);
+            color: var(--text);
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .error-message, .success-message {
+            padding: 0.8rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            display: none;
+        }
+
+        .error-message {
+            background: rgba(239,68,68,0.1);
+            color: #ef4444;
+        }
+
+        .success-message {
+            background: rgba(34,197,94,0.1);
+            color: #22c55e;
+        }
+
+        .user-dropdown {
+            position: absolute;
+            top: 110%;
+            right: 0;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 0.5rem;
+            min-width: 200px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            display: none;
+        }
+
+        .user-dropdown.show { display: block; }
+
+        .user-dropdown-item {
+            padding: 0.8rem 1rem;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: 0.2s;
+        }
+
+        .user-dropdown-item:hover {
+            background: var(--border);
+        }
+
+        .hero {
+            background: var(--glass);
+            color: var(--text);
+            padding: 3rem 1rem;
             text-align: center;
         }
 
-        .auth-content h2 {
-            margin-bottom: 1rem;
-            color: var(--text);
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
         }
 
-        .google-btn {
-            background: white;
-            color: var(--text);
-            border: 2px solid var(--border);
-            padding: 0.8rem 1.5rem;
-            border-radius: 0.5rem;
-            cursor: pointer;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            margin: 1rem auto;
-            transition: 0.2s;
-        }
-
-        .google-btn:hover {
-            box-shadow: var(--shadow);
-        }
-
-        /* FILTERS */
-        .filters {
-            display: flex;
-            gap: 0.4rem;
-            margin: 1rem 0;
-            overflow-x: auto;
-            padding-bottom: 0.3rem;
-        }
-
-        .filters::-webkit-scrollbar { height: 4px; }
-        .filters::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
-
-        .filter-btn {
-            padding: 0.4rem 0.9rem;
-            border: 2px solid var(--border);
-            background: var(--white);
-            color: var(--text);
-            border-radius: 1.5rem;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 0.85rem;
-            white-space: nowrap;
-            transition: 0.2s;
-        }
-
-        .filter-btn.active {
-            background: var(--primary);
-            color: white;
-            border-color: var(--primary);
-        }
-
-        /* MANHVA GRID */
         .manhva-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-            gap: 0.8rem;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 1.5rem;
         }
 
         .manhva-card {
-            background: var(--white);
-            border-radius: 0.6rem;
+            border-radius: 12px;
             overflow: hidden;
             cursor: pointer;
-            transition: 0.2s;
-            box-shadow: var(--shadow);
-            position: relative;
+            transition: 0.3s;
+            box-shadow: 0 4px 12px var(--border);
+            background: var(--card);
         }
 
         .manhva-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.12);
-        }
-
-        .reading-progress {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: rgba(255,107,107,0.9);
-            color: white;
-            font-size: 0.7rem;
-            padding: 0.3rem;
-            text-align: center;
-            font-weight: 600;
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px var(--border);
         }
 
         .manhva-cover {
             width: 100%;
             aspect-ratio: 3/4;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: 600;
-            font-size: 0.75rem;
-            padding: 0.5rem;
-            text-align: center;
-        }
-
-        .manhva-cover img {
-            width: 100%;
-            height: 100%;
             object-fit: cover;
+            background: var(--glass);
         }
 
-        .manhva-info { padding: 0.6rem; }
+        .manhva-info {
+            padding: 0.8rem;
+        }
 
         .manhva-title {
             font-weight: 700;
-            font-size: 0.85rem;
-            margin-bottom: 0.3rem;
+            font-size: 0.9rem;
+            margin-bottom: 0.4rem;
+            white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            line-height: 1.3;
-        }
-
-        .manhva-genre {
-            font-size: 0.7rem;
-            color: var(--primary);
-            background: rgba(255,107,107,0.1);
-            padding: 0.15rem 0.4rem;
-            border-radius: 0.3rem;
-            display: inline-block;
-            margin-bottom: 0.2rem;
-        }
-
-        .manhva-chapters {
-            font-size: 0.7rem;
-            color: var(--light);
-        }
-
-        /* CHAPTER LIST */
-        .chapter-list, .reader-container {
-            display: none;
-        }
-
-        .manhva-detail-header {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-            padding: 1.5rem;
-            background: var(--white);
-            border-radius: 0.8rem;
-            box-shadow: var(--shadow);
-        }
-
-        .manhva-detail-cover {
-            width: 140px;
-            aspect-ratio: 3/4;
-            border-radius: 0.6rem;
-            overflow: hidden;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            flex-shrink: 0;
-            font-size: 0.85rem;
-            font-weight: 600;
-        }
-
-        .manhva-detail-info h2 { font-size: 1.3rem; margin-bottom: 0.5rem; }
-        .manhva-detail-info p { font-size: 0.9rem; color: var(--light); line-height: 1.6; }
-
-        .continue-reading-btn {
-            background: var(--secondary);
-            color: white;
-            border: none;
-            padding: 0.7rem 1.5rem;
-            border-radius: 0.5rem;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 0.9rem;
-            margin-top: 0.8rem;
-            transition: 0.2s;
-        }
-
-        .continue-reading-btn:hover {
-            opacity: 0.9;
-        }
-
-        .back-btn {
-            background: var(--primary);
-            color: white;
-            border: none;
-            padding: 0.7rem 1.5rem;
-            border-radius: 0.5rem;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 0.9rem;
-            margin-bottom: 1rem;
-            transition: 0.2s;
-        }
-
-        .back-btn:hover {
-            background: var(--primary-dark);
-        }
-
-        .chapters-container {
-            background: var(--white);
-            border-radius: 0.8rem;
-            padding: 1rem;
-            box-shadow: var(--shadow);
-        }
-
-        .chapters-header {
-            font-size: 1.1rem;
-            font-weight: 700;
-            margin-bottom: 0.8rem;
-        }
-
-        .chapter-item {
-            padding: 0.8rem;
-            border-bottom: 1px solid var(--border);
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: 0.2s;
-            border-radius: 0.4rem;
-        }
-
-        .chapter-item:hover {
-            background: var(--bg);
-        }
-
-        .chapter-item.read {
-            opacity: 0.6;
-        }
-
-        .chapter-number {
-            font-weight: 700;
-            color: var(--primary);
-            font-size: 0.9rem;
-        }
-
-        .chapter-date {
-            font-size: 0.75rem;
-            color: var(--light);
-        }
-
-        /* READER */
-        .reader-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 1rem;
-            margin-bottom: 1rem;
-            padding: 1rem;
-            background: var(--white);
-            border-radius: 0.8rem;
-            box-shadow: var(--shadow);
-            flex-wrap: wrap;
-            position: sticky;
-            top: 60px;
-            z-index: 50;
-        }
-
-        .reader-controls {
-            display: flex;
-            gap: 0.5rem;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-
-        .zoom-controls {
-            display: flex;
-            gap: 0.3rem;
-            align-items: center;
-            background: var(--bg);
-            padding: 0.3rem;
-            border-radius: 0.4rem;
-        }
-
-        .zoom-btn {
-            width: 32px;
-            height: 32px;
-            border: none;
-            background: var(--white);
-            color: var(--text);
-            border-radius: 0.3rem;
-            cursor: pointer;
-            font-weight: 700;
-            font-size: 1.1rem;
-            transition: 0.2s;
-        }
-
-        .zoom-btn:hover {
-            background: var(--primary);
-            color: white;
-        }
-
-        .zoom-level {
-            font-size: 0.85rem;
-            font-weight: 600;
-            min-width: 50px;
-            text-align: center;
-        }
-
-        .chapter-nav {
-            display: flex;
-            gap: 0.4rem;
-            align-items: center;
-        }
-
-        .chapter-nav button {
-            padding: 0.5rem 1rem;
-            border: 2px solid var(--border);
-            background: var(--white);
-            color: var(--text);
-            border-radius: 0.4rem;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 0.85rem;
-            transition: 0.2s;
-        }
-
-        .chapter-nav button:hover:not(:disabled) {
-            background: var(--primary);
-            color: white;
-            border-color: var(--primary);
-        }
-
-        .chapter-nav button:disabled {
-            opacity: 0.4;
-            cursor: not-allowed;
-        }
-
-        .chapter-nav span {
-            font-weight: 700;
-            color: var(--primary);
-            font-size: 0.9rem;
-            padding: 0 0.3rem;
-        }
-
-        .reader-pages {
-            background: #000;
-            border-radius: 0.8rem;
-            overflow: hidden;
-            box-shadow: var(--shadow);
-        }
-
-        .reader-page {
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            background: #000;
-        }
-
-        .reader-page img {
-            max-width: 100%;
-            height: auto;
-            display: block;
-            transition: transform 0.2s;
-        }
-
-        /* CHAPTER PAGINATION */
-        .chapter-pagination {
-            display: flex;
-            justify-content: space-between;
-            gap: 1rem;
-            margin-top: 1.5rem;
-            padding: 1.5rem;
-            background: var(--white);
-            border-radius: 0.8rem;
-            box-shadow: var(--shadow);
-        }
-
-        .pagination-btn {
-            flex: 1;
-            padding: 1rem;
-            border: 2px solid var(--border);
-            background: var(--white);
-            color: var(--text);
-            border-radius: 0.5rem;
-            cursor: pointer;
-            font-weight: 600;
-            transition: 0.2s;
-        }
-
-        .pagination-btn:hover:not(:disabled) {
-            background: var(--primary);
-            color: white;
-            border-color: var(--primary);
-        }
-
-        .pagination-btn:disabled {
-            opacity: 0.4;
-            cursor: not-allowed;
         }
 
         .loading {
             display: none;
             text-align: center;
-            padding: 2rem;
-            color: var(--primary);
-            font-weight: 600;
+            padding: 3rem;
         }
 
         .spinner {
             border: 3px solid var(--border);
-            border-top: 3px solid var(--primary);
+            border-top: 3px solid #667eea;
             border-radius: 50%;
-            width: 35px;
-            height: 35px;
-            animation: spin 0.7s linear infinite;
-            margin: 1rem auto;
+            width: 40px;
+            height: 40px;
+            animation: spin 0.8s linear infinite;
+            margin: 0 auto;
         }
 
         @keyframes spin {
             to { transform: rotate(360deg); }
         }
 
-        /* COOKIE CONSENT */
-        .cookie-consent {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: rgba(255,255,255,0.98);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+        .chapter-list, .reader-container, .leaderboard { display: none; }
+
+        .detail-header {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            padding: 2rem;
+            background: var(--card);
+            border-radius: 16px;
+        }
+
+        .detail-cover {
+            width: 160px;
+            aspect-ratio: 3/4;
+            border-radius: 12px;
+            overflow: hidden;
+            flex-shrink: 0;
+            object-fit: cover;
+        }
+
+        .chapter-item {
             padding: 1rem;
-            z-index: 1000;
-            transform: translateY(100%);
-            transition: 0.3s;
-        }
-
-        [data-theme="dark"] .cookie-consent {
-            background: rgba(45,45,45,0.98);
-        }
-
-        .cookie-consent.show {
-            transform: translateY(0);
-        }
-
-        .cookie-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 1rem;
-            flex-wrap: wrap;
-            font-size: 0.85rem;
-        }
-
-        .cookie-buttons {
-            display: flex;
-            gap: 0.5rem;
-        }
-
-        .cookie-btn {
-            padding: 0.6rem 1.2rem;
-            border: none;
-            border-radius: 0.4rem;
-            font-weight: 600;
-            font-size: 0.85rem;
+            border-bottom: 1px solid var(--border);
             cursor: pointer;
             transition: 0.2s;
         }
 
-        .cookie-btn-accept {
-            background: var(--primary);
-            color: white;
+        .chapter-item:hover {
+            background: var(--border);
         }
 
-        .cookie-btn-accept:hover {
-            background: var(--primary-dark);
+        .leaderboard-list {
+            display: grid;
+            gap: 1rem;
         }
 
-        .cookie-btn-decline {
-            background: var(--white);
-            color: var(--text);
-            border: 2px solid var(--border);
+        .leader-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 1rem;
+            background: var(--card);
+            border-radius: 12px;
+            box-shadow: 0 2px 8px var(--border);
         }
 
-        footer {
-            background: var(--white);
-            margin-top: 2rem;
-            padding: 1.5rem 1rem;
+        .leader-rank {
+            font-weight: 700;
+            background: var(--glass);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .reader-page {
+            max-width: 100%;
+            display: block;
+            margin: 1rem auto;
+        }
+
+        @media (min-width: 768px) {
+            .reader-page {
+                max-width: 70%;
+            }
+        }
+
+        .next-chapter-btn, .end-btn {
+            display: none;
+            margin: 2rem auto;
             text-align: center;
+        }
+
+        .rating {
+            display: flex;
+            gap: 0.2rem;
+            margin-top: 0.5rem;
+            align-items: center;
+        }
+
+        .star {
+            cursor: pointer;
+            color: #ddd;
+            font-size: 1.2rem;
+            transition: 0.2s;
+        }
+
+        .star:hover {
+            transform: scale(1.2);
+        }
+
+        .star.filled {
+            color: #ffd700;
+        }
+
+        .star.user-rated {
+            color: #ff6b6b;
+        }
+
+        .rating-info {
+            font-size: 0.75rem;
+            color: var(--text-light);
+            margin-left: 0.5rem;
+        }
+
+        .hide-search nav .search-box { display: none; }
+
+        .detail-rating {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: var(--glass);
+            border-radius: 8px;
+        }
+
+        .rating-display {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .rating-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #ffd700;
+        }
+
+        .rating-stars-large {
+            display: flex;
+            gap: 0.3rem;
+        }
+
+        .rating-stars-large .star {
+            font-size: 1.5rem;
+        }
+
+        .user-rating-section {
+            margin-top: 1rem;
+            padding-top: 1rem;
             border-top: 1px solid var(--border);
-            font-size: 0.85rem;
-            color: var(--light);
         }
 
-        /* RESPONSIVE */
-        @media (max-width: 768px) {
-            .manhva-detail-header { flex-direction: column; align-items: center; text-align: center; }
-            .manhva-detail-cover { width: 160px; }
-            .cookie-content { flex-direction: column; text-align: center; }
-            .reader-controls { flex-direction: column; width: 100%; }
-            .zoom-controls { width: 100%; justify-content: center; }
-            .nav-center { width: 100%; justify-content: center; }
+        /* AdSense Styles */
+        .ad-container {
+            margin: 1rem auto;
+            text-align: center;
+            max-width: 100%;
         }
 
-        @media (min-width: 640px) {
-            .manhva-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
+        .ad-header {
+            margin-bottom: 1rem;
         }
 
-        @media (min-width: 1024px) {
-            .manhva-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+        .ad-sidebar {
+            margin: 1rem 0;
+        }
+
+        .ad-footer {
+            margin-top: 2rem;
         }
     </style>
+    <!-- AdSense Script -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1670894419218881"
+     crossorigin="anonymous"></script>
 </head>
 <body data-theme="light">
-    <!-- COOKIE CONSENT -->
-    <div class="cookie-consent" id="cookieConsent">
-        <div class="cookie-content">
-            <div>🍪 Biz cookie-lardan foydalanamiz. Davom etish orqali rozilik bildirasiz.</div>
-            <div class="cookie-buttons">
-                <button class="cookie-btn cookie-btn-accept" onclick="acceptCookies()">Roziman</button>
-                <button class="cookie-btn cookie-btn-decline" onclick="declineCookies()">Rad etish</button>
+    <div class="modal" id="authModal">
+        <div class="modal-content">
+            <h2>📚 ManhvaUZ</h2>
+            
+            <div class="auth-tabs">
+                <button class="auth-tab active" onclick="switchTab('login')">Kirish</button>
+                <button class="auth-tab" onclick="switchTab('register')">Ro'yxatdan o'tish</button>
             </div>
-        </div>
-    </div>
 
-    <!-- AUTH MODAL -->
-    <div class="auth-modal" id="authModal">
-        <div class="auth-content">
-            <h2>🎭 ManhvaUZ</h2>
-            <p style="margin-bottom: 1rem; color: var(--light);">O'qish jarayonini saqlash uchun tizimga kiring</p>
-            <div id="googleSignIn"></div>
-            <button class="google-btn" onclick="signInWithGoogle()">
-                <svg width="20" height="20" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
-                Google bilan kirish
-            </button>
-            <button onclick="closeAuthModal()" style="margin-top: 1rem; color: var(--light); background: none; border: none; cursor: pointer;">Yopish</button>
-        </div>
-    </div>
+            <div class="error-message" id="errorMsg"></div>
+            <div class="success-message" id="successMsg"></div>
 
-    <!-- SOCIAL BANNER -->
-    <div class="social-banner">
-        📱 Instagram: <a href="https://instagram.com/manhvauz" target="_blank">@manhvauz</a> | 
-        📢 Telegram: <a href="https://t.me/manhvauz" target="_blank">@manhvauz</a>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label>Username</label>
+                    <input type="text" id="loginUser" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label>Parol</label>
+                    <input type="password" id="loginPass" class="form-input" required>
+                </div>
+                <div style="margin-bottom:1rem;">
+                    <input type="checkbox" id="remember"> Eslab qolish
+                </div>
+                <button type="submit" class="btn btn-primary" style="width:100%;margin-bottom:0.5rem;">Kirish</button>
+                <button type="button" class="btn btn-glass" style="width:100%;" onclick="closeModal()">Bekor qilish</button>
+            </form>
+
+            <form id="registerForm" style="display:none;">
+                <div class="form-group">
+                    <label>Username</label>
+                    <input type="text" id="regUser" class="form-input" minlength="3" required>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="regEmail" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label>Parol</label>
+                    <input type="password" id="regPass" class="form-input" minlength="6" required>
+                </div>
+                <div class="form-group">
+                    <label>Parolni tasdiqlang</label>
+                    <input type="password" id="regPass2" class="form-input" required>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width:100%;margin-bottom:0.5rem;">Ro'yxatdan o'tish</button>
+                <button type="button" class="btn btn-glass" style="width:100%;" onclick="closeModal()">Bekor qilish</button>
+            </form>
+        </div>
     </div>
 
     <header>
         <nav>
-            <div class="logo">🎭 ManhvaUZ</div>
-            <div class="nav-center">
-                <div class="nav-links">
-                    <a href="#" onclick="showMainView(); return false;">🏠 Asosiy</a>
-                    <a href="#" onclick="filterByGenre('action'); return false;">🔥 Mashhur</a>
-                    <a href="#" onclick="loadManhvas(); return false;">✨ Yangi</a>
-                </div>
-                <input type="text" class="search-box" id="searchInput" placeholder="Qidirish...">
-            </div>
-            <div class="user-section">
-                <button class="theme-toggle" onclick="toggleTheme()" title="Tungi/Kunduzgi rejim">🌙</button>
-                <div id="userInfo"></div>
+            <div class="logo">ManhvaUZ</div>
+            <input type="text" class="search-box" id="search" placeholder="Qidirish...">
+            <div style="display:flex;gap:1rem;align-items:center;">
+                <a href="https://instagram.com" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" style="width:24px;height:24px;"></a>
+                <button class="btn btn-glass" onclick="showLeaderboard()">Liderlar</button>
+                <button class="theme-btn" onclick="toggleTheme()">🌙</button>
+                <div id="userInfo" style="position:relative;"></div>
             </div>
         </nav>
-        <div class="user-menu" id="userMenu">
-            <div class="user-menu-item" onclick="showHistory()">📚 O'qish tarixi</div>
-            <div class="user-menu-item" onclick="signOut()">🚪 Chiqish</div>
+        <!-- AdSense Header Ad -->
+        <div class="ad-container ad-header">
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-1670894419218881"
+                 data-ad-slot="XXXXXXXXXX"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
         </div>
     </header>
 
     <div class="hero">
-        <h1>🎭 O'zbek Tilida Manhvalar</h1>
-        <p>Eng zo'r manhvalarni bepul o'qing</p>
+        <h1>O'zbek Tilida Manhvalar</h1>
+        <p>Eng zo'r manhvalarni bepul o'qing. Saytimizda turli xil manhvalar mavjud, ular haqida batafsil ma'lumotlar va baholar bilan.</p>
+        <p>Har bir manhva uchun tavsif, janr va foydalanuvchi baholari mavjud. Ro'yxatdan o'ting va o'qish vaqtini kuzating!</p>
     </div>
 
     <div class="container">
-        <div class="ad-banner">
-            <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1670894419218881" data-ad-slot="1234567890" data-ad-format="auto" data-full-width-responsive="true"></ins>
-        </div>
-
         <div id="mainView">
-            <div class="filters">
-                <button class="filter-btn active" onclick="filterByGenre('all')">Barchasi</button>
-                <button class="filter-btn" onclick="filterByGenre('action')">⚔️ Action</button>
-                <button class="filter-btn" onclick="filterByGenre('romance')">💕 Romance</button>
-                <button class="filter-btn" onclick="filterByGenre('fantasy')">🔮 Fantasy</button>
-                <button class="filter-btn" onclick="filterByGenre('drama')">🎭 Drama</button>
-            </div>
-            <div class="manhva-grid" id="manhvaGrid"></div>
+            <div class="manhva-grid" id="grid"></div>
         </div>
 
-        <div class="chapter-list" id="chapterList">
-            <div class="manhva-detail-header">
-                <div class="manhva-detail-cover" id="detailCover"></div>
-                <div class="manhva-detail-info">
-                    <h2 id="manhvaTitle"></h2>
-                    <div class="manhva-genre" id="manhvaGenre"></div>
-                    <p id="manhvaDescription"></p>
-                    <button class="continue-reading-btn" id="continueBtn" style="display:none;" onclick="continueReading()">📖 Davom ettirish</button>
-                </div>
-            </div>
-            <button class="back-btn" onclick="showMainView()">← Orqaga</button>
-            <div class="chapters-container">
-                <h3 class="chapters-header">📖 Chapterlar</h3>
-                <div id="chapterItems"></div>
-            </div>
-        </div>
-
-        <div class="reader-container" id="readerView">
-            <div class="reader-header">
-                <button class="back-btn" onclick="showChapterList()">← Chapterlar</button>
-                <div class="reader-controls">
-                    <div class="zoom-controls">
-                        <button class="zoom-btn" onclick="zoomOut()">−</button>
-                        <span class="zoom-level" id="zoomLevel">100%</span>
-                        <button class="zoom-btn" onclick="zoomIn()">+</button>
-                        <button class="zoom-btn" onclick="resetZoom()" title="Reset">↻</button>
-                    </div>
-                    <div class="chapter-nav">
-                        <button id="prevChapter">← Oldingi</button>
-                        <span id="currentChapter">Ch 1</span>
-                        <button id="nextChapter">Keyingi →</button>
+        <div class="chapter-list hide-search" id="chapterList">
+            <button class="btn btn-glass" onclick="showMain()" style="margin-bottom:1rem;">← Orqaga</button>
+            <div class="detail-header">
+                <img class="detail-cover" id="cover" src="" alt="">
+                <div style="flex:1;">
+                    <h2 id="title"></h2>
+                    <p id="desc" style="color:var(--text-light);margin-top:0.5rem;"></p>
+                    
+                    <div class="detail-rating">
+                        <div class="rating-display">
+                            <div class="rating-number" id="avgRating">0.0</div>
+                            <div>
+                                <div class="rating-stars-large" id="avgStars"></div>
+                                <div class="rating-info" id="ratingCount">0 baho</div>
+                            </div>
+                        </div>
+                        
+                        <div class="user-rating-section" id="userRatingSection">
+                            <p style="margin-bottom:0.5rem;font-weight:600;">Sizning bahoyingiz:</p>
+                            <div class="rating" id="userRating"></div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="reader-pages" id="readerPages"></div>
-            <div class="chapter-pagination">
-                <button class="pagination-btn" id="prevChapterBottom" onclick="goToPrevChapter()">← Oldingi Chapter</button>
-                <button class="pagination-btn" id="nextChapterBottom" onclick="goToNextChapter()">Keyingi Chapter →</button>
+            <div id="chapters" style="margin-top:1rem;"></div>
+            <!-- AdSense in Chapter List -->
+            <div class="ad-container ad-sidebar">
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-1670894419218881"
+                     data-ad-slot="XXXXXXXXXX"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
+                <script>
+                     (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+        </div>
+
+        <div class="reader-container hide-search" id="reader">
+            <button class="btn btn-glass" onclick="showChapters()" style="margin-bottom:1rem;">← Orqaga</button>
+            <div id="pages" style="margin-top:1rem;"></div>
+            <div class="next-chapter-btn" id="nextBtn"><button class="btn btn-primary" onclick="nextChapter()">Keyingi Bob</button></div>
+            <div class="end-btn" id="endBtn"><button class="btn btn-glass" onclick="showChapters()">Tugadi</button></div>
+            <!-- AdSense in Reader -->
+            <div class="ad-container ad-sidebar">
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-1670894419218881"
+                     data-ad-slot="XXXXXXXXXX"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
+                <script>
+                     (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+        </div>
+
+        <div class="leaderboard hide-search" id="leaderboard">
+            <button class="btn btn-glass" onclick="showMain()" style="margin-bottom:1rem;">← Orqaga</button>
+            <h2 style="text-align:center;margin-bottom:2rem;">Liderlar Jadvali (Top 50)</h2>
+            <div class="leaderboard-list" id="leaders"></div>
+            <!-- AdSense in Leaderboard -->
+            <div class="ad-container ad-sidebar">
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-1670894419218881"
+                     data-ad-slot="XXXXXXXXXX"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
+                <script>
+                     (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
             </div>
         </div>
 
         <div class="loading" id="loading">
             <div class="spinner"></div>
-            Yuklanmoqda...
+            <p style="margin-top:1rem;">Yuklanmoqda...</p>
+        </div>
+
+        <!-- AdSense Footer Ad -->
+        <div class="ad-container ad-footer">
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-1670894419218881"
+                 data-ad-slot="XXXXXXXXXX"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
         </div>
     </div>
 
-    <footer>
-        <p>📚 <strong>ManhvaUZ</strong> © 2024 - O'zbek tilida manhva o'qish platformasi</p>
-    </footer>
-
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
-        const SUPABASE_URL = 'https://slyvzbqtflcypdiurcju.supabase.co';
-        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNseXZ6YnF0ZmxjeXBkaXVyY2p1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjEwNzM1MTcsImV4cCI6MjA3NjY0OTUxN30.g4r-gpXptgewpEW0LhI_R7Znr8BSk0UcdTh-QUE8OcE';
-        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+        const supabase = window.supabase.createClient(
+            'https://slyvzbqtflcypdiurcju.supabase.co',
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNseXZ6YnF0ZmxjeXBkaXVyY2p1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjEwNzM1MTcsImV4cCI6MjA3NjY0OTUxN30.g4r-gpXptgewpEW0LhI_R7Znr8BSk0UcdTh-QUE8OcE'
+        );
 
-        let manhvas = [];
-        let allManhvas = [];
-        let currentManhva = null;
-        let currentChapterIndex = 0;
-        let currentZoom = 100;
-        let currentUser = null;
-        let readingProgress = {};
+        let user = null, manhvas = [], current = null, timerInterval = null, startTime = null, currentChapters = [], currentChapterIndex = -1, readingStartTime = null, userRatings = {};
 
-        const genres = {action:'⚔️ Jangari',romance:'💕 Romantik',fantasy:'🔮 Fantastika',drama:'🎭 Drama'};
-
-        // INITIALIZATION
-        window.addEventListener('load', () => {
+        window.onload = () => {
             checkAuth();
-            if (!getCookie('cookieConsent')) setTimeout(() => document.getElementById('cookieConsent').classList.add('show'), 1000);
-            if (getCookie('cookieConsent') === 'accepted') loadAds();
+            loadManhvas();
+        };
+
+        function switchTab(tab) {
+            document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
+            event.target.classList.add('active');
+            document.getElementById('loginForm').style.display = tab === 'login' ? 'block' : 'none';
+            document.getElementById('registerForm').style.display = tab === 'register' ? 'block' : 'none';
+            clearMsg();
+            clearInputs(tab);
+        }
+
+        function clearInputs(tab) {
+            if (tab === 'login') {
+                document.getElementById('regUser').value = '';
+                document.getElementById('regEmail').value = '';
+                document.getElementById('regPass').value = '';
+                document.getElementById('regPass2').value = '';
+            } else {
+                document.getElementById('loginUser').value = '';
+                document.getElementById('loginPass').value = '';
+            }
+        }
+
+        function showError(msg) {
+            const el = document.getElementById('errorMsg');
+            el.textContent = msg;
+            el.style.display = 'block';
+            setTimeout(() => el.style.display = 'none', 5000);
+        }
+
+        function showSuccess(msg) {
+            const el = document.getElementById('successMsg');
+            el.textContent = msg;
+            el.style.display = 'block';
+            setTimeout(() => el.style.display = 'none', 3000);
+        }
+
+        function clearMsg() {
+            document.getElementById('errorMsg').style.display = 'none';
+            document.getElementById('successMsg').style.display = 'none';
+        }
+
+        document.getElementById('loginForm').onsubmit = async (e) => {
+            e.preventDefault();
+            clearMsg();
+            
+            const username = document.getElementById('loginUser').value.trim();
+            const password = document.getElementById('loginPass').value;
+            const remember = document.getElementById('remember').checked;
+
+            if (!username || !password) {
+                showError('Barcha maydonlarni to\'ldiring');
+                return;
+            }
+
+            showLoading(true);
+            
+            const { data: userData, error: fetchError } = await supabase
+                .from('users')
+                .select('email')
+                .eq('username', username)
+                .single();
+
+            if (fetchError || !userData) {
+                showLoading(false);
+                showError('Username yoki parol xato');
+                return;
+            }
+
+            const { data, error } = await supabase.auth.signInWithPassword({
+                email: userData.email,
+                password
+            });
+
+            showLoading(false);
+
+            if (error) {
+                showError(error.message || 'Login yoki parol xato');
+                return;
+            }
+
+            user = { id: data.user.id, username: data.user.user_metadata.username || username, email: data.user.email, total_time: 0 };
+
+            if (remember) {
+                localStorage.setItem('user', JSON.stringify(user));
+            } else {
+                sessionStorage.setItem('user', JSON.stringify(user));
+            }
+
+            await loadUserRatings();
+            await loadUserTime();
+
+            showSuccess('Xush kelibsiz!');
+            setTimeout(() => {
+                closeModal();
+                updateUI();
+                startTimer();
+                renderManhvas(manhvas);
+            }, 1000);
+        };
+
+        document.getElementById('registerForm').onsubmit = async (e) => {
+            e.preventDefault();
+            clearMsg();
+            
+            const username = document.getElementById('regUser').value.trim();
+            const email = document.getElementById('regEmail').value.trim();
+            const password = document.getElementById('regPass').value;
+            const password2 = document.getElementById('regPass2').value;
+
+            if (!username || !email || !password || !password2) {
+                showError('Barcha maydonlarni to\'ldiring');
+                return;
+            }
+
+            if (username.length < 3) {
+                showError('Username kamida 3 ta belgi bo\'lishi kerak');
+                return;
+            }
+
+            if (password.length < 6) {
+                showError('Parol kamida 6 ta belgi bo\'lishi kerak');
+                return;
+            }
+
+            if (password !== password2) {
+                showError('Parollar mos kelmadi');
+                return;
+            }
+
+            showLoading(true);
+
+            const { data, error } = await supabase.auth.signUp({
+                email,
+                password,
+                options: {
+                    data: { username }
+                }
+            });
+
+            showLoading(false);
+
+            if (error) {
+                showError(error.message || 'Xatolik yuz berdi');
+                return;
+            }
+
+            // Insert into custom users table
+            await supabase.from('users').insert([{ id: data.user.id, username, email, total_time: 0 }]);
+
+            showSuccess('Ro\'yxatdan o\'tdingiz! Endi kirishingiz mumkin.');
+            
+            setTimeout(() => {
+                document.querySelectorAll('.auth-tab')[0].click();
+                document.getElementById('loginUser').value = username;
+            }, 1500);
+        };
+
+        async function checkAuth() {
+            const { data: { session } } = await supabase.auth.getSession();
+            if (session) {
+                user = { id: session.user.id, username: session.user.user_metadata.username || session.user.email.split('@')[0], email: session.user.email, total_time: 0 };
+                const stored = localStorage.getItem('user') ? localStorage : sessionStorage;
+                stored.setItem('user', JSON.stringify(user));
+                updateUI();
+                startTimer();
+                await loadUserRatings();
+                await loadUserTime();
+            }
+        }
+
+        async function loadUserTime() {
+            if (!user) return;
+            const { data } = await supabase.from('users').select('total_time').eq('id', user.id).single();
+            if (data) user.total_time = data.total_time || 0;
+        }
+
+        function updateUI() {
+            const info = document.getElementById('userInfo');
+            if (user) {
+                const initial = user.username.charAt(0).toUpperCase();
+                info.innerHTML = `
+                    <div class="user-avatar" onclick="toggleMenu()">${initial}</div>
+                    <div class="user-dropdown" id="dropdown">
+                        <div style="padding:1rem;border-bottom:1px solid var(--border);">
+                            <h4>${user.username}</h4>
+                            <p style="font-size:0.8rem;color:var(--text-light);">${user.email}</p>
+                        </div>
+                        <div class="user-dropdown-item" onclick="signOut()">🚪 Chiqish</div>
+                    </div>
+                `;
+            } else {
+                info.innerHTML = '<button class="btn btn-primary" onclick="openModal()">Kirish</button>';
+            }
+        }
+
+        function toggleMenu() {
+            document.getElementById('dropdown').classList.toggle('show');
+        }
+
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('#userInfo')) {
+                const d = document.getElementById('dropdown');
+                if (d) d.classList.remove('show');
+            }
         });
 
-        function loadAds() {
-            try { (adsbygoogle = window.adsbygoogle || []).push({}); } catch(e) {}
+        async function signOut() {
+            if (confirm('Chiqmoqchimisiz?')) {
+                await updateTime();
+                stopTimer();
+                await supabase.auth.signOut();
+                user = null;
+                userRatings = {};
+                localStorage.removeItem('user');
+                sessionStorage.removeItem('user');
+                updateUI();
+                showMain();
+                renderManhvas(manhvas);
+            }
         }
 
-        // COOKIE FUNCTIONS
-        function acceptCookies() {
-            setCookie('cookieConsent', 'accepted', 365);
-            document.getElementById('cookieConsent').classList.remove('show');
-            loadAds();
+        function openModal() {
+            document.getElementById('authModal').classList.add('show');
+            clearMsg();
         }
 
-        function declineCookies() {
-            setCookie('cookieConsent', 'declined', 365);
-            document.getElementById('cookieConsent').classList.remove('show');
+        function closeModal() {
+            document.getElementById('authModal').classList.remove('show');
+            clearMsg();
         }
 
-        function setCookie(n, v, d) {
-            const e = new Date();
-            e.setTime(e.getTime() + d*24*60*60*1000);
-            document.cookie = `${n}=${v};expires=${e.toUTCString()};path=/;SameSite=Lax`;
-        }
+        document.getElementById('authModal').onclick = (e) => {
+            if (e.target.id === 'authModal') closeModal();
+        };
 
-        function getCookie(n) {
-            const c = document.cookie.split(';').find(c => c.trim().startsWith(n+'='));
-            return c ? c.split('=')[1] : null;
-        }
-
-        // THEME TOGGLE
         function toggleTheme() {
             const html = document.documentElement;
-            const current = html.getAttribute('data-theme');
-            const newTheme = current === 'light' ? 'dark' : 'light';
-            html.setAttribute('data-theme', newTheme);
-            document.querySelector('.theme-toggle').textContent = newTheme === 'light' ? '🌙' : '☀️';
-            localStorage.setItem('theme', newTheme);
+            const theme = html.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+            html.setAttribute('data-theme', theme);
+            document.querySelector('.theme-btn').textContent = theme === 'light' ? '🌙' : '☀️';
+            localStorage.setItem('theme', theme);
         }
 
-        // Load saved theme
         const savedTheme = localStorage.getItem('theme') || 'light';
         document.documentElement.setAttribute('data-theme', savedTheme);
-        if (savedTheme === 'dark') document.querySelector('.theme-toggle').textContent = '☀️';
-
-        // AUTH FUNCTIONS
-        function checkAuth() {
-            const user = localStorage.getItem('manhvaUser');
-            if (user) {
-                currentUser = JSON.parse(user);
-                updateUserUI();
-                loadReadingProgress();
-            }
-        }
-
-        function signInWithGoogle() {
-            // Google Sign-In simulation (real implementation requires Google OAuth)
-            const mockUser = {
-                id: 'user_' + Date.now(),
-                name: 'Demo User',
-                email: 'demo@manhvauz.com',
-                avatar: 'https://ui-avatars.com/api/?name=Demo+User&background=ff6b6b&color=fff'
-            };
-            currentUser = mockUser;
-            localStorage.setItem('manhvaUser', JSON.stringify(mockUser));
-            updateUserUI();
-            closeAuthModal();
-            loadReadingProgress();
-        }
-
-        function signOut() {
-            currentUser = null;
-            localStorage.removeItem('manhvaUser');
-            localStorage.removeItem('readingProgress');
-            readingProgress = {};
-            updateUserUI();
-            document.getElementById('userMenu').classList.remove('show');
-            showMainView();
-        }
-
-        function updateUserUI() {
-            const userInfo = document.getElementById('userInfo');
-            if (currentUser) {
-                userInfo.innerHTML = `<img src="${currentUser.avatar}" class="user-avatar" onclick="toggleUserMenu()">`;
-            } else {
-                userInfo.innerHTML = `<button class="user-menu-btn" onclick="openAuthModal()">👤 Kirish</button>`;
-            }
-        }
-
-        function toggleUserMenu() {
-            document.getElementById('userMenu').classList.toggle('show');
-        }
-
-        function openAuthModal() {
-            document.getElementById('authModal').classList.add('show');
-        }
-
-        function closeAuthModal() {
-            document.getElementById('authModal').classList.remove('show');
-        }
-
-        // Close modals on outside click
-        document.addEventListener('click', (e) => {
-            if (e.target.id === 'authModal') closeAuthModal();
-            if (!e.target.closest('.user-avatar') && !e.target.closest('.user-menu')) {
-                document.getElementById('userMenu').classList.remove('show');
-            }
-        });
-
-        // READING PROGRESS FUNCTIONS
-        function loadReadingProgress() {
-            if (!currentUser) return;
-            const saved = localStorage.getItem('readingProgress');
-            readingProgress = saved ? JSON.parse(saved) : {};
-        }
-
-        function saveReadingProgress(manhvaId, chapterIndex) {
-            if (!currentUser) return;
-            readingProgress[manhvaId] = chapterIndex;
-            localStorage.setItem('readingProgress', JSON.stringify(readingProgress));
-        }
-
-        function getReadingProgress(manhvaId) {
-            return readingProgress[manhvaId] || null;
-        }
-
-        // MAIN INITIALIZATION
-        document.addEventListener('DOMContentLoaded', () => {
-            loadManhvas();
-            
-            // Search
-            let t;
-            document.getElementById('searchInput').oninput = e => {
-                clearTimeout(t);
-                t = setTimeout(() => {
-                    const q = e.target.value.toLowerCase().trim();
-                    if (q) {
-                        const filtered = allManhvas.filter(m => 
-                            m.title.toLowerCase().includes(q) || 
-                            (m.description && m.description.toLowerCase().includes(q))
-                        );
-                        renderManhvas(filtered);
-                    } else {
-                        renderManhvas(allManhvas);
-                    }
-                }, 300);
-            };
-
-            // Chapter navigation
-            document.getElementById('prevChapter').onclick = goToPrevChapter;
-            document.getElementById('nextChapter').onclick = goToNextChapter;
-        });
+        if (savedTheme === 'dark') document.querySelector('.theme-btn').textContent = '☀️';
 
         async function loadManhvas() {
             showLoading(true);
-            const { data } = await supabase.from('manhvas').select('*').order('created_at', {ascending:false});
-            allManhvas = manhvas = data || [
-                {id:1,title:"Solo Leveling",genre:"action",description:"Sung Jin-Woo - dunyodagi eng zaif E-rank Hunter. Bir kun u sirli dungeondan tirik qoladi va noyob kuchga ega bo'ladi.",chapters:[]},
-                {id:2,title:"Tower of God",genre:"fantasy",description:"Rachel - Bam uchun hamma narsa edi. Va u uni tark etib Tower ga kirdi.",chapters:[]},
-                {id:3,title:"True Beauty",genre:"romance",description:"Lim Ju-kyung - oddiy qiz, lekin makiyaj san'atida mohir.",chapters:[]},
-                {id:4,title:"The Beginning After The End",genre:"fantasy",description:"Qirol Grey eng yosh yoshda shon-shuhratga erishdi.",chapters:[]},
-                {id:5,title:"Omniscient Reader",genre:"action",description:"Kim Dokja 10 yil davomida web romanini o'qib kelgan.",chapters:[]},
-                {id:6,title:"Eleceed",genre:"action",description:"Jiwoo - tezlik qobiliyatiga ega oddiy o'g'il bola.",chapters:[]}
+            const { data } = await supabase.from('manhvas').select('*');
+            manhvas = data || [
+                {id:1, title:"Solo Leveling", genre:"action", description:"Hunter sarguzashtlari haqida batafsil ma'lumot. Bu manhva dunyodagi eng mashhur asarlardan biri bo'lib, unda qahramonning rivojlanishi va janglari tasvirlangan.", cover_url: "https://example.com/solo-leveling-cover.jpg"},
+                {id:2, title:"Tower of God", genre:"fantasy", description:"Minora sirli va sarguzashtlarga boy. Ushbu manhvada minora ichidagi sinovlar va personajlarning o'sishi haqida ko'p ma'lumotlar mavjud.", cover_url: "https://example.com/tower-of-god-cover.jpg"},
+                {id:3, title:"True Beauty", genre:"romance", description:"Makiyaj sirli va insoniy munosabatlar. Bu asar yoshlar orasida mashhur bo'lib, go'zallik va haqiqat haqida gapiradi.", cover_url: "https://example.com/true-beauty-cover.jpg"},
             ];
-            renderManhvas();
+            await loadRatings();
+            manhvas.sort((a, b) => (b.avg_rating || 0) - (a.avg_rating || 0));
+            renderManhvas(manhvas);
+            document.getElementById('search').addEventListener('input', searchManhvas);
             showLoading(false);
         }
 
-        function renderManhvas(list = manhvas) {
-            const grid = document.getElementById('manhvaGrid');
-            grid.innerHTML = list.length ? list.map(m => {
-                const progress = getReadingProgress(m.id);
-                const progressHTML = progress !== null ? `<div class="reading-progress">Ch ${progress + 1}</div>` : '';
-                return `
-                <div class="manhva-card" onclick='showManhvaDetails(${JSON.stringify(m).replace(/'/g, "&#39;")})'>
-                    ${progressHTML}
-                    <div class="manhva-cover">${m.cover_url ? `<img src="${m.cover_url}" alt="${m.title}">` : m.title}</div>
-                    <div class="manhva-info">
-                        <div class="manhva-title">${m.title}</div>
-                        <div class="manhva-genre">${genres[m.genre] || m.genre}</div>
-                        <div class="manhva-chapters">📖 ${m.chapters?.length || 0} ta</div>
-                    </div>
-                </div>`;
-            }).join('') : '<p style="grid-column:1/-1;text-align:center;padding:2rem;color:var(--light)">🔍 Hech narsa topilmadi</p>';
-        }
-
-        function filterByGenre(genre) {
-            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-            event.target.classList.add('active');
+        async function loadRatings() {
+            const { data } = await supabase.from('ratings').select('manhva_id, rating, user_id');
+            const ratings = data || [];
             
-            if (genre === 'all') {
-                renderManhvas(allManhvas);
-            } else {
-                const filtered = allManhvas.filter(m => m.genre === genre);
-                renderManhvas(filtered);
-            }
-        }
-
-        async function showManhvaDetails(manhva) {
-            showLoading(true);
-            currentManhva = manhva;
-            const { data } = await supabase.from('chapters').select('*').eq('manhva_id', manhva.id).order('chapter_number', {ascending:false});
-            currentManhva.chapters = data || [];
-
-            document.getElementById('mainView').style.display = 'none';
-            document.getElementById('chapterList').style.display = 'block';
-            document.getElementById('manhvaTitle').textContent = manhva.title;
-            document.getElementById('manhvaGenre').textContent = genres[manhva.genre] || manhva.genre;
-            document.getElementById('manhvaDescription').textContent = manhva.description || 'Tavsif yo\'q';
-            document.getElementById('detailCover').innerHTML = manhva.cover_url ? `<img src="${manhva.cover_url}" alt="${manhva.title}">` : manhva.title;
-            
-            // Show continue button if has progress
-            const progress = getReadingProgress(manhva.id);
-            const continueBtn = document.getElementById('continueBtn');
-            if (progress !== null && currentManhva.chapters.length > 0) {
-                continueBtn.style.display = 'block';
-                continueBtn.onclick = () => openChapter(progress);
-            } else {
-                continueBtn.style.display = 'none';
-            }
-
-            document.getElementById('chapterItems').innerHTML = currentManhva.chapters.length ? currentManhva.chapters.map((c, i) => {
-                const reversedIndex = currentManhva.chapters.length - 1 - i;
-                const isRead = progress !== null && reversedIndex <= progress;
-                return `
-                <div class="chapter-item ${isRead ? 'read' : ''}" onclick="openChapter(${reversedIndex})">
-                    <span class="chapter-number">${isRead ? '✓ ' : ''}Chapter ${c.chapter_number}</span>
-                    <span class="chapter-date">${new Date(c.created_at).toLocaleDateString('uz')}</span>
-                </div>`;
-            }).join('') : '<p style="text-align:center;padding:2rem;color:var(--light)">📚 Chapterlar yo\'q</p>';
-            
-            showLoading(false);
-            window.scrollTo(0,0);
-        }
-
-        function continueReading() {
-            const progress = getReadingProgress(currentManhva.id);
-            if (progress !== null) openChapter(progress);
-        }
-
-        function openChapter(i) {
-            if (!currentUser) {
-                openAuthModal();
-                return;
-            }
-            currentChapterIndex = i;
-            resetZoom();
-            loadChapter(i);
-            document.getElementById('chapterList').style.display = 'none';
-            document.getElementById('readerView').style.display = 'block';
-            window.scrollTo(0,0);
-        }
-
-        async function loadChapter(i) {
-            showLoading(true);
-            const c = currentManhva.chapters[i];
-            document.getElementById('currentChapter').textContent = `Ch ${c.chapter_number}`;
-            
-            const prevBtn = document.getElementById('prevChapter');
-            const nextBtn = document.getElementById('nextChapter');
-            const prevBtnBottom = document.getElementById('prevChapterBottom');
-            const nextBtnBottom = document.getElementById('nextChapterBottom');
-            
-            prevBtn.disabled = prevBtnBottom.disabled = i === 0;
-            nextBtn.disabled = nextBtnBottom.disabled = i === currentManhva.chapters.length - 1;
-            
-            const { data } = await supabase.from('pages').select('*').eq('chapter_id', c.id).order('page_number');
-            document.getElementById('readerPages').innerHTML = data?.length ? data.map(p => 
-                `<div class="reader-page"><img src="${p.image_url}" alt="Sahifa ${p.page_number}" loading="lazy" style="transform: scale(${currentZoom/100})"></div>`
-            ).join('') : '<p style="color:#fff;padding:2rem;text-align:center">📖 Sahifalar yo\'q</p>';
-            
-            // Save progress
-            saveReadingProgress(currentManhva.id, i);
-            
-            showLoading(false);
-            window.scrollTo(0,0);
-        }
-
-        function goToPrevChapter() {
-            if (currentChapterIndex > 0) {
-                currentChapterIndex--;
-                loadChapter(currentChapterIndex);
-            }
-        }
-
-        function goToNextChapter() {
-            if (currentChapterIndex < currentManhva.chapters.length - 1) {
-                currentChapterIndex++;
-                loadChapter(currentChapterIndex);
-            }
-        }
-
-        function showChapterList() {
-            document.getElementById('readerView').style.display = 'none';
-            document.getElementById('chapterList').style.display = 'block';
-            window.scrollTo(0,0);
-        }
-
-        function showMainView() {
-            document.getElementById('mainView').style.display = 'block';
-            document.getElementById('chapterList').style.display = 'none';
-            document.getElementById('readerView').style.display = 'none';
-            document.getElementById('searchInput').value = '';
-            renderManhvas(allManhvas);
-            window.scrollTo(0,0);
-        }
-
-        function showHistory() {
-            document.getElementById('userMenu').classList.remove('show');
-            // Implement history view
-            alert('O\'qish tarixi tez orada qo\'shiladi');
-        }
-
-        function showLoading(s) {
-            document.getElementById('loading').style.display = s ? 'block' : 'none';
-        }
-
-        // ZOOM FUNCTIONS
-        function zoomIn() {
-            if (currentZoom < 200) {
-                currentZoom += 10;
-                updateZoom();
-            }
-        }
-
-        function zoomOut() {
-            if (currentZoom > 50) {
-                currentZoom -= 10;
-                updateZoom();
-            }
-        }
-
-        function resetZoom() {
-            currentZoom = 100;
-            updateZoom();
-        }
-
-        function updateZoom() {
-            document.getElementById('zoomLevel').textContent = currentZoom + '%';
-            document.querySelectorAll('.reader-page img').forEach(img => {
-                img.style.transform = `scale(${currentZoom/100})`;
+            manhvas.forEach(m => {
+                const mRatings = ratings.filter(r => r.manhva_id === m.id);
+                m.rating_count = mRatings.length;
+                m.avg_rating = mRatings.length ? mRatings.reduce((a, b) => a + b.rating, 0) / mRatings.length : 0;
             });
         }
+
+        async function loadUserRatings() {
+            if (!user) return;
+            const { data } = await supabase.from('ratings').select('*').eq('user_id', user.id);
+            userRatings = {};
+            (data || []).forEach(r => {
+                userRatings[r.manhva_id] = r.rating;
+            });
+        }
+
+        function renderManhvas(list) {
+            document.getElementById('grid').innerHTML = list.map(m => `
+                <div class="manhva-card" onclick="showDetail(${m.id})">
+                    <img class="manhva-cover" src="${m.cover_url || 'https://via.placeholder.com/300x400?text=' + m.title}" alt="${m.title}">
+                    <div class="manhva-info">
+                        <div class="manhva-title">${m.title}</div>
+                        <div style="font-size:0.75rem;color:var(--text-light);">${m.genre}</div>
+                        <div class="rating">
+                            ${[1,2,3,4,5].map(i => `<span class="star ${i <= Math.round(m.avg_rating) ? 'filled' : ''} ${user && userRatings[m.id] === i ? 'user-rated' : ''}" onclick="rateManhva(${m.id}, ${i}); event.stopPropagation();">★</span>`).join('')}
+                            <span class="rating-info">${m.avg_rating ? m.avg_rating.toFixed(1) : '0.0'}</span>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        async function rateManhva(id, rating) {
+            if (!user) {
+                openModal();
+                return;
+            }
+
+            try {
+                const { data: existing } = await supabase
+                    .from('ratings')
+                    .select('*')
+                    .eq('manhva_id', id)
+                    .eq('user_id', user.id)
+                    .single();
+
+                if (existing) {
+                    await supabase
+                        .from('ratings')
+                        .update({ rating, updated_at: new Date().toISOString() })
+                        .eq('manhva_id', id)
+                        .eq('user_id', user.id);
+                } else {
+                    await supabase
+                        .from('ratings')
+                        .insert({ manhva_id: id, user_id: user.id, rating });
+                }
+
+                userRatings[id] = rating;
+                await loadManhvas();
+                
+                if (current && current.id === id) {
+                    updateDetailRating();
+                }
+            } catch (error) {
+                console.error('Rating error:', error);
+            }
+        }
+
+        function searchManhvas(e) {
+            const query = e.target.value.toLowerCase();
+            const filtered = manhvas.filter(m => 
+                m.title.toLowerCase().includes(query) || 
+                m.genre.toLowerCase().includes(query) || 
+                m.description.toLowerCase().includes(query)
+            );
+            renderManhvas(filtered);
+        }
+
+        async function showDetail(id) {
+            if (!user) {
+                openModal();
+                return;
+            }
+            
+            showLoading(true);
+            current = manhvas.find(m => m.id === id);
+            
+            document.getElementById('mainView').style.display = 'none';
+            document.getElementById('chapterList').style.display = 'block';
+            document.getElementById('title').textContent = current.title;
+            document.getElementById('desc').textContent = current.description;
+            document.getElementById('cover').src = current.cover_url || 'https://via.placeholder.com/300x400?text=' + current.title;
+            
+            updateDetailRating();
+            
+            const { data } = await supabase.from('chapters').select('*').eq('manhva_id', id).order('chapter_number', { ascending: true });
+            currentChapters = data || [];
+            
+            document.getElementById('chapters').innerHTML = currentChapters.length ? 
+                currentChapters.map(c => `
+                    <div class="chapter-item" onclick="openChapter(${c.id})">
+                        Chapter ${c.chapter_number}
+                    </div>
+                `).join('') : '<p>Chapterlar yo\'q</p>';
+            
+            showLoading(false);
+        }
+
+        function updateDetailRating() {
+            const avgRating = current.avg_rating || 0;
+            const ratingCount = current.rating_count || 0;
+            
+            document.getElementById('avgRating').textContent = avgRating.toFixed(1);
+            document.getElementById('avgStars').innerHTML = [1,2,3,4,5].map(i => 
+                `<span class="star ${i <= Math.round(avgRating) ? 'filled' : ''}">★</span>`
+            ).join('');
+            document.getElementById('ratingCount').textContent = `${ratingCount} baho`;
+            
+            const userRating = userRatings[current.id] || 0;
+            document.getElementById('userRating').innerHTML = [1,2,3,4,5].map(i => 
+                `<span class="star ${i <= userRating ? 'user-rated' : ''}" onclick="rateManhva(${current.id}, ${i})">★</span>`
+            ).join('') + `<span class="rating-info">${userRating ? userRating + ' yulduz' : 'Baho bermagan'}</span>`;
+        }
+
+        async function openChapter(id) {
+            showLoading(true);
+            document.getElementById('chapterList').style.display = 'none';
+            document.getElementById('reader').style.display = 'block';
+            
+            currentChapterIndex = currentChapters.findIndex(c => c.id === id);
+            
+            const { data } = await supabase.from('pages').select('*').eq('chapter_id', id).order('page_number', { ascending: true });
+            
+            document.getElementById('pages').innerHTML = data?.length ?
+                data.map(p => `<img src="${p.image_url}" class="reader-page" alt="Page ${p.page_number}">`).join('') :
+                '<p>Sahifalar yo\'q</p>';
+            
+            document.getElementById('nextBtn').style.display = currentChapterIndex < currentChapters.length - 1 ? 'block' : 'none';
+            document.getElementById('endBtn').style.display = currentChapterIndex === currentChapters.length - 1 ? 'block' : 'none';
+            
+            readingStartTime = Date.now();
+            
+            showLoading(false);
+        }
+
+        function nextChapter() {
+            updateReadingTime();
+            if (currentChapterIndex < currentChapters.length - 1) {
+                openChapter(currentChapters[currentChapterIndex + 1].id);
+            }
+        }
+
+        async function showChapters() {
+            updateReadingTime();
+            document.getElementById('reader').style.display = 'none';
+            document.getElementById('chapterList').style.display = 'block';
+        }
+
+        function updateReadingTime() {
+            if (readingStartTime) {
+                const elapsed = Math.floor((Date.now() - readingStartTime) / 1000);
+                user.total_time += elapsed;
+                readingStartTime = null;
+            }
+        }
+
+        async function showLeaderboard() {
+            if (!user) {
+                openModal();
+                return;
+            }
+            showLoading(true);
+            document.getElementById('mainView').style.display = 'none';
+            document.getElementById('leaderboard').style.display = 'block';
+            
+            const { data } = await supabase.from('users').select('username, total_time').order('total_time', { ascending: false }).limit(50);
+            const leaders = data || [];
+            
+            document.getElementById('leaders').innerHTML = leaders.map((l, i) => {
+                const hours = Math.floor(l.total_time / 3600);
+                const minutes = Math.floor((l.total_time % 3600) / 60);
+                const seconds = l.total_time % 60;
+                let timeStr = '';
+                if (hours > 0) timeStr += `${hours} soat `;
+                if (minutes > 0) timeStr += `${minutes} minut `;
+                timeStr += `${seconds} sekund`;
+                
+                return `
+                    <div class="leader-item">
+                        <span class="leader-rank">#${i+1} ${l.username}</span>
+                        <span>${timeStr}</span>
+                    </div>
+                `;
+            }).join('');
+            
+            if (!leaders.length) {
+                document.getElementById('leaders').innerHTML = '<p>Hech kim yo\'q</p>';
+            }
+            
+            showLoading(false);
+        }
+
+        function showMain() {
+            document.getElementById('mainView').style.display = 'block';
+            document.getElementById('chapterList').style.display = 'none';
+            document.getElementById('reader').style.display = 'none';
+            document.getElementById('leaderboard').style.display = 'none';
+        }
+
+        function showLoading(show) {
+            document.getElementById('loading').style.display = show ? 'block' : 'none';
+        }
+
+        function startTimer() {
+            startTime = Date.now();
+            timerInterval = setInterval(updateTime, 60000);
+        }
+
+        async function updateTime() {
+            if (!user || !startTime) return;
+            const elapsed = Math.floor((Date.now() - startTime) / 1000);
+            startTime = Date.now();
+            user.total_time += elapsed;
+            await supabase.from('users').update({ total_time: user.total_time }).eq('id', user.id);
+            const stored = localStorage.getItem('user') ? localStorage : sessionStorage;
+            stored.setItem('user', JSON.stringify(user));
+        }
+
+        function stopTimer() {
+            clearInterval(timerInterval);
+            timerInterval = null;
+        }
+
+        window.addEventListener('beforeunload', updateTime);
     </script>
 </body>
 </html>
