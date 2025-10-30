@@ -6,11 +6,7 @@
     <meta name="google-adsense-account" content="ca-pub-1670894419218881">
     <title>ManhvaUZ - Manhvalarni O'zbek Tilida O'qing</title>
     
-    <!-- Google AdSense Asosiy Script -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1670894419218881"
-     crossorigin="anonymous"></script>
-    
-    <!-- Google Funding Choices (Consent Management) -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1670894419218881" crossorigin="anonymous"></script>
     <script async src="https://fundingchoices.google.com/fundingchoices.js?snippet_id=pub-1670894419218881"></script>
     
     <style>
@@ -23,653 +19,437 @@
         :root {
             --primary: #6366f1;
             --primary-dark: #4f46e5;
-            --secondary: #8b5cf6;
+            --bg: #0f0f1e;
+            --bg-card: rgba(255, 255, 255, 0.05);
+            --glass: rgba(255, 255, 255, 0.08);
+            --glass-border: rgba(255, 255, 255, 0.15);
+            --text: #ffffff;
+            --text-dim: rgba(255, 255, 255, 0.7);
             --accent: #ec4899;
-            --text-dark: #1e293b;
-            --text-light: #64748b;
-            --bg-light: #f8fafc;
-            --bg-card: #ffffff;
-            --border: #e2e8f0;
-            --shadow: rgba(0, 0, 0, 0.1);
-            --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            --gradient-2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            --gradient-3: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: var(--bg-light);
-            color: var(--text-dark);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg);
+            color: var(--text);
             line-height: 1.6;
             overflow-x: hidden;
         }
 
-        /* HEADER */
+        /* GLASS HEADER */
         header {
-            background: var(--bg-card);
-            box-shadow: 0 1px 3px var(--shadow);
             position: sticky;
             top: 0;
             z-index: 1000;
-            animation: slideDown 0.3s ease-out;
-        }
-
-        @keyframes slideDown {
-            from {
-                transform: translateY(-100%);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
+            background: rgba(15, 15, 30, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
         }
 
         nav {
             max-width: 1400px;
             margin: 0 auto;
-            padding: 1rem;
+            padding: 1rem 1.5rem;
             display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .nav-top {
-            display: flex;
-            justify-content: space-between;
             align-items: center;
+            justify-content: space-between;
+            gap: 2rem;
         }
 
         .logo {
             font-size: 1.5rem;
             font-weight: 800;
-            background: var(--gradient-1);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-clip: text;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            transition: transform 0.3s ease;
-        }
-
-        .logo:hover {
-            transform: scale(1.05);
-        }
-
-        .menu-toggle {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-            background: none;
-            border: none;
-            cursor: pointer;
-            padding: 0.5rem;
-            transition: all 0.3s ease;
-        }
-
-        .menu-toggle span {
-            width: 24px;
-            height: 3px;
-            background: var(--primary);
-            border-radius: 3px;
-            transition: all 0.3s ease;
-        }
-
-        .menu-toggle.active span:nth-child(1) {
-            transform: rotate(45deg) translate(6px, 6px);
-        }
-
-        .menu-toggle.active span:nth-child(2) {
-            opacity: 0;
-        }
-
-        .menu-toggle.active span:nth-child(3) {
-            transform: rotate(-45deg) translate(6px, -6px);
-        }
-
-        .nav-links {
-            display: none;
-            flex-direction: column;
-            gap: 0.5rem;
-            animation: slideIn 0.3s ease-out;
-        }
-
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .nav-links.active {
-            display: flex;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: var(--text-dark);
-            font-weight: 600;
-            padding: 0.75rem 1rem;
-            border-radius: 0.75rem;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .nav-links a:hover {
-            background: var(--bg-light);
-            color: var(--primary);
-            transform: translateX(5px);
-        }
-
-        .search-container {
-            position: relative;
-            width: 100%;
+            white-space: nowrap;
         }
 
         .search-box {
-            width: 100%;
-            padding: 0.875rem 1rem 0.875rem 2.75rem;
-            border: 2px solid var(--border);
-            border-radius: 1rem;
-            outline: none;
-            transition: all 0.3s ease;
+            flex: 1;
+            max-width: 500px;
+            padding: 0.75rem 1.25rem;
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            color: var(--text);
             font-size: 0.95rem;
-            background: var(--bg-light);
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        .search-box::placeholder {
+            color: var(--text-dim);
         }
 
         .search-box:focus {
+            background: rgba(255, 255, 255, 0.1);
             border-color: var(--primary);
             box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
-            background: white;
         }
 
-        .search-icon {
-            position: absolute;
-            left: 1rem;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--text-light);
-            pointer-events: none;
+        .nav-btns {
+            display: flex;
+            gap: 0.5rem;
         }
 
-        /* HERO SECTION */
+        .nav-btn {
+            padding: 0.75rem 1.25rem;
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 10px;
+            color: var(--text);
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+
+        .nav-btn:hover {
+            background: rgba(255, 255, 255, 0.12);
+            transform: translateY(-2px);
+        }
+
+        /* HERO */
         .hero {
-            background: var(--gradient-1);
-            color: white;
-            padding: 3rem 1rem;
+            padding: 4rem 1.5rem 3rem;
             text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="2" fill="white" opacity="0.1"/></svg>');
-            animation: float 20s linear infinite;
-        }
-
-        @keyframes float {
-            to {
-                transform: translateY(-100px);
-            }
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 1;
-            max-width: 800px;
-            margin: 0 auto;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.15) 0%, rgba(118, 75, 162, 0.15) 100%);
         }
 
         .hero h1 {
-            font-size: 2rem;
+            font-size: 2.5rem;
             font-weight: 900;
-            margin-bottom: 1rem;
-            animation: fadeInUp 0.6s ease-out;
+            margin-bottom: 0.75rem;
         }
 
         .hero p {
             font-size: 1.1rem;
-            opacity: 0.95;
-            margin-bottom: 2rem;
-            animation: fadeInUp 0.6s ease-out 0.2s both;
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            color: var(--text-dim);
         }
 
         /* CONTAINER */
         .container {
             max-width: 1400px;
             margin: 0 auto;
-            padding: 1.5rem 1rem;
-        }
-
-        /* ADSENSE REKLAMA JOYLARI */
-        .ad-banner {
-            background: transparent;
-            margin: 2rem 0;
-            text-align: center;
-            min-height: 90px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .ad-banner ins {
-            display: block;
-            width: 100%;
+            padding: 2rem 1.5rem;
         }
 
         /* FILTERS */
         .filters {
             display: flex;
             gap: 0.75rem;
-            margin: 1.5rem 0;
+            margin-bottom: 2rem;
             overflow-x: auto;
             -webkit-overflow-scrolling: touch;
-            scrollbar-width: none;
+            scrollbar-width: thin;
             padding-bottom: 0.5rem;
         }
 
         .filters::-webkit-scrollbar {
-            display: none;
+            height: 4px;
+        }
+
+        .filters::-webkit-scrollbar-track {
+            background: var(--glass);
+            border-radius: 10px;
+        }
+
+        .filters::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 10px;
         }
 
         .filter-btn {
-            padding: 0.75rem 1.5rem;
-            border: 2px solid var(--border);
-            background: white;
-            color: var(--text-dark);
-            border-radius: 2rem;
+            padding: 0.65rem 1.25rem;
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 10px;
+            color: var(--text);
             cursor: pointer;
             font-weight: 600;
             font-size: 0.9rem;
-            transition: all 0.3s ease;
+            transition: all 0.3s;
             white-space: nowrap;
             flex-shrink: 0;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
         }
 
         .filter-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            background: rgba(255, 255, 255, 0.12);
         }
 
         .filter-btn.active {
             background: var(--primary);
-            color: white;
             border-color: var(--primary);
-            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
         }
 
-        /* MANHVA GRID */
+        /* MANHVA GRID - Kichikroq */
         .manhva-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
             gap: 1.25rem;
-            margin-top: 1.5rem;
         }
 
         .manhva-card {
-            background: white;
-            border-radius: 1rem;
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 4px 6px -1px var(--shadow);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             cursor: pointer;
-            position: relative;
-        }
-
-        .manhva-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: var(--gradient-1);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            z-index: 1;
-            pointer-events: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
         }
 
         .manhva-card:hover {
-            transform: translateY(-8px) scale(1.02);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-        }
-
-        .manhva-card:hover::before {
-            opacity: 0.1;
-        }
-
-        .manhva-card:active {
-            transform: scale(0.98);
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--primary);
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3);
         }
 
         .manhva-cover {
             width: 100%;
             aspect-ratio: 3/4;
-            background: var(--gradient-1);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             font-weight: 600;
             text-align: center;
-            padding: 1rem;
+            padding: 0.75rem;
             position: relative;
             overflow: hidden;
-        }
-
-        .manhva-cover::after {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
-            animation: shimmer 3s infinite;
-        }
-
-        @keyframes shimmer {
-            0%, 100% {
-                transform: translate(0, 0);
-            }
-            50% {
-                transform: translate(30%, 30%);
-            }
         }
 
         .manhva-cover img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            position: relative;
-            z-index: 1;
         }
 
         .manhva-info {
-            padding: 1rem;
-            position: relative;
-            z-index: 2;
+            padding: 0.75rem;
         }
 
         .manhva-title {
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             font-weight: 700;
-            margin-bottom: 0.5rem;
-            color: var(--text-dark);
+            margin-bottom: 0.4rem;
             overflow: hidden;
             text-overflow: ellipsis;
             display: -webkit-box;
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
-            line-height: 1.4;
+            line-height: 1.3;
         }
 
         .manhva-genre {
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             color: var(--primary);
             font-weight: 600;
-            margin-bottom: 0.5rem;
             display: inline-block;
-            padding: 0.25rem 0.75rem;
-            background: rgba(99, 102, 241, 0.1);
-            border-radius: 1rem;
+            padding: 0.2rem 0.6rem;
+            background: rgba(99, 102, 241, 0.2);
+            border-radius: 6px;
+            margin-bottom: 0.3rem;
         }
 
         .manhva-chapters {
-            font-size: 0.8rem;
-            color: var(--text-light);
-            display: flex;
-            align-items: center;
-            gap: 0.25rem;
+            font-size: 0.75rem;
+            color: var(--text-dim);
         }
 
-        .manhva-chapters::before {
-            content: '📖';
-        }
-
-        /* CHAPTER LIST */
+        /* DETAIL VIEW */
         .chapter-list {
             display: none;
-            animation: fadeIn 0.3s ease-out;
         }
 
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
-
-        .manhva-detail-header {
+        .detail-header {
             display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
+            gap: 2rem;
             margin-bottom: 2rem;
             padding: 2rem;
-            background: white;
-            border-radius: 1.5rem;
-            box-shadow: 0 4px 6px -1px var(--shadow);
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
         }
 
-        .manhva-detail-cover {
-            width: 100%;
-            max-width: 200px;
+        .detail-cover {
+            width: 200px;
             aspect-ratio: 3/4;
-            object-fit: cover;
-            border-radius: 1rem;
-            margin: 0 auto;
-            background: var(--gradient-1);
+            border-radius: 12px;
+            overflow: hidden;
+            flex-shrink: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
             font-weight: 600;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
         }
 
-        .manhva-detail-cover img {
+        .detail-cover img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            border-radius: 1rem;
         }
 
-        .manhva-detail-info h2 {
-            font-size: 1.5rem;
-            font-weight: 800;
+        .detail-info h2 {
+            font-size: 1.75rem;
             margin-bottom: 0.75rem;
-            color: var(--text-dark);
         }
 
-        .manhva-detail-description {
-            color: var(--text-light);
+        .detail-description {
+            color: var(--text-dim);
             line-height: 1.7;
-            font-size: 0.95rem;
+            margin-top: 1rem;
+        }
+
+        .back-btn {
+            padding: 0.875rem 1.75rem;
+            background: var(--primary);
+            border: none;
+            border-radius: 10px;
+            color: white;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s;
+            margin-bottom: 1.5rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .back-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
         }
 
         .chapters-container {
-            background: white;
-            border-radius: 1.5rem;
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
             padding: 1.5rem;
-            box-shadow: 0 4px 6px -1px var(--shadow);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
         }
 
         .chapters-header {
             font-size: 1.25rem;
             font-weight: 700;
             margin-bottom: 1rem;
-            color: var(--text-dark);
         }
 
         .chapter-item {
-            padding: 1.25rem;
-            border-bottom: 1px solid var(--border);
+            padding: 1rem;
+            border-bottom: 1px solid var(--glass-border);
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.3s;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            gap: 1rem;
-            border-radius: 0.75rem;
+            border-radius: 8px;
             margin-bottom: 0.5rem;
         }
 
-        .chapter-item:last-child {
-            border-bottom: none;
-        }
-
         .chapter-item:hover {
-            background: var(--bg-light);
+            background: rgba(255, 255, 255, 0.05);
             transform: translateX(5px);
-        }
-
-        .chapter-item:active {
-            transform: scale(0.98);
         }
 
         .chapter-number {
             font-weight: 700;
             color: var(--primary);
-            font-size: 1rem;
         }
 
         .chapter-date {
             font-size: 0.8rem;
-            color: var(--text-light);
-            white-space: nowrap;
+            color: var(--text-dim);
         }
 
         /* READER VIEW */
         .reader-container {
             display: none;
-            animation: fadeIn 0.3s ease-out;
         }
 
         .reader-header {
             display: flex;
-            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
             gap: 1rem;
             margin-bottom: 2rem;
             padding: 1.5rem;
-            background: white;
-            border-radius: 1.5rem;
-            box-shadow: 0 4px 6px -1px var(--shadow);
-        }
-
-        .back-btn {
-            background: var(--primary);
-            color: white;
-            border: none;
-            padding: 1rem 2rem;
-            border-radius: 0.75rem;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
-        }
-
-        .back-btn:hover {
-            background: var(--primary-dark);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 16px rgba(99, 102, 241, 0.4);
-        }
-
-        .back-btn:active {
-            transform: scale(0.98);
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
         }
 
         .chapter-nav {
             display: flex;
             gap: 0.75rem;
-            justify-content: space-between;
             align-items: center;
         }
 
         .chapter-nav button {
-            background: white;
-            border: 2px solid var(--border);
-            padding: 0.875rem 1.25rem;
-            border-radius: 0.75rem;
+            padding: 0.75rem 1.25rem;
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 10px;
+            color: var(--text);
             cursor: pointer;
             font-weight: 600;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
-            flex: 1;
-            color: var(--text-dark);
+            transition: all 0.3s;
         }
 
         .chapter-nav button:hover:not(:disabled) {
             background: var(--primary);
-            color: white;
             border-color: var(--primary);
-            transform: translateY(-2px);
-        }
-
-        .chapter-nav button:active:not(:disabled) {
-            transform: scale(0.98);
         }
 
         .chapter-nav button:disabled {
-            opacity: 0.4;
+            opacity: 0.3;
             cursor: not-allowed;
         }
 
         .chapter-nav span {
             font-weight: 700;
             color: var(--primary);
-            white-space: nowrap;
-            font-size: 1rem;
             padding: 0 0.5rem;
         }
 
+        /* READER PAGES - O'rtacha o'lcham */
         .reader-pages {
             display: flex;
             flex-direction: column;
             gap: 0;
             background: #000;
-            border-radius: 1rem;
+            border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            max-width: 900px;
+            margin: 0 auto;
         }
 
         .reader-page {
             width: 100%;
-            background: #000;
-            position: relative;
+            cursor: zoom-in;
+            transition: transform 0.3s;
+        }
+
+        .reader-page.zoomed {
+            cursor: zoom-out;
+            transform: scale(1.5);
+            transform-origin: center;
+            z-index: 10;
         }
 
         .reader-page img {
@@ -678,35 +458,29 @@
             display: block;
         }
 
-        .reader-page-placeholder {
-            width: 100%;
-            aspect-ratio: 2/3;
-            background: var(--bg-light);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-light);
-            font-weight: 600;
+        /* ADS */
+        .ad-banner {
+            margin: 2rem 0;
+            text-align: center;
+            min-height: 90px;
         }
 
         /* LOADING */
         .loading {
             display: none;
             text-align: center;
-            padding: 4rem 1rem;
+            padding: 3rem;
             color: var(--primary);
-            font-size: 1.1rem;
-            font-weight: 600;
         }
 
         .spinner {
-            border: 4px solid var(--border);
-            border-top: 4px solid var(--primary);
+            border: 3px solid rgba(255, 255, 255, 0.1);
+            border-top: 3px solid var(--primary);
             border-radius: 50%;
-            width: 50px;
-            height: 50px;
+            width: 40px;
+            height: 40px;
             animation: spin 0.8s linear infinite;
-            margin: 1.5rem auto;
+            margin: 1rem auto;
         }
 
         @keyframes spin {
@@ -716,147 +490,35 @@
 
         /* FOOTER */
         footer {
-            background: white;
-            margin-top: 3rem;
-            padding: 3rem 1rem;
+            margin-top: 4rem;
+            padding: 2rem 1.5rem;
             text-align: center;
-            border-top: 1px solid var(--border);
+            background: var(--glass);
+            border-top: 1px solid var(--glass-border);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
         }
 
-        .footer-content {
-            max-width: 1400px;
-            margin: 0 auto;
+        footer p {
+            color: var(--text-dim);
+            font-size: 0.9rem;
+            margin: 0.25rem 0;
         }
 
-        .footer-content p {
-            margin: 0.5rem 0;
-            font-size: 0.95rem;
-            color: var(--text-light);
-        }
-
-        .footer-content strong {
-            color: var(--primary);
-            font-weight: 700;
-        }
-
-        /* RESPONSIVE - TABLET */
-        @media (min-width: 640px) {
-            .manhva-grid {
-                grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-                gap: 1.5rem;
-            }
-
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-
-            .manhva-detail-header {
-                flex-direction: row;
-                align-items: flex-start;
-            }
-
-            .manhva-detail-cover {
-                margin: 0;
-            }
-        }
-
-        /* RESPONSIVE - DESKTOP */
-        @media (min-width: 1024px) {
-            nav {
-                flex-direction: row;
-                justify-content: space-between;
-                align-items: center;
-                padding: 1.25rem 2rem;
-            }
-
-            .nav-top {
-                width: auto;
-            }
-
-            .menu-toggle {
-                display: none;
-            }
-
-            .nav-links {
-                display: flex;
-                flex-direction: row;
-                gap: 0.5rem;
-                align-items: center;
-            }
-
-            .nav-links a {
-                padding: 0.75rem 1.25rem;
-            }
-
-            .nav-links a:hover {
-                transform: translateY(-2px);
-            }
-
-            .logo {
-                font-size: 1.75rem;
-            }
-
-            .search-container {
-                width: 350px;
-            }
-
-            .hero {
-                padding: 4rem 2rem;
-            }
-
-            .hero h1 {
-                font-size: 3rem;
-            }
-
-            .hero p {
-                font-size: 1.25rem;
-            }
-
-            .container {
-                padding: 2rem;
-            }
-
-            .manhva-grid {
-                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-                gap: 2rem;
-            }
-
-            .reader-header {
-                flex-direction: row;
-                justify-content: space-between;
-                align-items: center;
-            }
-
-            .back-btn {
-                width: auto;
-            }
-
-            .chapter-nav {
-                width: auto;
-            }
-        }
-
-        /* RESPONSIVE - LARGE DESKTOP */
-        @media (min-width: 1400px) {
-            .manhva-grid {
-                grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-            }
-        }
-
-        /* COOKIE CONSENT BANNER */
+        /* COOKIE CONSENT */
         .cookie-consent {
             position: fixed;
             bottom: 0;
             left: 0;
             right: 0;
-            background: rgba(255, 255, 255, 0.98);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.15);
+            background: rgba(15, 15, 30, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-top: 1px solid var(--glass-border);
             padding: 1.5rem;
             z-index: 10000;
             transform: translateY(100%);
-            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            border-top: 3px solid var(--primary);
+            transition: transform 0.4s;
         }
 
         .cookie-consent.show {
@@ -867,169 +529,133 @@
             max-width: 1400px;
             margin: 0 auto;
             display: flex;
-            flex-direction: column;
+            flex-wrap: wrap;
             gap: 1rem;
             align-items: center;
+            justify-content: space-between;
         }
 
         .cookie-text {
-            color: var(--text-dark);
-            font-size: 0.95rem;
-            line-height: 1.6;
-            text-align: center;
-        }
-
-        .cookie-text strong {
-            color: var(--primary);
-            font-weight: 700;
-        }
-
-        .cookie-text a {
-            color: var(--primary);
-            text-decoration: underline;
-            font-weight: 600;
+            flex: 1;
+            min-width: 250px;
+            font-size: 0.9rem;
+            color: var(--text-dim);
         }
 
         .cookie-buttons {
             display: flex;
-            gap: 1rem;
+            gap: 0.75rem;
             flex-wrap: wrap;
-            justify-content: center;
         }
 
         .cookie-btn {
-            padding: 0.875rem 2rem;
+            padding: 0.75rem 1.5rem;
             border: none;
-            border-radius: 0.75rem;
+            border-radius: 8px;
             font-weight: 600;
-            font-size: 0.95rem;
             cursor: pointer;
-            transition: all 0.3s ease;
-            white-space: nowrap;
+            transition: all 0.3s;
+            font-size: 0.9rem;
         }
 
         .cookie-btn-accept {
             background: var(--primary);
             color: white;
-            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
         }
 
         .cookie-btn-accept:hover {
             background: var(--primary-dark);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 16px rgba(99, 102, 241, 0.4);
         }
 
         .cookie-btn-decline {
-            background: white;
-            color: var(--text-dark);
-            border: 2px solid var(--border);
+            background: var(--glass);
+            color: var(--text);
+            border: 1px solid var(--glass-border);
         }
 
         .cookie-btn-decline:hover {
-            background: var(--bg-light);
-            border-color: var(--text-light);
+            background: rgba(255, 255, 255, 0.1);
         }
 
-        .cookie-btn-settings {
-            background: transparent;
-            color: var(--primary);
-            border: 2px solid var(--primary);
-        }
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                gap: 1rem;
+            }
 
-        .cookie-btn-settings:hover {
-            background: var(--primary);
-            color: white;
-        }
+            .search-box {
+                max-width: 100%;
+            }
 
-        @media (min-width: 768px) {
-            .cookie-content {
-                flex-direction: row;
-                justify-content: space-between;
+            .nav-btns {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .hero h1 {
+                font-size: 1.75rem;
+            }
+
+            .detail-header {
+                flex-direction: column;
                 align-items: center;
+                text-align: center;
             }
 
-            .cookie-text {
-                text-align: left;
-                flex: 1;
+            .reader-header {
+                flex-direction: column;
             }
 
-            .cookie-buttons {
-                flex-shrink: 0;
+            .manhva-grid {
+                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .manhva-grid {
+                grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
             }
         }
     </style>
 </head>
 <body>
-    <!-- COOKIE CONSENT BANNER -->
+    <!-- COOKIE CONSENT -->
     <div class="cookie-consent" id="cookieConsent">
         <div class="cookie-content">
             <div class="cookie-text">
-                🍪 <strong>Cookie va Shaxsiy Ma'lumotlar</strong><br>
-                Biz saytimizni yaxshilash va sizga moslashtirilgan reklamalar ko'rsatish uchun cookie-lardan foydalanamiz. 
-                Davom etish orqali siz <a href="#" onclick="return false;">Maxfiylik Siyosati</a>mizga rozilik bildirasiz.
+                🍪 Biz cookie-lardan foydalanib saytni yaxshiroq qilamiz va reklamalar ko'rsatamiz.
             </div>
             <div class="cookie-buttons">
-                <button class="cookie-btn cookie-btn-accept" onclick="acceptCookies()">✓ Roziman</button>
-                <button class="cookie-btn cookie-btn-decline" onclick="declineCookies()">✗ Rad etish</button>
-                <button class="cookie-btn cookie-btn-settings" onclick="openCookieSettings()">⚙️ Sozlamalar</button>
+                <button class="cookie-btn cookie-btn-accept" onclick="acceptCookies()">Roziman</button>
+                <button class="cookie-btn cookie-btn-decline" onclick="declineCookies()">Yo'q</button>
             </div>
         </div>
     </div>
 
     <header>
         <nav>
-            <div class="nav-top">
-                <div class="logo">🎭 ManhvaUZ</div>
-                <button class="menu-toggle" id="menuToggle">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </button>
-            </div>
-            <div class="nav-links" id="navLinks">
-                <a href="#" id="homeLink">🏠 Asosiy</a>
-                <a href="#" id="popularLink">🔥 Mashhur</a>
-                <a href="#" id="newLink">✨ Yangi</a>
-                <div class="search-container">
-                    <span class="search-icon">🔍</span>
-                    <input type="text" class="search-box" id="searchInput" placeholder="Manhva qidirish...">
-                </div>
+            <div class="logo">🎭 ManhvaUZ</div>
+            <input type="text" class="search-box" id="searchInput" placeholder="Manhva qidirish...">
+            <div class="nav-btns">
+                <button class="nav-btn" id="homeLink">🏠 Asosiy</button>
+                <button class="nav-btn" id="popularLink">🔥 Mashhur</button>
             </div>
         </nav>
     </header>
 
-    <!-- HERO SECTION -->
     <div class="hero">
-        <div class="hero-content">
-            <h1>🎭 O'zbek Tilida Manhvalar</h1>
-            <p>Eng zo'r manhvalarni o'zbek tilida bepul o'qing. Har kuni yangi chapterlar!</p>
-        </div>
+        <h1>🎭 O'zbek Tilida Manhvalar</h1>
+        <p>Eng zo'r manhvalarni bepul o'qing. Har kuni yangilar!</p>
     </div>
 
     <div class="container">
-        <!-- REKLAMA #1: Header ostida -->
-        <div class="ad-banner header-ad">
-            <ins class="adsbygoogle"
-                 style="display:block"
-                 data-ad-client="ca-pub-1670894419218881"
-                 data-ad-slot="1234567890"
-                 data-ad-format="auto"
-                 data-full-width-responsive="true"></ins>
+        <div class="ad-banner">
+            <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1670894419218881" data-ad-slot="1234567890" data-ad-format="auto" data-full-width-responsive="true"></ins>
         </div>
 
         <!-- MAIN VIEW -->
         <div id="mainView">
-            <!-- REKLAMA #2: Content tepasida -->
-            <div class="ad-banner content-top">
-                <ins class="adsbygoogle"
-                     style="display:block"
-                     data-ad-client="ca-pub-1670894419218881"
-                     data-ad-slot="1234567891"
-                     data-ad-format="auto"
-                     data-full-width-responsive="true"></ins>
-            </div>
-
             <div class="filters">
                 <button class="filter-btn active" data-genre="all">Barchasi</button>
                 <button class="filter-btn" data-genre="action">⚔️ Action</button>
@@ -1037,44 +663,27 @@
                 <button class="filter-btn" data-genre="fantasy">🔮 Fantasy</button>
                 <button class="filter-btn" data-genre="drama">🎭 Drama</button>
                 <button class="filter-btn" data-genre="comedy">😄 Comedy</button>
-                <button class="filter-btn" data-genre="horror">👻 Horror</button>
             </div>
 
             <div class="manhva-grid" id="manhvaGrid"></div>
 
-            <!-- REKLAMA #3: Grid ostida -->
-            <div class="ad-banner grid-ad">
-                <ins class="adsbygoogle"
-                     style="display:block"
-                     data-ad-client="ca-pub-1670894419218881"
-                     data-ad-slot="1234567892"
-                     data-ad-format="auto"
-                     data-full-width-responsive="true"></ins>
+            <div class="ad-banner">
+                <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1670894419218881" data-ad-slot="1234567891" data-ad-format="auto" data-full-width-responsive="true"></ins>
             </div>
         </div>
 
-        <!-- CHAPTER LIST VIEW -->
+        <!-- CHAPTER LIST -->
         <div class="chapter-list" id="chapterList">
-            <div class="manhva-detail-header">
-                <div class="manhva-detail-cover" id="detailCover">Cover</div>
-                <div class="manhva-detail-info">
+            <div class="detail-header">
+                <div class="detail-cover" id="detailCover">Cover</div>
+                <div class="detail-info">
                     <h2 id="manhvaTitle"></h2>
                     <div class="manhva-genre" id="manhvaGenre"></div>
-                    <p class="manhva-detail-description" id="manhvaDescription"></p>
+                    <p class="detail-description" id="manhvaDescription"></p>
                 </div>
             </div>
 
             <button class="back-btn" onclick="showMainView()">← Orqaga</button>
-
-            <!-- REKLAMA #4: Chapterlar ro'yxati tepasida -->
-            <div class="ad-banner chapter-ad">
-                <ins class="adsbygoogle"
-                     style="display:block"
-                     data-ad-client="ca-pub-1670894419218881"
-                     data-ad-slot="1234567893"
-                     data-ad-format="auto"
-                     data-full-width-responsive="true"></ins>
-            </div>
 
             <div class="chapters-container">
                 <h3 class="chapters-header">📖 Chapterlar</h3>
@@ -1082,7 +691,7 @@
             </div>
         </div>
 
-        <!-- READER VIEW -->
+        <!-- READER -->
         <div class="reader-container" id="readerView">
             <div class="reader-header">
                 <button class="back-btn" onclick="showChapterList()">← Chapterlar</button>
@@ -1093,26 +702,14 @@
                 </div>
             </div>
 
-            <!-- REKLAMA #5: Reader tepasida -->
-            <div class="ad-banner reader-ad">
-                <ins class="adsbygoogle"
-                     style="display:block"
-                     data-ad-client="ca-pub-1670894419218881"
-                     data-ad-slot="1234567894"
-                     data-ad-format="auto"
-                     data-full-width-responsive="true"></ins>
+            <div class="ad-banner">
+                <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1670894419218881" data-ad-slot="1234567892" data-ad-format="auto" data-full-width-responsive="true"></ins>
             </div>
 
             <div class="reader-pages" id="readerPages"></div>
 
-            <!-- REKLAMA #6: Reader ostida -->
-            <div class="ad-banner reader-ad">
-                <ins class="adsbygoogle"
-                     style="display:block"
-                     data-ad-client="ca-pub-1670894419218881"
-                     data-ad-slot="1234567895"
-                     data-ad-format="auto"
-                     data-full-width-responsive="true"></ins>
+            <div class="ad-banner">
+                <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1670894419218881" data-ad-slot="1234567893" data-ad-format="auto" data-full-width-responsive="true"></ins>
             </div>
         </div>
 
@@ -1123,87 +720,25 @@
     </div>
 
     <footer>
-        <div class="footer-content">
-            <p>📚 <strong>ManhvaUZ</strong> &copy; 2024</p>
-            <p>O'zbek tilida manhva o'qish platformasi</p>
-            <p style="margin-top: 1rem; font-size: 0.85rem;">Barcha huquqlar himoyalangan</p>
-        </div>
+        <p>📚 <strong>ManhvaUZ</strong> © 2024</p>
+        <p>O'zbek tilida manhva platformasi</p>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
-        // ========== SUPABASE CONFIG ==========
         const SUPABASE_URL = 'https://slyvzbqtflcypdiurcju.supabase.co';
         const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNseXZ6YnF0ZmxjeXBkaXVyY2p1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjEwNzM1MTcsImV4cCI6MjA3NjY0OTUxN30.g4r-gpXptgewpEW0LhI_R7Znr8BSk0UcdTh-QUE8OcE';
         const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-        // ========== GLOBAL STATE ==========
         let manhvas = [];
         let currentManhva = null;
         let currentChapterIndex = 0;
 
-        // ========== ADSENSE INITIALIZATION ==========
-        // Sahifa yuklangandan keyin reklamalarni yuklash
-        window.addEventListener('load', function() {
-            // Cookie consent tekshirish
-            checkCookieConsent();
-            
-            // Agar consent berilgan bo'lsa, reklamalarni yuklash
-            if (getCookie('cookieConsent') === 'accepted') {
-                loadAds();
-            }
-        });
-
-        // ========== COOKIE CONSENT FUNCTIONS ==========
-        function checkCookieConsent() {
-            const consent = getCookie('cookieConsent');
-            if (!consent) {
-                // Agar consent yo'q bo'lsa, 1 soniya kutib banner ko'rsatish
-                setTimeout(() => {
-                    document.getElementById('cookieConsent').classList.add('show');
-                }, 1000);
-            }
-        }
-
-        function acceptCookies() {
-            setCookie('cookieConsent', 'accepted', 365);
-            document.getElementById('cookieConsent').classList.remove('show');
-            loadAds();
-        }
-
-        function declineCookies() {
-            setCookie('cookieConsent', 'declined', 365);
-            document.getElementById('cookieConsent').classList.remove('show');
-            // Reklamalarni yuklamaslik
-        }
-
-        function openCookieSettings() {
-            // Google Funding Choices sozlamalarini ochish
-            if (window.__tcfapi) {
-                window.__tcfapi('displayConsentUi', 2, function() {});
-            } else {
-                alert('Sozlamalar yuklanmoqda...');
-            }
-        }
-
-        function loadAds() {
-            try {
-                // Barcha reklamalarni yuklash
-                const ads = document.querySelectorAll('.adsbygoogle');
-                ads.forEach(() => {
-                    (adsbygoogle = window.adsbygoogle || []).push({});
-                });
-            } catch (e) {
-                console.log('AdSense yuklashda xatolik:', e);
-            }
-        }
-
-        // Cookie helper functions
+        // Cookie functions
         function setCookie(name, value, days) {
             const d = new Date();
             d.setTime(d.getTime() + (days * 24 * 60 * 60 * 1000));
-            const expires = "expires=" + d.toUTCString();
-            document.cookie = name + "=" + value + ";" + expires + ";path=/;SameSite=Lax";
+            document.cookie = name + "=" + value + ";expires=" + d.toUTCString() + ";path=/";
         }
 
         function getCookie(name) {
@@ -1217,33 +752,49 @@
             return null;
         }
 
-        // ========== INITIALIZATION ==========
-        document.addEventListener('DOMContentLoaded', () => {
-            loadManhvas();
-            setupEventListeners();
+        function acceptCookies() {
+            setCookie('cookieConsent', 'accepted', 365);
+            document.getElementById('cookieConsent').classList.remove('show');
+            loadAds();
+        }
+
+        function declineCookies() {
+            setCookie('cookieConsent', 'declined', 365);
+            document.getElementById('cookieConsent').classList.remove('show');
+        }
+
+        function loadAds() {
+            try {
+                const ads = document.querySelectorAll('.adsbygoogle');
+                ads.forEach(() => {
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                });
+            } catch (e) {
+                console.log('AdSense error:', e);
+            }
+        }
+
+        // Init
+        window.addEventListener('load', () => {
+            if (!getCookie('cookieConsent')) {
+                setTimeout(() => document.getElementById('cookieConsent').classList.add('show'), 1000);
+            } else if (getCookie('cookieConsent') === 'accepted') {
+                loadAds();
+            }
         });
 
-        // ========== EVENT LISTENERS ==========
-        function setupEventListeners() {
-            // Mobile menu toggle
-            const menuToggle = document.getElementById('menuToggle');
-            const navLinks = document.getElementById('navLinks');
-            
-            menuToggle.addEventListener('click', () => {
-                menuToggle.classList.toggle('active');
-                navLinks.classList.toggle('active');
-            });
+        document.addEventListener('DOMContentLoaded', () => {
+            loadManhvas();
+            setupEvents();
+        });
 
-            // Search
-            let searchTimeout;
+        function setupEvents() {
+            let timeout;
             document.getElementById('searchInput').addEventListener('input', (e) => {
-                clearTimeout(searchTimeout);
-                searchTimeout = setTimeout(() => {
-                    filterManhvas(e.target.value);
-                }, 300);
+                clearTimeout(timeout);
+                timeout = setTimeout(() => filterManhvas(e.target.value), 300);
             });
 
-            // Genre filters
             document.querySelectorAll('.filter-btn').forEach(btn => {
                 btn.addEventListener('click', (e) => {
                     document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
@@ -1252,26 +803,9 @@
                 });
             });
 
-            // Navigation links
-            document.getElementById('homeLink').addEventListener('click', (e) => {
-                e.preventDefault();
-                showMainView();
-                closeMenu();
-            });
+            document.getElementById('homeLink').addEventListener('click', () => showMainView());
+            document.getElementById('popularLink').addEventListener('click', () => filterByGenre('action'));
 
-            document.getElementById('popularLink').addEventListener('click', (e) => {
-                e.preventDefault();
-                filterByGenre('action');
-                closeMenu();
-            });
-
-            document.getElementById('newLink').addEventListener('click', (e) => {
-                e.preventDefault();
-                loadManhvas(true);
-                closeMenu();
-            });
-
-            // Chapter navigation
             document.getElementById('prevChapter').addEventListener('click', () => {
                 if (currentChapterIndex > 0) {
                     currentChapterIndex--;
@@ -1287,324 +821,194 @@
             });
         }
 
-        function closeMenu() {
-            document.getElementById('navLinks').classList.remove('active');
-            document.getElementById('menuToggle').classList.remove('active');
-        }
-
-        // ========== LOAD MANHVAS ==========
-        async function loadManhvas(newOnly = false) {
+        async function loadManhvas() {
             showLoading(true);
             
             try {
-                let query = supabase
-                    .from('manhvas')
-                    .select('*')
-                    .order('created_at', { ascending: false });
+                const { data, error } = await supabase.from('manhvas').select('*').order('created_at', { ascending: false });
 
-                const { data, error } = await query;
-
-                if (error) throw error;
-
-                if (data && data.length > 0) {
-                    manhvas = data;
-                } else {
-                    // Demo data
-                    manhvas = [
-                        {
-                            id: 1,
-                            title: "Solo Leveling",
-                            genre: "action",
-                            cover_url: "",
-                            description: "Sung Jin-Woo - dunyodagi eng zaif E-rank Hunter. Bir kun u sirli dungeondan tirik qoladi va noyob kuchga ega bo'ladi - darajasini ko'tarish qobiliyati. Endi u dunyo bo'yicha eng kuchli hunter bo'lish yo'lida!",
-                            chapters: []
-                        },
-                        {
-                            id: 2,
-                            title: "Tower of God",
-                            genre: "fantasy",
-                            cover_url: "",
-                            description: "Rachel - Bam uchun hamma narsa edi. Va u uni tark etib Tower ga kirdi. Endi Bam ham minoraga kiradi va har bir qavatda muammolarni yechib Rachelni topishga harakat qiladi.",
-                            chapters: []
-                        },
-                        {
-                            id: 3,
-                            title: "The Beginning After The End",
-                            genre: "fantasy",
-                            cover_url: "",
-                            description: "Qirol Grey eng yosh yoshda shon-shuhratga erishdi, ammo u yolg'izlik hissini his qildi. Ikkinchi imkoniyat - yangi dunyoda chaqaloq sifatida qayta tug'ilish. Endi u ilgari qila olmagan narsalarni amalga oshirish imkoniyatiga ega.",
-                            chapters: []
-                        },
-                        {
-                            id: 4,
-                            title: "Omniscient Reader's Viewpoint",
-                            genre: "action",
-                            cover_url: "",
-                            description: "Kim Dokja 10 yil davomida 'Three Ways to Survive the Apocalypse' web romanini o'qib kelgan. Bir kuni roman haqiqatga aylanadi va faqat u oxirigacha o'qagan yagona odam!",
-                            chapters: []
-                        },
-                        {
-                            id: 5,
-                            title: "True Beauty",
-                            genre: "romance",
-                            cover_url: "",
-                            description: "Lim Ju-kyung - oddiy qiz, lekin makiyaj san'atida mohir. Yangi maktabda u go'zal qiz sifatida mashhur bo'ladi. Ammo uning sirini kim bilib qolsa?",
-                            chapters: []
-                        },
-                        {
-                            id: 6,
-                            title: "Noblesse",
-                            genre: "action",
-                            cover_url: "",
-                            description: "Cadis Etrama Di Raizel - qudratli vampir noble 820 yil uxlab yotgan edi. U zamonaviy dunyoda uyg'onadi va yangi hayotga moslashishi kerak.",
-                            chapters: []
-                        },
-                        {
-                            id: 7,
-                            title: "Eleceed",
-                            genre: "action",
-                            cover_url: "",
-                            description: "Jiwoo - tezlik qobiliyatiga ega oddiy o'g'il bola. U yarador mushukka yordam beradi va bu mushuk aslida eng kuchli awakenerlardan biri ekan!",
-                            chapters: []
-                        },
-                        {
-                            id: 8,
-                            title: "The Gamer",
-                            genre: "fantasy",
-                            cover_url: "",
-                            description: "Han Jee-Han haqiqiy dunyoni video o'yin kabi ko'rish qobiliyatiga ega bo'ladi. U level up qilishi, skilllar o'rganishi va quest bajarishi mumkin!",
-                            chapters: []
-                        }
-                    ];
-                }
+                manhvas = data && data.length > 0 ? data : [
+                    { id: 1, title: "Solo Leveling", genre: "action", cover_url: "", description: "Sung Jin-Woo - eng zaif E-rank Hunter. U sirli dungeondan tirik qoladi va darajasini ko'tarish qobiliyatiga ega bo'ladi!", chapters: [] },
+                    { id: 2, title: "Tower of God", genre: "fantasy", cover_url: "", description: "Bam Tower ga kiradi va har qavatda sinovlardan o'tib Rachelni topishga harakat qiladi.", chapters: [] },
+                    { id: 3, title: "The Beginning After The End", genre: "fantasy", cover_url: "", description: "Qirol Grey yangi dunyoda qayta tug'iladi va ikkinchi imkoniyatga ega bo'ladi.", chapters: [] },
+                    { id: 4, title: "Omniscient Reader", genre: "action", cover_url: "", description: "Kim Dokja 10 yil o'qigan romani haqiqatga aylanadi!", chapters: [] },
+                    { id: 5, title: "True Beauty", genre: "romance", cover_url: "", description: "Ju-kyung makiyaj orqali go'zallikka erishadi, lekin sirini kim biladi?", chapters: [] },
+                    { id: 6, title: "Noblesse", genre: "action", cover_url: "", description: "Vampir noble 820 yil uyqudan uyg'onadi.", chapters: [] },
+                    { id: 7, title: "Eleceed", genre: "action", cover_url: "", description: "Jiwoo tezlik qobiliyatiga ega va mushuk orqali kuchli awakenerga duch keladi.", chapters: [] },
+                    { id: 8, title: "The Gamer", genre: "fantasy", cover_url: "", description: "Han Jee-Han haqiqiy dunyoni video o'yin kabi ko'radi va level up qiladi!", chapters: [] }
+                ];
 
                 renderManhvas();
             } catch (error) {
-                console.error('Xatolik:', error);
-                alert('Manhvalarni yuklashda xatolik: ' + error.message);
+                console.error('Error:', error);
             } finally {
                 showLoading(false);
             }
         }
 
-        // ========== RENDER MANHVAS ==========
-        function renderManhvas(filteredManhvas = manhvas) {
+        function renderManhvas(filtered = manhvas) {
             const grid = document.getElementById('manhvaGrid');
             grid.innerHTML = '';
 
-            if (filteredManhvas.length === 0) {
-                grid.innerHTML = '<p style="color: var(--text-dark); text-align: center; grid-column: 1/-1; padding: 3rem; background: white; border-radius: 1rem;">🔍 Hech narsa topilmadi</p>';
+            if (filtered.length === 0) {
+                grid.innerHTML = '<p style="color: var(--text-dim); text-align: center; grid-column: 1/-1; padding: 2rem;">🔍 Hech narsa topilmadi</p>';
                 return;
             }
 
-            filteredManhvas.forEach(manhva => {
+            filtered.forEach(m => {
                 const card = document.createElement('div');
                 card.className = 'manhva-card';
-                card.onclick = () => showManhvaDetails(manhva);
-                
+                card.onclick = () => showDetail(m);
                 card.innerHTML = `
-                    <div class="manhva-cover">
-                        ${manhva.cover_url ? 
-                            `<img src="${manhva.cover_url}" alt="${manhva.title}">` : 
-                            manhva.title}
-                    </div>
+                    <div class="manhva-cover">${m.cover_url ? `<img src="${m.cover_url}" alt="${m.title}">` : m.title}</div>
                     <div class="manhva-info">
-                        <div class="manhva-title">${manhva.title}</div>
-                        <div class="manhva-genre">${translateGenre(manhva.genre)}</div>
-                        <div class="manhva-chapters">${manhva.chapters?.length || 0} ta chapter</div>
+                        <div class="manhva-title">${m.title}</div>
+                        <div class="manhva-genre">${getGenre(m.genre)}</div>
+                        <div class="manhva-chapters">${m.chapters?.length || 0} chapter</div>
                     </div>
                 `;
-                
                 grid.appendChild(card);
             });
         }
 
-        // ========== SHOW MANHVA DETAILS ==========
-        async function showManhvaDetails(manhva) {
+        async function showDetail(m) {
             showLoading(true);
-            currentManhva = manhva;
+            currentManhva = m;
 
             try {
-                const { data: chapters, error } = await supabase
-                    .from('chapters')
-                    .select('*')
-                    .eq('manhva_id', manhva.id)
-                    .order('chapter_number', { ascending: false });
-
-                if (error) throw error;
-
+                const { data: chapters } = await supabase.from('chapters').select('*').eq('manhva_id', m.id).order('chapter_number', { ascending: false });
                 currentManhva.chapters = chapters || [];
 
                 document.getElementById('mainView').style.display = 'none';
                 document.getElementById('readerView').style.display = 'none';
                 document.getElementById('chapterList').style.display = 'block';
                 
-                document.getElementById('manhvaTitle').textContent = manhva.title;
-                document.getElementById('manhvaGenre').textContent = translateGenre(manhva.genre);
-                document.getElementById('manhvaDescription').textContent = manhva.description || 'Hozircha tavsif yo\'q';
+                document.getElementById('manhvaTitle').textContent = m.title;
+                document.getElementById('manhvaGenre').textContent = getGenre(m.genre);
+                document.getElementById('manhvaDescription').textContent = m.description || 'Tavsif yo\'q';
                 
-                const detailCover = document.getElementById('detailCover');
-                if (manhva.cover_url) {
-                    detailCover.innerHTML = `<img src="${manhva.cover_url}" alt="${manhva.title}">`;
-                } else {
-                    detailCover.textContent = manhva.title;
-                }
+                const cover = document.getElementById('detailCover');
+                cover.innerHTML = m.cover_url ? `<img src="${m.cover_url}" alt="${m.title}">` : m.title;
 
-                const chapterItems = document.getElementById('chapterItems');
-                chapterItems.innerHTML = '';
+                const items = document.getElementById('chapterItems');
+                items.innerHTML = '';
 
                 if (currentManhva.chapters.length === 0) {
-                    chapterItems.innerHTML = '<p style="padding: 2rem; text-align: center; color: var(--text-light);">📚 Hozircha chapterlar yo\'q</p>';
+                    items.innerHTML = '<p style="padding: 2rem; text-align: center; color: var(--text-dim);">📚 Chapterlar yo\'q</p>';
                 } else {
-                    currentManhva.chapters.forEach((chapter, index) => {
+                    currentManhva.chapters.forEach((ch, i) => {
                         const item = document.createElement('div');
                         item.className = 'chapter-item';
-                        item.onclick = () => openChapter(currentManhva.chapters.length - 1 - index);
-                        
-                        const date = new Date(chapter.created_at);
+                        item.onclick = () => openChapter(currentManhva.chapters.length - 1 - i);
+                        const date = new Date(ch.created_at);
                         item.innerHTML = `
-                            <div>
-                                <span class="chapter-number">Chapter ${chapter.chapter_number}</span>
-                                ${chapter.title ? `<span> - ${chapter.title}</span>` : ''}
-                            </div>
+                            <div><span class="chapter-number">Chapter ${ch.chapter_number}</span>${ch.title ? ` - ${ch.title}` : ''}</div>
                             <div class="chapter-date">${date.toLocaleDateString('uz-UZ')}</div>
                         `;
-                        
-                        chapterItems.appendChild(item);
+                        items.appendChild(item);
                     });
                 }
 
-                window.scrollTo({top: 0, behavior: 'smooth'});
+                window.scrollTo({ top: 0, behavior: 'smooth' });
             } catch (error) {
-                console.error('Xatolik:', error);
-                alert('Chapterlarni yuklashda xatolik');
+                console.error('Error:', error);
             } finally {
                 showLoading(false);
             }
         }
 
-        // ========== OPEN CHAPTER ==========
-        function openChapter(chapterIndex) {
-            currentChapterIndex = chapterIndex;
-            loadChapter(chapterIndex);
-            
+        function openChapter(i) {
+            currentChapterIndex = i;
+            loadChapter(i);
             document.getElementById('chapterList').style.display = 'none';
             document.getElementById('readerView').style.display = 'block';
-            window.scrollTo({top: 0, behavior: 'smooth'});
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // ========== LOAD CHAPTER ==========
-        async function loadChapter(chapterIndex) {
+        async function loadChapter(i) {
             showLoading(true);
 
             try {
-                const chapter = currentManhva.chapters[chapterIndex];
-                
-                document.getElementById('currentChapter').textContent = `Ch ${chapter.chapter_number}`;
+                const ch = currentManhva.chapters[i];
+                document.getElementById('currentChapter').textContent = `Ch ${ch.chapter_number}`;
+                document.getElementById('prevChapter').disabled = i === 0;
+                document.getElementById('nextChapter').disabled = i === currentManhva.chapters.length - 1;
 
-                document.getElementById('prevChapter').disabled = chapterIndex === 0;
-                document.getElementById('nextChapter').disabled = chapterIndex === currentManhva.chapters.length - 1;
+                const { data: pages } = await supabase.from('pages').select('*').eq('chapter_id', ch.id).order('page_number', { ascending: true });
 
-                const { data: pages, error } = await supabase
-                    .from('pages')
-                    .select('*')
-                    .eq('chapter_id', chapter.id)
-                    .order('page_number', { ascending: true });
-
-                if (error) throw error;
-
-                const pagesContainer = document.getElementById('readerPages');
-                pagesContainer.innerHTML = '';
+                const container = document.getElementById('readerPages');
+                container.innerHTML = '';
 
                 if (pages && pages.length > 0) {
-                    pages.forEach(page => {
-                        const pageDiv = document.createElement('div');
-                        pageDiv.className = 'reader-page';
+                    pages.forEach(p => {
+                        const div = document.createElement('div');
+                        div.className = 'reader-page';
                         
-                        if (page.image_url) {
+                        // Zoom funksiyasi
+                        div.onclick = function() {
+                            this.classList.toggle('zoomed');
+                        };
+                        
+                        if (p.image_url) {
                             const img = document.createElement('img');
-                            img.src = page.image_url;
-                            img.alt = `Sahifa ${page.page_number}`;
+                            img.src = p.image_url;
+                            img.alt = `Sahifa ${p.page_number}`;
                             img.loading = 'lazy';
-                            pageDiv.appendChild(img);
+                            div.appendChild(img);
                         } else {
-                            const placeholder = document.createElement('div');
-                            placeholder.className = 'reader-page-placeholder';
-                            placeholder.textContent = `Sahifa ${page.page_number}`;
-                            pageDiv.appendChild(placeholder);
+                            div.innerHTML = `<div style="aspect-ratio: 2/3; background: var(--glass); display: flex; align-items: center; justify-content: center; color: var(--text-dim);">Sahifa ${p.page_number}</div>`;
                         }
-                        
-                        pagesContainer.appendChild(pageDiv);
+                        container.appendChild(div);
                     });
                 } else {
-                    pagesContainer.innerHTML = '<div class="reader-page-placeholder">📖 Bu chapterda hozircha sahifalar yo\'q</div>';
+                    container.innerHTML = '<div style="padding: 3rem; text-align: center; color: var(--text-dim);">📖 Sahifalar yo\'q</div>';
                 }
 
-                window.scrollTo({top: 0, behavior: 'smooth'});
+                window.scrollTo({ top: 0, behavior: 'smooth' });
             } catch (error) {
-                console.error('Xatolik:', error);
-                alert('Sahifalarni yuklashda xatolik');
+                console.error('Error:', error);
             } finally {
                 showLoading(false);
             }
         }
 
-        // ========== SHOW CHAPTER LIST ==========
         function showChapterList() {
             document.getElementById('readerView').style.display = 'none';
             document.getElementById('chapterList').style.display = 'block';
-            window.scrollTo({top: 0, behavior: 'smooth'});
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // ========== SHOW MAIN VIEW ==========
         function showMainView() {
             document.getElementById('mainView').style.display = 'block';
             document.getElementById('chapterList').style.display = 'none';
             document.getElementById('readerView').style.display = 'none';
-            closeMenu();
-            window.scrollTo({top: 0, behavior: 'smooth'});
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // ========== FILTER MANHVAS ==========
-        function filterManhvas(query) {
+        function filterManhvas(q) {
             const filtered = manhvas.filter(m => 
-                m.title.toLowerCase().includes(query.toLowerCase()) ||
-                m.description?.toLowerCase().includes(query.toLowerCase())
+                m.title.toLowerCase().includes(q.toLowerCase()) ||
+                m.description?.toLowerCase().includes(q.toLowerCase())
             );
             renderManhvas(filtered);
         }
 
-        // ========== FILTER BY GENRE ==========
-        function filterByGenre(genre) {
-            if (genre === 'all') {
-                renderManhvas();
-            } else {
-                const filtered = manhvas.filter(m => m.genre === genre);
-                renderManhvas(filtered);
-            }
+        function filterByGenre(g) {
+            renderManhvas(g === 'all' ? manhvas : manhvas.filter(m => m.genre === g));
         }
 
-        // ========== SHOW LOADING ==========
         function showLoading(show) {
             document.getElementById('loading').style.display = show ? 'block' : 'none';
         }
 
-        // ========== TRANSLATE GENRE ==========
-        function translateGenre(genre) {
-            const translations = {
+        function getGenre(g) {
+            const genres = {
                 action: '⚔️ Jangari',
                 romance: '💕 Romantik',
                 fantasy: '🔮 Fantastika',
                 drama: '🎭 Drama',
                 comedy: '😄 Komediya',
-                horror: '👻 Horror',
-                mystery: '🔍 Sirli',
-                slice_of_life: '🌸 Hayot',
-                sports: '⚽ Sport',
-                supernatural: '✨ G\'ayritabiiy'
+                horror: '👻 Horror'
             };
-            return translations[genre] || genre;
+            return genres[g] || g;
         }
-    </script>
-</body>
-</html>
