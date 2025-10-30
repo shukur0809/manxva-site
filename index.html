@@ -10,6 +10,9 @@
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1670894419218881"
      crossorigin="anonymous"></script>
     
+    <!-- Google Funding Choices (Consent Management) -->
+    <script async src="https://fundingchoices.google.com/fundingchoices.js?snippet_id=pub-1670894419218881"></script>
+    
     <style>
         * {
             margin: 0;
@@ -839,9 +842,141 @@
                 grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
             }
         }
+
+        /* COOKIE CONSENT BANNER */
+        .cookie-consent {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.15);
+            padding: 1.5rem;
+            z-index: 10000;
+            transform: translateY(100%);
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border-top: 3px solid var(--primary);
+        }
+
+        .cookie-consent.show {
+            transform: translateY(0);
+        }
+
+        .cookie-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .cookie-text {
+            color: var(--text-dark);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            text-align: center;
+        }
+
+        .cookie-text strong {
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .cookie-text a {
+            color: var(--primary);
+            text-decoration: underline;
+            font-weight: 600;
+        }
+
+        .cookie-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .cookie-btn {
+            padding: 0.875rem 2rem;
+            border: none;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .cookie-btn-accept {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+        }
+
+        .cookie-btn-accept:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(99, 102, 241, 0.4);
+        }
+
+        .cookie-btn-decline {
+            background: white;
+            color: var(--text-dark);
+            border: 2px solid var(--border);
+        }
+
+        .cookie-btn-decline:hover {
+            background: var(--bg-light);
+            border-color: var(--text-light);
+        }
+
+        .cookie-btn-settings {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .cookie-btn-settings:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        @media (min-width: 768px) {
+            .cookie-content {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            .cookie-text {
+                text-align: left;
+                flex: 1;
+            }
+
+            .cookie-buttons {
+                flex-shrink: 0;
+            }
+        }
     </style>
 </head>
 <body>
+    <!-- COOKIE CONSENT BANNER -->
+    <div class="cookie-consent" id="cookieConsent">
+        <div class="cookie-content">
+            <div class="cookie-text">
+                🍪 <strong>Cookie va Shaxsiy Ma'lumotlar</strong><br>
+                Biz saytimizni yaxshilash va sizga moslashtirilgan reklamalar ko'rsatish uchun cookie-lardan foydalanamiz. 
+                Davom etish orqali siz <a href="#" onclick="return false;">Maxfiylik Siyosati</a>mizga rozilik bildirasiz.
+            </div>
+            <div class="cookie-buttons">
+                <button class="cookie-btn cookie-btn-accept" onclick="acceptCookies()">✓ Roziman</button>
+                <button class="cookie-btn cookie-btn-decline" onclick="declineCookies()">✗ Rad etish</button>
+                <button class="cookie-btn cookie-btn-settings" onclick="openCookieSettings()">⚙️ Sozlamalar</button>
+            </div>
+        </div>
+    </div>
+
     <header>
         <nav>
             <div class="nav-top">
@@ -1010,18 +1145,77 @@
         // ========== ADSENSE INITIALIZATION ==========
         // Sahifa yuklangandan keyin reklamalarni yuklash
         window.addEventListener('load', function() {
+            // Cookie consent tekshirish
+            checkCookieConsent();
+            
+            // Agar consent berilgan bo'lsa, reklamalarni yuklash
+            if (getCookie('cookieConsent') === 'accepted') {
+                loadAds();
+            }
+        });
+
+        // ========== COOKIE CONSENT FUNCTIONS ==========
+        function checkCookieConsent() {
+            const consent = getCookie('cookieConsent');
+            if (!consent) {
+                // Agar consent yo'q bo'lsa, 1 soniya kutib banner ko'rsatish
+                setTimeout(() => {
+                    document.getElementById('cookieConsent').classList.add('show');
+                }, 1000);
+            }
+        }
+
+        function acceptCookies() {
+            setCookie('cookieConsent', 'accepted', 365);
+            document.getElementById('cookieConsent').classList.remove('show');
+            loadAds();
+        }
+
+        function declineCookies() {
+            setCookie('cookieConsent', 'declined', 365);
+            document.getElementById('cookieConsent').classList.remove('show');
+            // Reklamalarni yuklamaslik
+        }
+
+        function openCookieSettings() {
+            // Google Funding Choices sozlamalarini ochish
+            if (window.__tcfapi) {
+                window.__tcfapi('displayConsentUi', 2, function() {});
+            } else {
+                alert('Sozlamalar yuklanmoqda...');
+            }
+        }
+
+        function loadAds() {
             try {
                 // Barcha reklamalarni yuklash
-                (adsbygoogle = window.adsbygoogle || []).push({});
-                (adsbygoogle = window.adsbygoogle || []).push({});
-                (adsbygoogle = window.adsbygoogle || []).push({});
-                (adsbygoogle = window.adsbygoogle || []).push({});
-                (adsbygoogle = window.adsbygoogle || []).push({});
-                (adsbygoogle = window.adsbygoogle || []).push({});
+                const ads = document.querySelectorAll('.adsbygoogle');
+                ads.forEach(() => {
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                });
             } catch (e) {
                 console.log('AdSense yuklashda xatolik:', e);
             }
-        });
+        }
+
+        // Cookie helper functions
+        function setCookie(name, value, days) {
+            const d = new Date();
+            d.setTime(d.getTime() + (days * 24 * 60 * 60 * 1000));
+            const expires = "expires=" + d.toUTCString();
+            document.cookie = name + "=" + value + ";" + expires + ";path=/;SameSite=Lax";
+        }
+
+        function getCookie(name) {
+            const nameEQ = name + "=";
+            const ca = document.cookie.split(';');
+            for (let i = 0; i < ca.length; i++) {
+                let c = ca[i];
+                while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+                if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+            }
+            return null;
+        }
 
         // ========== INITIALIZATION ==========
         document.addEventListener('DOMContentLoaded', () => {
