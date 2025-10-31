@@ -1194,25 +1194,56 @@
                     return;
                 }
 
-                // Wait for auth to complete
-                await new Promise(resolve => setTimeout(resolve, 2000));
-
-                // Insert into users table
-                const { error: insertError } = await supabase
-                    .from('users')
-                    .insert({
-                        id: authData.user.id,
-                        username: username,
-                        email: email,
-                        total_time: 0
-                    });
-
-                if (insertError) {
-                    console.error('Insert error:', insertError);
-                    showAlert('error', 'Foydalanuvchi yaratishda xatolik: ' + insertError.message);
+                // Check if email confirmation is required
+                if (!authData.session) {
+                    // Email confirmation required - user created but not confirmed
+                    showAlert('success', 'Ro\'yxatdan o\'tdingiz! Emailingizga tasdiqlash havolasi yuborildi.');
+                    
+                    // Clear form
+                    document.getElementById('regUser').value = '';
+                    document.getElementById('regEmail').value = '';
+                    document.getElementById('regPass').value = '';
+                    document.getElementById('regPass2').value = '';
+                    
+                    setTimeout(() => {
+                        switchAuthTab('login');
+                        showAlert('success', 'Emailni tasdiqlang va login qiling');
+                    }, 2000);
+                    
                     regBtn.disabled = false;
                     regBtn.textContent = 'Ro\'yxatdan o\'tish';
                     return;
+                }
+
+                // Session exists - auto confirmed (email confirmation disabled)
+                // Wait a bit for database trigger to complete
+                await new Promise(resolve => setTimeout(resolve, 2000));
+
+                // Check if user was added to users table by trigger
+                const { data: existingUser } = await supabase
+                    .from('users')
+                    .select('*')
+                    .eq('id', authData.user.id)
+                    .maybeSingle();
+
+                if (!existingUser) {
+                    // Trigger didn't work, manually insert
+                    const { error: insertError } = await supabase
+                        .from('users')
+                        .insert({
+                            id: authData.user.id,
+                            username: username,
+                            email: email,
+                            total_time: 0
+                        });
+
+                    if (insertError) {
+                        console.error('Insert error:', insertError);
+                        showAlert('error', 'Xatolik: ' + insertError.message);
+                        regBtn.disabled = false;
+                        regBtn.textContent = 'Ro\'yxatdan o\'tish';
+                        return;
+                    }
                 }
 
                 // Check if email confirmation is required
