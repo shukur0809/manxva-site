@@ -235,6 +235,13 @@
             font-weight: 700;
             cursor: pointer;
             transition: all 0.2s;
+            overflow: hidden;
+        }
+
+        .user-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         .user-avatar:hover { transform: scale(1.1); }
@@ -269,6 +276,8 @@
             width: 90%;
             box-shadow: 0 20px 60px rgba(0,0,0,0.3);
             animation: slideUp 0.3s;
+            max-height: 90vh;
+            overflow-y: auto;
         }
 
         @keyframes slideUp {
@@ -404,6 +413,162 @@
             background: var(--glass);
         }
 
+        /* Profile Styles */
+        .profile-container {
+            display: none;
+            max-width: 900px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .profile-container.show {
+            display: block;
+        }
+
+        .profile-header {
+            background: var(--card);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 12px var(--border);
+            text-align: center;
+        }
+
+        .profile-avatar-large {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            overflow: hidden;
+            border: 4px solid var(--primary);
+            position: relative;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: white;
+            font-weight: 700;
+        }
+
+        .profile-avatar-large img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .profile-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .stat-card {
+            background: var(--glass);
+            padding: 1.5rem 1rem;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin-top: 0.5rem;
+        }
+
+        .profile-section {
+            background: var(--card);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 12px var(--border);
+        }
+
+        .profile-section h3 {
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+        }
+
+        .avatar-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 1rem;
+        }
+
+        .avatar-option {
+            position: relative;
+            aspect-ratio: 1;
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 3px solid transparent;
+        }
+
+        .avatar-option:hover {
+            transform: scale(1.05);
+        }
+
+        .avatar-option.selected {
+            border-color: var(--primary);
+            box-shadow: 0 0 20px rgba(102,126,234,0.4);
+        }
+
+        .avatar-option.locked {
+            cursor: not-allowed;
+            opacity: 0.5;
+        }
+
+        .avatar-option img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .avatar-lock {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 2rem;
+            z-index: 1;
+        }
+
+        .avatar-unlock-badge {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: var(--success);
+            color: white;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            animation: bounce 0.5s;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        .edit-form {
+            display: grid;
+            gap: 1rem;
+        }
+
         .hero {
             background: linear-gradient(135deg, rgba(102,126,234,0.1), rgba(118,75,162,0.1));
             padding: 3rem 1rem;
@@ -444,6 +609,7 @@
             transition: all 0.3s;
             box-shadow: 0 4px 12px var(--border);
             background: var(--card);
+            position: relative;
         }
 
         .manhva-card:hover {
@@ -456,9 +622,6 @@
             aspect-ratio: 3/4;
             object-fit: cover;
             background: var(--glass);
-            image-rendering: -webkit-optimize-contrast;
-            image-rendering: crisp-edges;
-            image-rendering: high-quality;
         }
 
         .manhva-info {
@@ -503,18 +666,6 @@
             margin-left: 0.5rem;
         }
 
-        .skeleton {
-            background: linear-gradient(90deg, var(--glass) 25%, var(--border) 50%, var(--glass) 75%);
-            background-size: 200% 100%;
-            animation: loading 1.5s ease-in-out infinite;
-            border-radius: 12px;
-        }
-
-        @keyframes loading {
-            0% { background-position: 200% 0; }
-            100% { background-position: -200% 0; }
-        }
-
         .loading {
             display: none;
             text-align: center;
@@ -557,9 +708,6 @@
             overflow: hidden;
             flex-shrink: 0;
             object-fit: cover;
-            image-rendering: -webkit-optimize-contrast;
-            image-rendering: crisp-edges;
-            image-rendering: high-quality;
         }
 
         .detail-info { flex: 1; }
@@ -684,22 +832,6 @@
             display: block;
             margin: 1rem auto;
             border-radius: 8px;
-            image-rendering: -webkit-optimize-contrast;
-            image-rendering: crisp-edges;
-            image-rendering: high-quality;
-            -ms-interpolation-mode: bicubic;
-        }
-
-        @media (min-width: 768px) {
-            .reader-page {
-                max-width: 90%;
-            }
-        }
-
-        @media (min-width: 1024px) {
-            .reader-page {
-                max-width: 80%;
-            }
         }
 
         .reader-nav {
@@ -707,38 +839,6 @@
             justify-content: center;
             gap: 1rem;
             margin: 2rem 0;
-        }
-
-        .ad-placeholder {
-            background: linear-gradient(135deg, rgba(102,126,234,0.1), rgba(118,75,162,0.1));
-            border: 2px dashed var(--border);
-            border-radius: 12px;
-            padding: 2rem;
-            text-align: center;
-            margin: 2rem 0;
-            color: var(--text-light);
-        }
-
-        .share-buttons {
-            display: flex;
-            gap: 0.5rem;
-            margin-top: 1rem;
-        }
-
-        .share-btn {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.2s;
-            font-size: 1.2rem;
-        }
-
-        .share-btn:hover {
-            transform: scale(1.1);
         }
 
         .toast {
@@ -755,6 +855,21 @@
         }
 
         .toast.show { display: block; }
+
+        .password-toggle {
+            position: relative;
+        }
+
+        .password-toggle button {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.2rem;
+        }
 
         @media (max-width: 768px) {
             .detail-header {
@@ -785,21 +900,10 @@
                 left: 1rem;
                 bottom: 1rem;
             }
-        }
 
-        .password-toggle {
-            position: relative;
-        }
-
-        .password-toggle button {
-            position: absolute;
-            right: 10px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: none;
-            border: none;
-            cursor: pointer;
-            font-size: 1.2rem;
+            .avatar-grid {
+                grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+            }
         }
     </style>
 </head>
@@ -897,6 +1001,81 @@
             <div class="manhva-grid" id="grid"></div>
         </div>
 
+        <!-- Profile -->
+        <div class="profile-container" id="profileContainer">
+            <button class="btn btn-glass" id="backToMainFromProfile">← Orqaga</button>
+            
+            <div class="profile-header">
+                <div class="profile-avatar-large" id="profileAvatarLarge">
+                    <span id="profileInitial"></span>
+                    <img id="profileAvatarImg" src="" alt="" style="display:none;">
+                </div>
+                <h2 id="profileUsername"></h2>
+                <p id="profileEmail" style="color:var(--text-light);"></p>
+                
+                <div class="profile-stats">
+                    <div class="stat-card">
+                        <div class="stat-value" id="totalTimeValue">0s</div>
+                        <div class="stat-label">O'qish vaqti</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="ratingsCountValue">0</div>
+                        <div class="stat-label">Baholar</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="bookmarksCountValue">0</div>
+                        <div class="stat-label">Sevimlilar</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="readChaptersValue">0</div>
+                        <div class="stat-label">O'qilgan</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="profile-section">
+                <h3>👤 Profil ma'lumotlari</h3>
+                <form class="edit-form" id="editProfileForm">
+                    <div class="form-group">
+                        <label>Username</label>
+                        <input type="text" id="editUsername" class="form-input" minlength="3" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="editEmail" class="form-input" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary" id="saveProfileBtn">💾 Saqlash</button>
+                </form>
+            </div>
+
+            <div class="profile-section">
+                <h3>🎨 Avatar tanlash</h3>
+                <p style="color:var(--text-light);margin-bottom:1.5rem;">Avatarlar saytda o'tkazgan vaqtingizga qarab ochiladi</p>
+                <div class="avatar-grid" id="avatarGrid"></div>
+            </div>
+
+            <div class="profile-section">
+                <h3>🔐 Parolni o'zgartirish</h3>
+                <form class="edit-form" id="changePasswordForm">
+                    <div class="form-group">
+                        <label>Yangi parol</label>
+                        <div class="password-toggle">
+                            <input type="password" id="newPassword" class="form-input" minlength="6" required>
+                            <button type="button" class="toggle-password" data-target="newPassword">👁️</button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Parolni tasdiqlang</label>
+                        <div class="password-toggle">
+                            <input type="password" id="confirmPassword" class="form-input" required>
+                            <button type="button" class="toggle-password" data-target="confirmPassword">👁️</button>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary" id="changePasswordBtn">🔑 Parolni o'zgartirish</button>
+                </form>
+            </div>
+        </div>
+
         <!-- Bookmarks -->
         <div class="bookmarks" id="bookmarks">
             <button class="btn btn-glass" id="backToMain3">← Orqaga</button>
@@ -956,12 +1135,6 @@
             <div class="spinner"></div>
             <p style="margin-top:1rem;">Yuklanmoqda...</p>
         </div>
-
-        <!-- Ad Placeholder -->
-        <div class="ad-placeholder">
-            <p>📢 Bu yerda reklama joyi</p>
-            <p style="font-size:0.8rem;margin-top:0.5rem;">AdSense tasdiqlangandan keyin reklama ko'rsatiladi</p>
-        </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -979,13 +1152,26 @@
         let userRatings = {};
         let userBookmarks = new Set();
         let readChapters = new Set();
+        let avatars = [];
+        let unlockedAvatars = new Set();
         let timeTracker = {
             interval: null,
             lastUpdate: Date.now(),
             readingStart: null
         };
 
-        // Global error handler
+        // Avatar requirements (in seconds)
+        const AVATAR_REQUIREMENTS = [
+            { id: 1, time: 0, label: 'Boshlang\'ich' },
+            { id: 2, time: 3600, label: '1 soat' },
+            { id: 3, time: 86400, label: '1 kun' },
+            { id: 4, time: 604800, label: '1 hafta' },
+            { id: 5, time: 2592000, label: '1 oy' },
+            { id: 6, time: 7776000, label: '3 oy' },
+            { id: 7, time: 15552000, label: '6 oy' },
+            { id: 8, time: 31536000, label: '1 yil' }
+        ];
+
         window.addEventListener('unhandledrejection', event => {
             console.error('Unhandled promise rejection:', event.reason);
             showToast('Kutilmagan xatolik yuz berdi', 'error');
@@ -998,12 +1184,12 @@
         async function initApp() {
             await checkAuth();
             await loadManhvas();
+            await loadAvatars();
             setupEventListeners();
             loadTheme();
         }
 
         async function checkAuth() {
-            // Check Supabase session first
             const { data: { session } } = await supabase.auth.getSession();
             
             if (session) {
@@ -1020,7 +1206,6 @@
                     startTimeTracking();
                 }
             } else {
-                // Check localStorage/sessionStorage
                 const stored = localStorage.getItem('user') || sessionStorage.getItem('user');
                 if (stored) {
                     try {
@@ -1046,14 +1231,48 @@
                     .single();
                 
                 if (data) {
-                    user.total_time = data.total_time || 0;
+                    user = data;
                 }
                 await loadUserRatings();
                 await loadUserBookmarks();
                 await loadReadChapters();
+                await checkUnlockedAvatars();
             } catch (error) {
                 console.error('Sync error:', error);
             }
+        }
+
+        async function loadAvatars() {
+            try {
+                const { data, error } = await supabase
+                    .from('avatars')
+                    .select('*')
+                    .order('required_time', { ascending: true });
+                
+                if (error) throw error;
+                avatars = data || [];
+            } catch (error) {
+                console.error('Load avatars error:', error);
+            }
+        }
+
+        async function checkUnlockedAvatars() {
+            if (!user) return;
+            
+            const userTime = user.total_time || 0;
+            const previouslyUnlocked = new Set(unlockedAvatars);
+            unlockedAvatars = new Set();
+            
+            avatars.forEach(avatar => {
+                if (userTime >= avatar.required_time) {
+                    unlockedAvatars.add(avatar.id);
+                    
+                    // Check if newly unlocked
+                    if (!previouslyUnlocked.has(avatar.id) && previouslyUnlocked.size > 0) {
+                        showToast(`🎉 Yangi avatar ochildi: ${avatar.name}!`, 'success');
+                    }
+                }
+            });
         }
 
         function setupEventListeners() {
@@ -1096,7 +1315,12 @@
             document.getElementById('backToMain').addEventListener('click', showMain);
             document.getElementById('backToMain2').addEventListener('click', showMain);
             document.getElementById('backToMain3').addEventListener('click', showMain);
+            document.getElementById('backToMainFromProfile').addEventListener('click', showMain);
             document.getElementById('backToChapters').addEventListener('click', showChapters);
+
+            // Profile forms
+            document.getElementById('editProfileForm').addEventListener('submit', handleEditProfile);
+            document.getElementById('changePasswordForm').addEventListener('submit', handleChangePassword);
 
             // Keyboard shortcuts
             document.addEventListener('keydown', handleKeyboard);
@@ -1107,7 +1331,6 @@
         }
 
         function handleKeyboard(e) {
-            // Escape key
             if (e.key === 'Escape') {
                 const dropdown = document.getElementById('dropdown');
                 if (dropdown) dropdown.classList.remove('show');
@@ -1147,17 +1370,13 @@
             loginBtn.textContent = 'Yuklanmoqda...';
 
             try {
-                // Sign in with Supabase Auth
                 const { data, error } = await supabase.auth.signInWithPassword({
                     email,
                     password
                 });
 
-                if (error) {
-                    throw error;
-                }
+                if (error) throw error;
 
-                // Get user data from users table
                 const { data: userData, error: userError } = await supabase
                     .from('users')
                     .select('*')
@@ -1229,7 +1448,6 @@
             regBtn.textContent = 'Yuklanmoqda...';
 
             try {
-                // Check username availability
                 const { data: existingUsername } = await supabase
                     .from('users')
                     .select('username')
@@ -1243,10 +1461,8 @@
                     return;
                 }
 
-                // Add throttle to avoid rate limiting
                 await new Promise(resolve => setTimeout(resolve, 1000));
 
-                // Sign up with Supabase Auth
                 const { data: authData, error: authError } = await supabase.auth.signUp({
                     email,
                     password,
@@ -1278,12 +1494,9 @@
                     return;
                 }
 
-                // Check if email confirmation is required
                 if (!authData.session) {
-                    // Email confirmation required - user created but not confirmed
                     showAlert('success', 'Ro\'yxatdan o\'tdingiz! Emailingizga tasdiqlash havolasi yuborildi.');
                     
-                    // Clear form
                     document.getElementById('regUser').value = '';
                     document.getElementById('regEmail').value = '';
                     document.getElementById('regPass').value = '';
@@ -1299,11 +1512,8 @@
                     return;
                 }
 
-                // Session exists - auto confirmed (email confirmation disabled)
-                // Wait a bit for database trigger to complete
                 await new Promise(resolve => setTimeout(resolve, 2000));
 
-                // Check if user was added to users table by trigger
                 const { data: existingUser } = await supabase
                     .from('users')
                     .select('*')
@@ -1311,7 +1521,6 @@
                     .maybeSingle();
 
                 if (!existingUser) {
-                    // Trigger didn't work, manually insert
                     const { error: insertError } = await supabase
                         .from('users')
                         .insert({
@@ -1330,16 +1539,12 @@
                     }
                 }
 
-                // Check if email confirmation is required
                 if (authData.session) {
-                    // Email confirmed automatically, can login
                     showAlert('success', 'Muvaffaqiyatli! Endi kirishingiz mumkin.');
                 } else {
-                    // Email confirmation required
                     showAlert('success', 'Ro\'yxatdan o\'tdingiz! Emailingizni tasdiqlang va login qiling.');
                 }
                 
-                // Clear form
                 document.getElementById('regUser').value = '';
                 document.getElementById('regEmail').value = '';
                 document.getElementById('regPass').value = '';
@@ -1368,6 +1573,7 @@
                 userRatings = {};
                 userBookmarks = new Set();
                 readChapters = new Set();
+                unlockedAvatars = new Set();
                 localStorage.removeItem('user');
                 sessionStorage.removeItem('user');
                 
@@ -1382,13 +1588,19 @@
             const userInfo = document.getElementById('userInfo');
             
             if (user) {
-                const initial = user.username.charAt(0).toUpperCase();
+                const avatarContent = user.avatar_url 
+                    ? `<img src="${user.avatar_url}" alt="${user.username}">` 
+                    : user.username.charAt(0).toUpperCase();
+                
                 userInfo.innerHTML = `
-                    <div class="user-avatar" id="userAvatar">${initial}</div>
+                    <div class="user-avatar" id="userAvatar">${avatarContent}</div>
                     <div class="user-dropdown" id="dropdown">
                         <div class="user-dropdown-header">
                             <h4>${user.username}</h4>
                             <p>${user.email}</p>
+                        </div>
+                        <div class="user-dropdown-item" id="profileBtn">
+                            👤 Profil
                         </div>
                         <div class="user-dropdown-item" id="signOutBtn">
                             🚪 Chiqish
@@ -1397,6 +1609,7 @@
                 `;
                 
                 document.getElementById('userAvatar').addEventListener('click', toggleDropdown);
+                document.getElementById('profileBtn').addEventListener('click', showProfile);
                 document.getElementById('signOutBtn').addEventListener('click', handleSignOut);
             } else {
                 userInfo.innerHTML = '<button class="btn btn-primary" id="loginBtn2">Kirish</button>';
@@ -1415,13 +1628,246 @@
             }
         });
 
+        async function showProfile() {
+            if (!user) {
+                openModal();
+                return;
+            }
+
+            document.getElementById('dropdown').classList.remove('show');
+            
+            hideAllViews();
+            document.getElementById('profileContainer').classList.add('show');
+            
+            // Update profile info
+            const initial = user.username.charAt(0).toUpperCase();
+            document.getElementById('profileInitial').textContent = initial;
+            
+            if (user.avatar_url) {
+                document.getElementById('profileAvatarImg').src = user.avatar_url;
+                document.getElementById('profileAvatarImg').style.display = 'block';
+                document.getElementById('profileInitial').style.display = 'none';
+            } else {
+                document.getElementById('profileAvatarImg').style.display = 'none';
+                document.getElementById('profileInitial').style.display = 'block';
+            }
+            
+            document.getElementById('profileUsername').textContent = user.username;
+            document.getElementById('profileEmail').textContent = user.email;
+            
+            // Update stats
+            const hours = Math.floor((user.total_time || 0) / 3600);
+            const minutes = Math.floor(((user.total_time || 0) % 3600) / 60);
+            const seconds = (user.total_time || 0) % 60;
+            let timeStr = '';
+            if (hours > 0) timeStr += `${hours}s `;
+            if (minutes > 0 || hours > 0) timeStr += `${minutes}m `;
+            timeStr += `${seconds}s`;
+            
+            document.getElementById('totalTimeValue').textContent = timeStr;
+            document.getElementById('ratingsCountValue').textContent = Object.keys(userRatings).length;
+            document.getElementById('bookmarksCountValue').textContent = userBookmarks.size;
+            document.getElementById('readChaptersValue').textContent = readChapters.size;
+            
+            // Update edit form
+            document.getElementById('editUsername').value = user.username;
+            document.getElementById('editEmail').value = user.email;
+            
+            // Render avatars
+            renderAvatars();
+        }
+
+        function renderAvatars() {
+            const grid = document.getElementById('avatarGrid');
+            const userTime = user.total_time || 0;
+            
+            grid.innerHTML = avatars.map(avatar => {
+                const isUnlocked = unlockedAvatars.has(avatar.id);
+                const isSelected = user.avatar_url === avatar.image_url;
+                const requirement = AVATAR_REQUIREMENTS.find(r => r.id === avatar.id);
+                
+                return `
+                    <div class="avatar-option ${isSelected ? 'selected' : ''} ${!isUnlocked ? 'locked' : ''}" 
+                         data-avatar-id="${avatar.id}" 
+                         data-avatar-url="${avatar.image_url}"
+                         title="${isUnlocked ? avatar.name : 'Qulflangan: ' + (requirement ? requirement.label : '') + ' kerak'}">
+                        ${!isUnlocked ? '<div class="avatar-lock">🔒</div>' : ''}
+                        <img src="${avatar.image_url}" alt="${avatar.name}">
+                    </div>
+                `;
+            }).join('');
+            
+            // Add click handlers
+            document.querySelectorAll('.avatar-option').forEach(option => {
+                option.addEventListener('click', () => selectAvatar(option));
+            });
+        }
+
+        async function selectAvatar(option) {
+            if (option.classList.contains('locked')) {
+                showToast('Bu avatar hali ochilmagan', 'error');
+                return;
+            }
+            
+            const avatarUrl = option.dataset.avatarUrl;
+            
+            try {
+                const { error } = await supabase
+                    .from('users')
+                    .update({ avatar_url: avatarUrl })
+                    .eq('id', user.id);
+                
+                if (error) throw error;
+                
+                user.avatar_url = avatarUrl;
+                
+                const storage = localStorage.getItem('user') ? localStorage : sessionStorage;
+                storage.setItem('user', JSON.stringify(user));
+                
+                // Update UI
+                document.querySelectorAll('.avatar-option').forEach(opt => {
+                    opt.classList.remove('selected');
+                });
+                option.classList.add('selected');
+                
+                // Update profile avatar
+                document.getElementById('profileAvatarImg').src = avatarUrl;
+                document.getElementById('profileAvatarImg').style.display = 'block';
+                document.getElementById('profileInitial').style.display = 'none';
+                
+                // Update header avatar
+                updateUserUI();
+                
+                showToast('Avatar o\'zgartirildi!', 'success');
+            } catch (error) {
+                console.error('Update avatar error:', error);
+                showToast('Xatolik yuz berdi', 'error');
+            }
+        }
+
+        async function handleEditProfile(e) {
+            e.preventDefault();
+            
+            const newUsername = document.getElementById('editUsername').value.trim();
+            const newEmail = document.getElementById('editEmail').value.trim();
+            
+            if (newUsername.length < 3) {
+                showToast('Username kamida 3 ta belgi bo\'lishi kerak', 'error');
+                return;
+            }
+            
+            const saveBtn = document.getElementById('saveProfileBtn');
+            saveBtn.disabled = true;
+            saveBtn.textContent = 'Saqlanmoqda...';
+            
+            try {
+                // Check username availability if changed
+                if (newUsername !== user.username) {
+                    const { data: existing } = await supabase
+                        .from('users')
+                        .select('username')
+                        .eq('username', newUsername)
+                        .neq('id', user.id)
+                        .maybeSingle();
+                    
+                    if (existing) {
+                        showToast('Bu username band', 'error');
+                        saveBtn.disabled = false;
+                        saveBtn.textContent = '💾 Saqlash';
+                        return;
+                    }
+                }
+                
+                // Update user
+                const { error } = await supabase
+                    .from('users')
+                    .update({ 
+                        username: newUsername,
+                        email: newEmail 
+                    })
+                    .eq('id', user.id);
+                
+                if (error) throw error;
+                
+                // Update auth email if changed
+                if (newEmail !== user.email) {
+                    const { error: emailError } = await supabase.auth.updateUser({
+                        email: newEmail
+                    });
+                    
+                    if (emailError) {
+                        showToast('Email tasdiqlash havolasi yuborildi', 'success');
+                    }
+                }
+                
+                user.username = newUsername;
+                user.email = newEmail;
+                
+                const storage = localStorage.getItem('user') ? localStorage : sessionStorage;
+                storage.setItem('user', JSON.stringify(user));
+                
+                // Update UI
+                document.getElementById('profileUsername').textContent = newUsername;
+                document.getElementById('profileEmail').textContent = newEmail;
+                updateUserUI();
+                
+                showToast('Ma\'lumotlar saqlandi!', 'success');
+            } catch (error) {
+                console.error('Update profile error:', error);
+                showToast('Xatolik: ' + error.message, 'error');
+            } finally {
+                saveBtn.disabled = false;
+                saveBtn.textContent = '💾 Saqlash';
+            }
+        }
+
+        async function handleChangePassword(e) {
+            e.preventDefault();
+            
+            const newPassword = document.getElementById('newPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            
+            if (newPassword.length < 6) {
+                showToast('Parol kamida 6 ta belgi bo\'lishi kerak', 'error');
+                return;
+            }
+            
+            if (newPassword !== confirmPassword) {
+                showToast('Parollar mos kelmadi', 'error');
+                return;
+            }
+            
+            const changeBtn = document.getElementById('changePasswordBtn');
+            changeBtn.disabled = true;
+            changeBtn.textContent = 'O\'zgartirmoqda...';
+            
+            try {
+                const { error } = await supabase.auth.updateUser({
+                    password: newPassword
+                });
+                
+                if (error) throw error;
+                
+                document.getElementById('newPassword').value = '';
+                document.getElementById('confirmPassword').value = '';
+                
+                showToast('Parol o\'zgartirildi!', 'success');
+            } catch (error) {
+                console.error('Change password error:', error);
+                showToast('Xatolik: ' + error.message, 'error');
+            } finally {
+                changeBtn.disabled = false;
+                changeBtn.textContent = '🔑 Parolni o\'zgartirish';
+            }
+        }
+
         function startTimeTracking() {
             if (!user) return;
             
             timeTracker.lastUpdate = Date.now();
             timeTracker.interval = setInterval(async () => {
                 await saveTime();
-            }, 5000);
+            }, 30000); // Save every 30 seconds
         }
 
         function stopTimeTracking() {
@@ -1438,6 +1884,7 @@
             const elapsed = Math.floor((now - timeTracker.lastUpdate) / 1000);
             
             if (elapsed > 0) {
+                const previousTime = user.total_time;
                 user.total_time += elapsed;
                 timeTracker.lastUpdate = now;
                 
@@ -1449,6 +1896,9 @@
                     
                     const storage = localStorage.getItem('user') ? localStorage : sessionStorage;
                     storage.setItem('user', JSON.stringify(user));
+                    
+                    // Check for newly unlocked avatars
+                    await checkUnlockedAvatars();
                 } catch (error) {
                     console.error('Save time error:', error);
                 }
@@ -1480,6 +1930,8 @@
                     .select('*')
                     .order('created_at', { ascending: false });
                 
+                if (error) throw error;
+                
                 if (data) {
                     manhvas = data;
                     await loadAllRatings();
@@ -1496,7 +1948,6 @@
 
         async function loadAllRatings() {
             try {
-                // Load all ratings (no user filter)
                 const { data } = await supabase
                     .from('ratings')
                     .select('manhva_id, rating, user_id');
@@ -1642,17 +2093,14 @@
 
                 userRatings[manhvaId] = rating;
                 
-                // Reload ratings to update all displays
                 await loadAllRatings();
                 
-                // Re-render the current view
                 const currentView = document.getElementById('mainView').style.display;
                 if (currentView !== 'none') {
                     renderManhvas(manhvas);
                 }
                 
                 if (currentManhva && currentManhva.id === manhvaId) {
-                    // Update current manhva rating data
                     const updatedManhva = manhvas.find(m => m.id === manhvaId);
                     if (updatedManhva) {
                         currentManhva.avg_rating = updatedManhva.avg_rating;
@@ -1728,7 +2176,6 @@
                     console.error('Share error:', err);
                 });
             } else {
-                // Fallback: copy to clipboard
                 navigator.clipboard.writeText(url).then(() => {
                     showToast('Link nusxalandi!', 'success');
                 }).catch(err => {
@@ -1752,7 +2199,7 @@
                 m.title.toLowerCase().includes(query) || 
                 m.genre.toLowerCase().includes(query) || 
                 (m.description && m.description.toLowerCase().includes(query))
-            ).slice(0, 5); // Show only first 5 results
+            ).slice(0, 5);
             
             if (filtered.length === 0) {
                 searchResults.innerHTML = '<div style="padding:1rem;text-align:center;color:var(--text-light);">Hech narsa topilmadi</div>';
@@ -1780,7 +2227,6 @@
             
             searchResults.classList.add('show');
             
-            // Add click handlers
             document.querySelectorAll('.search-result-item').forEach(item => {
                 item.addEventListener('click', () => {
                     const id = parseInt(item.dataset.id);
@@ -1791,7 +2237,6 @@
             });
         }
 
-        // Close search results when clicking outside
         document.addEventListener('click', (e) => {
             if (!e.target.closest('.search-wrapper')) {
                 document.getElementById('searchResults').classList.remove('show');
@@ -1799,7 +2244,6 @@
         });
 
         async function showDetail(id) {
-            // Allow viewing details without login
             if (!user) {
                 showToast('To\'liq ko\'rish uchun tizimga kiring', 'error');
                 setTimeout(() => openModal(), 500);
@@ -1810,8 +2254,7 @@
             
             currentManhva = manhvas.find(m => m.id === id);
             
-            document.getElementById('mainView').style.display = 'none';
-            document.getElementById('bookmarks').classList.remove('show');
+            hideAllViews();
             document.getElementById('chapterList').classList.add('show');
             
             document.getElementById('detailTitle').textContent = currentManhva.title;
@@ -1821,16 +2264,17 @@
             updateDetailRating();
             updateBookmarkButton();
             
-            // Setup buttons
             document.getElementById('bookmarkBtn').onclick = toggleBookmark;
             document.getElementById('shareBtn').onclick = shareContent;
             
             try {
-                const { data } = await supabase
+                const { data, error } = await supabase
                     .from('chapters')
                     .select('*')
                     .eq('manhva_id', id)
                     .order('chapter_number', { ascending: true });
+                
+                if (error) throw error;
                 
                 currentChapters = data || [];
                 
@@ -1890,12 +2334,11 @@
         async function openChapter(chapterId) {
             showLoading(true);
             
-            document.getElementById('chapterList').classList.remove('show');
+            hideAllViews();
             document.getElementById('reader').classList.add('show');
             
             currentChapterIndex = currentChapters.findIndex(c => c.id === chapterId);
             
-            // Mark as read
             if (!readChapters.has(chapterId)) {
                 readChapters.add(chapterId);
                 try {
@@ -1908,26 +2351,19 @@
             }
             
             try {
-                const { data } = await supabase
+                const { data, error } = await supabase
                     .from('pages')
                     .select('*')
                     .eq('chapter_id', chapterId)
                     .order('page_number', { ascending: true });
                 
+                if (error) throw error;
+                
                 const pagesDiv = document.getElementById('pages');
                 if (data && data.length > 0) {
                     pagesDiv.innerHTML = data.map(p => 
-                        `<img src="${p.image_url}" class="reader-page" alt="Page ${p.page_number}" loading="lazy" decoding="async" fetchpriority="high">`
+                        `<img src="${p.image_url}" class="reader-page" alt="Page ${p.page_number}" loading="lazy">`
                     ).join('');
-                    
-                    // Preload next few images for smoother experience
-                    data.slice(0, 3).forEach(p => {
-                        const link = document.createElement('link');
-                        link.rel = 'preload';
-                        link.as = 'image';
-                        link.href = p.image_url;
-                        document.head.appendChild(link);
-                    });
                 } else {
                     pagesDiv.innerHTML = '<p style="text-align:center;color:var(--text-light);padding:2rem;">Sahifalar yo\'q</p>';
                 }
@@ -1971,7 +2407,7 @@
 
         function showChapters() {
             updateReadingTime();
-            document.getElementById('reader').classList.remove('show');
+            hideAllViews();
             document.getElementById('chapterList').classList.add('show');
         }
 
@@ -1984,18 +2420,17 @@
             
             showLoading(true);
             
-            document.getElementById('mainView').style.display = 'none';
-            document.getElementById('bookmarks').classList.remove('show');
-            document.getElementById('chapterList').classList.remove('show');
-            document.getElementById('reader').classList.remove('show');
+            hideAllViews();
             document.getElementById('leaderboard').classList.add('show');
             
             try {
-                const { data } = await supabase
+                const { data, error } = await supabase
                     .from('users')
-                    .select('username, total_time')
+                    .select('username, total_time, avatar_url')
                     .order('total_time', { ascending: false })
                     .limit(50);
+                
+                if (error) throw error;
                 
                 const leaders = data || [];
                 const leadersDiv = document.getElementById('leaders');
@@ -2041,10 +2476,7 @@
             
             showLoading(true);
             
-            document.getElementById('mainView').style.display = 'none';
-            document.getElementById('leaderboard').classList.remove('show');
-            document.getElementById('chapterList').classList.remove('show');
-            document.getElementById('reader').classList.remove('show');
+            hideAllViews();
             document.getElementById('bookmarks').classList.add('show');
             
             const bookmarkedManhvas = manhvas.filter(m => userBookmarks.has(m.id));
@@ -2089,13 +2521,19 @@
 
         function showMain() {
             updateReadingTime();
+            hideAllViews();
             document.getElementById('mainView').style.display = 'block';
+            document.getElementById('search').value = '';
+            renderManhvas(manhvas);
+        }
+
+        function hideAllViews() {
+            document.getElementById('mainView').style.display = 'none';
+            document.getElementById('profileContainer').classList.remove('show');
             document.getElementById('chapterList').classList.remove('show');
             document.getElementById('reader').classList.remove('show');
             document.getElementById('leaderboard').classList.remove('show');
             document.getElementById('bookmarks').classList.remove('show');
-            document.getElementById('search').value = '';
-            renderManhvas(manhvas);
         }
 
         function toggleTheme() {
@@ -2159,20 +2597,6 @@
             setTimeout(() => {
                 toast.classList.remove('show');
             }, 3000);
-        }
-
-        // Service Worker registration
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/sw.js').then(
-                    registration => {
-                        console.log('ServiceWorker registration successful');
-                    },
-                    err => {
-                        console.log('ServiceWorker registration failed: ', err);
-                    }
-                );
-            });
         }
     </script>
 </body>
