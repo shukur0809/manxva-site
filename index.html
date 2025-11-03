@@ -2,1021 +2,302 @@
 <html lang="uz">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <title>ManhvaUZ - O'zbek Tilida Manhvalar</title>
-    <meta name="description" content="O'zbek tilida eng zo'r manhvalarni bepul o'qing. Turli janrdagi manhvalar va chapterlar.">
-    <meta property="og:title" content="ManhvaUZ - O'zbek Tilida Manhvalar">
-    <meta property="og:description" content="O'zbek tilida eng zo'r manhvalarni bepul o'qing. Turli janrdagi manhvalar va chapterlar.">
-    <meta property="og:type" content="website">
+    <meta name="description" content="O'zbek tilida eng zo'r manhvalarni bepul o'qing. Turli janrlar, yangilanishlar va foydalanuvchi baholari.">
+    <meta name="keywords" content="manhva, manga, uzbek, o'zbek, webtoon, comics">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📚</text></svg>">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        
-        :root {
-            --bg: #f5f5f5;
-            --card: rgba(255,255,255,0.95);
-            --text: #1a1a1a;
-            --text-light: #666;
-            --border: rgba(0,0,0,0.1);
-            --primary: #667eea;
-            --primary-dark: #5568d3;
-            --glass: rgba(0,0,0,0.05);
-            --success: #22c55e;
-            --error: #ef4444;
-        }
-
-        [data-theme="dark"] {
-            --bg: #0a0a0a;
-            --card: rgba(20,20,20,0.95);
-            --text: #e0e0e0;
-            --text-light: #999;
-            --border: rgba(255,255,255,0.1);
-            --glass: rgba(255,255,255,0.05);
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            transition: background 0.3s, color 0.3s;
-            line-height: 1.6;
-        }
-
-        header {
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            background: var(--card);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 2px 10px var(--border);
-        }
-
-        nav {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 1rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-
-        .logo { 
-            font-size: 1.5rem; 
-            font-weight: 800; 
-            background: linear-gradient(135deg, #667eea, #764ba2); 
-            -webkit-background-clip: text; 
-            -webkit-text-fill-color: transparent;
-            cursor: pointer;
-            user-select: none;
-        }
-
-        .btn {
-            padding: 0.6rem 1.2rem;
-            border-radius: 8px;
-            border: none;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.2s;
-            font-size: 0.95rem;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-        }
-
-        .btn-primary:hover:not(:disabled) { 
-            transform: translateY(-2px); 
-            box-shadow: 0 4px 12px rgba(102,126,234,0.4); 
-        }
-
-        .btn-glass {
-            background: var(--glass);
-            border: 1px solid var(--border);
-            color: var(--text);
-        }
-
-        .btn-glass:hover { background: var(--border); }
-
-        .search-box {
-            padding: 0.6rem 1rem;
-            border-radius: 8px;
-            border: 1px solid var(--border);
-            background: var(--card);
-            color: var(--text);
-            min-width: 200px;
-            transition: all 0.2s;
-            position: relative;
-        }
-
-        .search-box:focus { 
-            outline: none; 
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(102,126,234,0.1);
-        }
-
-        .search-results {
-            position: absolute;
-            top: 100%;
-            left: 0;
-            right: 0;
-            margin-top: 0.5rem;
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            max-height: 400px;
-            overflow-y: auto;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
-            z-index: 1000;
-            display: none;
-        }
-
-        .search-results.show {
-            display: block;
-        }
-
-        .search-result-item {
-            padding: 0.8rem 1rem;
-            cursor: pointer;
-            transition: all 0.2s;
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .search-result-item:last-child {
-            border-bottom: none;
-        }
-
-        .search-result-item:hover {
-            background: var(--glass);
-        }
-
-        .search-result-cover {
-            width: 50px;
-            height: 65px;
-            border-radius: 4px;
-            object-fit: cover;
-            flex-shrink: 0;
-        }
-
-        .search-result-info {
-            flex: 1;
-        }
-
-        .search-result-title {
-            font-weight: 600;
-            font-size: 0.9rem;
-            margin-bottom: 0.2rem;
-        }
-
-        .search-result-genre {
-            font-size: 0.75rem;
-            color: var(--text-light);
-        }
-
-        .search-result-rating {
-            display: flex;
-            align-items: center;
-            gap: 0.3rem;
-            font-size: 0.75rem;
-            margin-top: 0.2rem;
-        }
-
-        .search-wrapper {
-            position: relative;
-            flex: 1;
-            max-width: 400px;
-        }
-
-        .theme-btn {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: var(--glass);
-            border: 1px solid var(--border);
-            cursor: pointer;
-            font-size: 1.2rem;
-            transition: all 0.2s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .theme-btn:hover { 
-            background: var(--border); 
-            transform: rotate(20deg); 
-        }
-
-        .user-avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.2s;
-            overflow: hidden;
-        }
-
-        .user-avatar img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .user-avatar:hover { transform: scale(1.1); }
-
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0,0,0,0.7);
-            backdrop-filter: blur(5px);
-            align-items: center;
-            justify-content: center;
-            z-index: 2000;
-            animation: fadeIn 0.2s;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        .modal.show { display: flex; }
-
-        .modal-content {
-            background: var(--card);
-            padding: 2rem;
-            border-radius: 16px;
-            max-width: 400px;
-            width: 90%;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            animation: slideUp 0.3s;
-            max-height: 90vh;
-            overflow-y: auto;
-        }
-
-        @keyframes slideUp {
-            from { transform: translateY(20px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-
-        .modal-content h2 {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 1.5rem;
-            text-align: center;
-        }
-
-        .auth-tabs {
-            display: flex;
-            gap: 0.5rem;
-            margin-bottom: 1.5rem;
-            background: var(--glass);
-            padding: 0.3rem;
-            border-radius: 8px;
-        }
-
-        .auth-tab {
-            flex: 1;
-            padding: 0.6rem;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            background: transparent;
-            color: var(--text);
-            font-weight: 600;
-            transition: all 0.2s;
-        }
-
-        .auth-tab.active {
-            background: var(--primary);
-            color: white;
-        }
-
-        .form-group {
-            margin-bottom: 1rem;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-            font-size: 0.9rem;
-        }
-
-        .form-input {
-            width: 100%;
-            padding: 0.8rem;
-            border-radius: 8px;
-            border: 1px solid var(--border);
-            background: var(--card);
-            color: var(--text);
-            font-size: 0.95rem;
-            transition: all 0.2s;
-        }
-
-        .form-input:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(102,126,234,0.1);
-        }
-
-        .alert {
-            padding: 0.8rem;
-            border-radius: 8px;
-            margin-bottom: 1rem;
-            display: none;
-            font-size: 0.9rem;
-            animation: slideDown 0.3s;
-        }
-
-        @keyframes slideDown {
-            from { transform: translateY(-10px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-
-        .alert.show { display: block; }
-
-        .alert-error {
-            background: rgba(239,68,68,0.1);
-            color: #ef4444;
-            border: 1px solid rgba(239,68,68,0.3);
-        }
-
-        .alert-success {
-            background: rgba(34,197,94,0.1);
-            color: #22c55e;
-            border: 1px solid rgba(34,197,94,0.3);
-        }
-
-        .user-dropdown {
-            position: absolute;
-            top: 110%;
-            right: 0;
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 0.5rem;
-            min-width: 200px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
-            display: none;
-            animation: slideDown 0.2s;
-        }
-
-        .user-dropdown.show { display: block; }
-
-        .user-dropdown-header {
-            padding: 1rem;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .user-dropdown-header h4 { margin-bottom: 0.3rem; }
-        .user-dropdown-header p { font-size: 0.8rem; color: var(--text-light); }
-
-        .user-dropdown-item {
-            padding: 0.8rem 1rem;
-            cursor: pointer;
-            border-radius: 8px;
-            transition: all 0.2s;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .user-dropdown-item:hover {
-            background: var(--glass);
-        }
-
-        /* Profile Styles */
-        .profile-container {
-            display: none;
-            max-width: 900px;
-            margin: 2rem auto;
-            padding: 0 1rem;
-        }
-
-        .profile-container.show {
-            display: block;
-        }
-
-        .profile-header {
-            background: var(--card);
-            border-radius: 16px;
-            padding: 2rem;
-            margin-bottom: 2rem;
-            box-shadow: 0 4px 12px var(--border);
-            text-align: center;
-        }
-
-        .profile-avatar-large {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            margin: 0 auto 1rem;
-            overflow: hidden;
-            border: 4px solid var(--primary);
-            position: relative;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 4rem;
-            color: white;
-            font-weight: 700;
-        }
-
-        .profile-avatar-large img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            position: absolute;
-            top: 0;
-            left: 0;
-        }
-
-        .profile-stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 1rem;
-            margin-top: 2rem;
-        }
-
-        .stat-card {
-            background: var(--glass);
-            padding: 1.5rem 1rem;
-            border-radius: 12px;
-            text-align: center;
-        }
-
-        .stat-value {
-            font-size: 2rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .stat-label {
-            font-size: 0.9rem;
-            color: var(--text-light);
-            margin-top: 0.5rem;
-        }
-
-        .profile-section {
-            background: var(--card);
-            border-radius: 16px;
-            padding: 2rem;
-            margin-bottom: 2rem;
-            box-shadow: 0 4px 12px var(--border);
-        }
-
-        .profile-section h3 {
-            margin-bottom: 1.5rem;
-            font-size: 1.3rem;
-        }
-
-        .avatar-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-            gap: 1rem;
-        }
-
-        .avatar-option {
-            position: relative;
-            aspect-ratio: 1;
-            border-radius: 12px;
-            overflow: hidden;
-            cursor: pointer;
-            transition: all 0.3s;
-            border: 3px solid transparent;
-        }
-
-        .avatar-option:hover {
-            transform: scale(1.05);
-        }
-
-        .avatar-option.selected {
-            border-color: var(--primary);
-            box-shadow: 0 0 20px rgba(102,126,234,0.4);
-        }
-
-        .avatar-option.locked {
-            cursor: not-allowed;
-            opacity: 0.5;
-        }
-
-        .avatar-option img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .avatar-lock {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 2rem;
-            z-index: 1;
-        }
-
-        .avatar-unlock-badge {
-            position: absolute;
-            top: 5px;
-            right: 5px;
-            background: var(--success);
-            color: white;
-            padding: 0.2rem 0.5rem;
-            border-radius: 4px;
-            font-size: 0.7rem;
-            font-weight: 600;
-            animation: bounce 0.5s;
-        }
-
-        @keyframes bounce {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.2); }
-        }
-
-        .edit-form {
-            display: grid;
-            gap: 1rem;
-        }
-
-        .hero {
-            background: linear-gradient(135deg, rgba(102,126,234,0.1), rgba(118,75,162,0.1));
-            padding: 3rem 1rem;
-            text-align: center;
-        }
-
-        .hero h1 {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .hero p {
-            color: var(--text-light);
-            max-width: 600px;
-            margin: 0 auto;
-            line-height: 1.6;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem 1rem;
-        }
-
-        .manhva-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .manhva-card {
-            border-radius: 12px;
-            overflow: hidden;
-            cursor: pointer;
-            transition: all 0.3s;
-            box-shadow: 0 4px 12px var(--border);
-            background: var(--card);
-            position: relative;
-        }
-
-        .manhva-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px var(--border);
-        }
-
-        .manhva-cover {
-            width: 100%;
-            aspect-ratio: 3/4;
-            object-fit: cover;
-            background: var(--glass);
-        }
-
-        .manhva-info {
-            padding: 0.8rem;
-        }
-
-        .manhva-title {
-            font-weight: 700;
-            font-size: 0.9rem;
-            margin-bottom: 0.4rem;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .manhva-genre {
-            font-size: 0.75rem;
-            color: var(--text-light);
-            margin-bottom: 0.5rem;
-        }
-
-        .rating {
-            display: flex;
-            gap: 0.2rem;
-            align-items: center;
-        }
-
-        .star {
-            cursor: pointer;
-            color: #ddd;
-            font-size: 1.1rem;
-            transition: all 0.2s;
-        }
-
-        .star:hover { transform: scale(1.2); }
-        .star.filled { color: #ffd700; }
-        .star.user-rated { color: #ff6b6b; }
-
-        .rating-info {
-            font-size: 0.75rem;
-            color: var(--text-light);
-            margin-left: 0.5rem;
-        }
-
-        .loading {
-            display: none;
-            text-align: center;
-            padding: 3rem;
-        }
-
-        .loading.show { display: block; }
-
-        .spinner {
-            border: 3px solid var(--border);
-            border-top: 3px solid var(--primary);
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            animation: spin 0.8s linear infinite;
-            margin: 0 auto;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        .chapter-list, .reader-container, .leaderboard, .bookmarks { display: none; }
-        .chapter-list.show, .reader-container.show, .leaderboard.show, .bookmarks.show { display: block; }
-
-        .detail-header {
-            display: flex;
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-            padding: 2rem;
-            background: var(--card);
-            border-radius: 16px;
-            box-shadow: 0 4px 12px var(--border);
-        }
-
-        .detail-cover {
-            width: 160px;
-            aspect-ratio: 3/4;
-            border-radius: 12px;
-            overflow: hidden;
-            flex-shrink: 0;
-            object-fit: cover;
-        }
-
-        .detail-info { flex: 1; }
-        .detail-info h2 { margin-bottom: 0.5rem; }
-        .detail-info p { color: var(--text-light); line-height: 1.6; }
-
-        .detail-actions {
-            margin-top: 1rem;
-            display: flex;
-            gap: 0.5rem;
-            flex-wrap: wrap;
-        }
-
-        .detail-rating {
-            margin-top: 1rem;
-            padding: 1rem;
-            background: var(--glass);
-            border-radius: 8px;
-        }
-
-        .rating-display {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            margin-bottom: 1rem;
-        }
-
-        .rating-number {
-            font-size: 2rem;
-            font-weight: 700;
-            color: #ffd700;
-        }
-
-        .rating-stars-large {
-            display: flex;
-            gap: 0.3rem;
-        }
-
-        .rating-stars-large .star {
-            font-size: 1.5rem;
-        }
-
-        .user-rating-section {
-            margin-top: 1rem;
-            padding-top: 1rem;
-            border-top: 1px solid var(--border);
-        }
-
-        .user-rating-section p {
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-        }
-
-        .chapter-item {
-            padding: 1rem;
-            border-bottom: 1px solid var(--border);
-            cursor: pointer;
-            transition: all 0.2s;
-            font-weight: 600;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .chapter-item:hover {
-            background: var(--glass);
-            padding-left: 1.5rem;
-        }
-
-        .chapter-item.read {
-            opacity: 0.6;
-        }
-
-        .chapter-item .read-badge {
-            font-size: 0.8rem;
-            color: var(--success);
-        }
-
-        .leaderboard-list {
-            display: grid;
-            gap: 1rem;
-        }
-
-        .leader-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 1.5rem;
-            background: var(--card);
-            border-radius: 12px;
-            box-shadow: 0 2px 8px var(--border);
-            transition: all 0.2s;
-        }
-
-        .leader-item:hover {
-            transform: translateX(5px);
-            box-shadow: 0 4px 12px var(--border);
-        }
-
-        .leader-rank {
-            font-weight: 700;
-            font-size: 1.2rem;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            min-width: 60px;
-        }
-
-        .leader-name {
-            flex: 1;
-            font-weight: 600;
-        }
-
-        .leader-time {
-            font-size: 0.9rem;
-            color: var(--text-light);
-        }
-
-        .reader-page {
-            max-width: 100%;
-            height: auto;
-            display: block;
-            margin: 1rem auto;
-            border-radius: 8px;
-        }
-
-        .reader-nav {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin: 2rem 0;
-        }
-
-        .toast {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            background: var(--card);
-            padding: 1rem 1.5rem;
-            border-radius: 12px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
-            display: none;
-            animation: slideUp 0.3s;
-            z-index: 3000;
-        }
-
-        .toast.show { display: block; }
-
-        .password-toggle {
-            position: relative;
-        }
-
-        .password-toggle button {
-            position: absolute;
-            right: 10px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: none;
-            border: none;
-            cursor: pointer;
-            font-size: 1.2rem;
-        }
-
-        @media (max-width: 768px) {
-            .detail-header {
-                flex-direction: column;
-            }
-
-            .detail-cover {
-                width: 100%;
-                max-width: 200px;
-                margin: 0 auto;
-            }
-
-            nav {
-                flex-direction: column;
-            }
-
-            .search-wrapper {
-                width: 100%;
-                max-width: 100%;
-            }
-
-            .search-box {
-                width: 100%;
-            }
-
-            .toast {
-                right: 1rem;
-                left: 1rem;
-                bottom: 1rem;
-            }
-
-            .avatar-grid {
-                grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
-            }
+        *{margin:0;padding:0;box-sizing:border-box}
+        :root{--bg:#f5f5f5;--card:rgba(255,255,255,0.95);--text:#1a1a1a;--text-light:#666;--border:rgba(0,0,0,0.1);--primary:#667eea;--primary-dark:#5568d3;--glass:rgba(0,0,0,0.05);--success:#22c55e;--error:#ef4444;--gold:#ffd700;--silver:#c0c0c0;--bronze:#cd7f32}
+        [data-theme="dark"]{--bg:#0a0a0a;--card:rgba(20,20,20,0.95);--text:#e0e0e0;--text-light:#999;--border:rgba(255,255,255,0.1);--glass:rgba(255,255,255,0.05)}
+        html{scroll-behavior:smooth}
+        body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);transition:background .3s,color .3s;line-height:1.6}
+        header{position:sticky;top:0;z-index:100;background:var(--card);backdrop-filter:blur(10px);box-shadow:0 2px 10px var(--border)}
+        nav{max-width:1200px;margin:0 auto;padding:1rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+        .logo{font-size:1.5rem;font-weight:800;background:linear-gradient(135deg,#667eea,#764ba2);-webkit-background-clip:text;-webkit-text-fill-color:transparent;cursor:pointer;display:flex;align-items:center;gap:.8rem;padding:.5rem 1rem;border-radius:12px;transition:all .3s;position:relative}
+        .logo:hover{transform:translateY(-2px);box-shadow:0 4px 15px rgba(102,126,234,0.3)}
+        .logo::before{content:'';position:absolute;inset:0;border-radius:12px;padding:2px;background:linear-gradient(135deg,#667eea,#764ba2);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:0;transition:opacity .3s}
+        .logo:hover::before{opacity:1}
+        .logo-icon{width:40px;height:40px;border-radius:10px;box-shadow:0 4px 12px rgba(0,0,0,0.15);transition:transform .3s}
+        .logo:hover .logo-icon{transform:rotate(5deg) scale(1.1)}
+        .btn{padding:.6rem 1.2rem;border-radius:8px;border:none;cursor:pointer;font-weight:600;transition:all .2s;font-size:.95rem;display:inline-flex;align-items:center;gap:.5rem}
+        .btn:disabled{opacity:.5;cursor:not-allowed}
+        .btn-primary{background:linear-gradient(135deg,#667eea,#764ba2);color:white}
+        .btn-primary:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 4px 12px rgba(102,126,234,0.4)}
+        .btn-glass{background:var(--glass);border:1px solid var(--border);color:var(--text)}
+        .btn-glass:hover{background:var(--border)}
+        .search-wrapper{position:relative;flex:1;max-width:400px}
+        .search-box{padding:.6rem 1rem;border-radius:8px;border:1px solid var(--border);background:var(--card);color:var(--text);width:100%;transition:all .2s}
+        .search-box:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px rgba(102,126,234,0.1)}
+        .search-results{position:absolute;top:100%;left:0;right:0;margin-top:.5rem;background:var(--card);border:1px solid var(--border);border-radius:8px;max-height:400px;overflow-y:auto;box-shadow:0 10px 40px rgba(0,0,0,0.2);z-index:1000;display:none}
+        .search-results.show{display:block}
+        .search-result-item{padding:.8rem 1rem;cursor:pointer;display:flex;align-items:center;gap:1rem;border-bottom:1px solid var(--border);transition:all .2s}
+        .search-result-item:hover{background:var(--glass)}
+        .search-result-cover{width:50px;height:65px;border-radius:4px;object-fit:cover}
+        .user-avatar{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#667eea,#764ba2);color:white;display:flex;align-items:center;justify-content:center;font-weight:700;cursor:pointer;transition:all .2s;overflow:hidden;border:2px solid transparent;position:relative}
+        .user-avatar:hover{transform:scale(1.1);border-color:var(--primary)}
+        .user-avatar img{width:100%;height:100%;object-fit:cover;position:absolute;top:0;left:0}
+        .user-dropdown{position:absolute;top:110%;right:0;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:.5rem;min-width:200px;box-shadow:0 10px 40px rgba(0,0,0,0.2);display:none;z-index:1000}
+        .user-dropdown.show{display:block}
+        .dropdown-item{padding:.8rem 1rem;cursor:pointer;border-radius:8px;transition:all .2s;display:flex;align-items:center;gap:.5rem}
+        .dropdown-item:hover{background:var(--glass)}
+        .modal{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.7);backdrop-filter:blur(5px);align-items:center;justify-content:center;z-index:2000}
+        .modal.show{display:flex}
+        .modal-content{background:var(--card);padding:2rem;border-radius:16px;max-width:400px;width:90%;box-shadow:0 20px 60px rgba(0,0,0,0.3);max-height:90vh;overflow-y:auto}
+        .auth-tabs{display:flex;gap:.5rem;margin-bottom:1.5rem;border-bottom:2px solid var(--border)}
+        .auth-tab{flex:1;padding:.8rem;cursor:pointer;border:none;background:transparent;color:var(--text-light);font-weight:600;transition:all .2s;border-bottom:2px solid transparent;margin-bottom:-2px}
+        .auth-tab.active{color:var(--primary);border-bottom-color:var(--primary)}
+        .alert{padding:.8rem;border-radius:8px;margin-bottom:1rem;display:none;font-size:.9rem}
+        .alert.show{display:block}
+        .alert-error{background:rgba(239,68,68,0.1);color:#ef4444;border:1px solid rgba(239,68,68,0.3)}
+        .alert-success{background:rgba(34,197,94,0.1);color:#22c55e;border:1px solid rgba(34,197,94,0.3)}
+        .password-toggle{position:relative}
+        .toggle-password{position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:1.2rem;color:var(--text-light)}
+        .profile-modal{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.7);backdrop-filter:blur(5px);align-items:center;justify-content:center;z-index:2000}
+        .profile-modal.show{display:flex}
+        .profile-modal-content{background:var(--card);border-radius:20px;max-width:500px;width:90%;max-height:90vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,0.3);animation:slideUp .3s}
+        @keyframes slideUp{from{opacity:0;transform:translateY(50px)}to{opacity:1;transform:translateY(0)}}
+        .profile-header{background:linear-gradient(135deg,#667eea,#764ba2);padding:2rem;text-align:center;border-radius:20px 20px 0 0}
+        .profile-avatar-large{width:100px;height:100px;border-radius:50%;background:white;color:var(--primary);display:flex;align-items:center;justify-content:center;font-size:2.5rem;font-weight:700;margin:0 auto 1rem;overflow:hidden;border:4px solid white;box-shadow:0 4px 20px rgba(0,0,0,0.2);cursor:pointer;transition:all .3s;position:relative}
+        .profile-avatar-large:hover{transform:scale(1.05)}
+        .profile-avatar-large img{width:100%;height:100%;object-fit:cover;position:absolute;top:0;left:0}
+        .profile-username{color:white;font-size:1.5rem;font-weight:700;margin-bottom:.5rem}
+        .profile-email{color:rgba(255,255,255,0.9);font-size:.9rem}
+        .profile-body{padding:2rem}
+        .profile-tabs{display:flex;gap:.5rem;margin-bottom:1.5rem;border-bottom:2px solid var(--border)}
+        .profile-tab{padding:.8rem 1.2rem;cursor:pointer;border:none;background:transparent;color:var(--text-light);font-weight:600;transition:all .2s;border-bottom:2px solid transparent;margin-bottom:-2px}
+        .profile-tab.active{color:var(--primary);border-bottom-color:var(--primary)}
+        .tab-content{display:none}
+        .tab-content.active{display:block}
+        .form-group{margin-bottom:1.2rem}
+        .form-group label{display:block;margin-bottom:.5rem;font-weight:600;color:var(--text)}
+        .form-input{width:100%;padding:.8rem;border-radius:8px;border:1px solid var(--border);background:var(--card);color:var(--text);transition:all .2s}
+        .form-input:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px rgba(102,126,234,0.1)}
+        .stats-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;margin-bottom:1.5rem}
+        .stat-card{background:var(--glass);padding:1rem;border-radius:12px;text-align:center;border:1px solid var(--border)}
+        .stat-value{font-size:1.8rem;font-weight:700;background:linear-gradient(135deg,#667eea,#764ba2);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+        .stat-label{color:var(--text-light);font-size:.85rem;margin-top:.3rem}
+        .avatar-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-top:1rem}
+        .avatar-option{aspect-ratio:1;border-radius:50%;cursor:pointer;transition:all .2s;overflow:hidden;border:3px solid transparent;position:relative;background:var(--glass)}
+        .avatar-option img{width:100%;height:100%;object-fit:cover}
+        .avatar-option.selected{border-color:var(--primary);transform:scale(1.1)}
+        .avatar-option.locked{opacity:.3;cursor:not-allowed}
+        .avatar-option.locked::after{content:'🔒';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:1.5rem}
+        .hero{background:linear-gradient(135deg,rgba(102,126,234,0.1),rgba(118,75,162,0.1));padding:3rem 1rem;text-align:center;position:relative;overflow:hidden}
+        .hero::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:url('https://zefirka.club/uploads/posts/2022-10/1664707769_5-zefirka-club-p-banner-dlya-yutub-anime-cherno-belie-5.jpg') center/cover no-repeat;opacity:.2;z-index:0}
+        .hero>*{position:relative;z-index:1}
+        .hero h1{font-size:2rem;margin-bottom:1rem;background:linear-gradient(135deg,#667eea,#764ba2);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+        .container{max-width:1200px;margin:0 auto;padding:2rem 1rem}
+        .ad-container{max-width:1200px;margin:2rem auto;padding:1rem;text-align:center;min-height:90px;background:var(--glass);border-radius:8px;display:flex;align-items:center;justify-content:center}
+        .manhva-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:1.5rem}
+        .manhva-card{border-radius:12px;overflow:hidden;cursor:pointer;transition:all .3s;box-shadow:0 4px 12px var(--border);background:var(--card);position:relative}
+        .manhva-card:hover{transform:translateY(-5px);box-shadow:0 8px 20px var(--border)}
+        .manhva-cover{width:100%;aspect-ratio:3/4;object-fit:cover;background:var(--glass)}
+        .manhva-info{padding:1rem}
+        .manhva-title{font-weight:700;margin-bottom:.5rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+        .manhva-genre{color:var(--text-light);font-size:.85rem;margin-bottom:.5rem}
+        .rating{display:flex;gap:.2rem;align-items:center}
+        .star{cursor:pointer;color:#ddd;font-size:1.1rem;transition:all .2s}
+        .star.filled{color:#ffd700}
+        .star.user-rated{color:#ff6b6b}
+        .rating-info{font-size:.85rem;color:var(--text-light);margin-left:.5rem}
+        .rating-stars-large .star{font-size:1.5rem}
+        .theme-btn{width:40px;height:40px;border-radius:50%;background:var(--glass);border:1px solid var(--border);cursor:pointer;font-size:1.2rem;display:flex;align-items:center;justify-content:center;transition:all .2s}
+        .theme-btn:hover{background:var(--border);transform:rotate(20deg)}
+        .loading{display:none;text-align:center;padding:3rem}
+        .loading.show{display:block}
+        .spinner{border:3px solid var(--border);border-top:3px solid var(--primary);border-radius:50%;width:40px;height:40px;animation:spin .8s linear infinite;margin:0 auto}
+        @keyframes spin{to{transform:rotate(360deg)}}
+        .toast{position:fixed;bottom:2rem;right:2rem;background:var(--card);padding:1rem 1.5rem;border-radius:12px;box-shadow:0 10px 40px rgba(0,0,0,0.3);display:none;z-index:3000;border:1px solid var(--border)}
+        .toast.show{display:block;animation:slideIn .3s}
+        @keyframes slideIn{from{opacity:0;transform:translateX(100px)}to{opacity:1;transform:translateX(0)}}
+        .chapter-list,.reader-container,.bookmarks,.leaderboard{display:none}
+        .chapter-list.show,.reader-container.show,.bookmarks.show,.leaderboard.show{display:block}
+        .detail-header{display:flex;gap:2rem;margin-bottom:2rem}
+        .detail-cover{width:200px;height:267px;object-fit:cover;border-radius:12px;box-shadow:0 4px 20px var(--border)}
+        .detail-info{flex:1}
+        .detail-actions{display:flex;gap:1rem;margin:1rem 0;flex-wrap:wrap}
+        .detail-rating{margin-top:1rem}
+        .rating-display{display:flex;align-items:center;gap:2rem;margin-bottom:1rem}
+        .rating-number{font-size:3rem;font-weight:700;color:var(--primary)}
+        .user-rating-section{margin-top:1rem}
+        .chapter-item{background:var(--card);padding:1rem;border-radius:8px;margin-bottom:.5rem;cursor:pointer;transition:all .2s;border:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
+        .chapter-item:hover{background:var(--glass);transform:translateX(5px)}
+        .chapter-item.read{opacity:.6}
+        .show-all-chapters{text-align:center;margin-top:1rem}
+        .podium{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin:2rem 0;max-width:900px;margin:2rem auto}
+        .podium-place{background:var(--card);border-radius:16px;padding:2rem 1rem;text-align:center;border:2px solid var(--border);transition:all .3s;position:relative;overflow:hidden}
+        .podium-place::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--primary),var(--primary-dark))}
+        .podium-place:hover{transform:translateY(-5px);box-shadow:0 10px 30px rgba(0,0,0,0.2)}
+        .podium-place:nth-child(2){order:-1;transform:scale(1.1);border-width:3px}
+        .podium-place:nth-child(1)::before{background:linear-gradient(90deg,var(--silver),#e8e8e8)}
+        .podium-place:nth-child(2)::before{background:linear-gradient(90deg,var(--gold),#ffed4e)}
+        .podium-place:nth-child(3)::before{background:linear-gradient(90deg,var(--bronze),#e8a76f)}
+        .podium-rank{position:absolute;top:-15px;left:50%;transform:translateX(-50%);width:50px;height:50px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.5rem;font-weight:700;border:3px solid var(--card);box-shadow:0 4px 15px rgba(0,0,0,0.2)}
+        .podium-place:nth-child(1) .podium-rank{background:linear-gradient(135deg,var(--silver),#e8e8e8);color:#333}
+        .podium-place:nth-child(2) .podium-rank{background:linear-gradient(135deg,var(--gold),#ffed4e);color:#333;width:60px;height:60px;font-size:1.8rem}
+        .podium-place:nth-child(3) .podium-rank{background:linear-gradient(135deg,var(--bronze),#e8a76f);color:#fff}
+        .podium-avatar{width:80px;height:80px;border-radius:50%;margin:2rem auto 1rem;overflow:hidden;border:4px solid;position:relative;background:linear-gradient(135deg,#667eea,#764ba2);display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:2rem;box-shadow:0 4px 20px rgba(0,0,0,0.2)}
+        .podium-place:nth-child(2) .podium-avatar{width:100px;height:100px;font-size:2.5rem;border-width:5px}
+        .podium-avatar img{width:100%;height:100%;object-fit:cover;position:absolute;top:0;left:0}
+        .podium-place:nth-child(1) .podium-avatar{border-color:var(--silver)}
+        .podium-place:nth-child(2) .podium-avatar{border-color:var(--gold)}
+        .podium-place:nth-child(3) .podium-avatar{border-color:var(--bronze)}
+        .podium-name{font-weight:700;font-size:1.1rem;margin-bottom:.5rem;color:var(--text)}
+        .podium-time{color:var(--text-light);font-size:.95rem;font-weight:600;display:flex;align-items:center;justify-content:center;gap:.5rem}
+        .podium-time i{color:var(--primary)}
+        .leaderboard-list{background:var(--card);border-radius:12px;border:1px solid var(--border);overflow:hidden;margin-top:2rem}
+        .leader-item{display:flex;align-items:center;gap:1rem;padding:1rem;border-bottom:1px solid var(--border);transition:all .2s}
+        .leader-item:hover{background:var(--glass)}
+        .leader-rank{font-weight:700;font-size:1.2rem;min-width:40px;text-align:center;color:var(--text-light)}
+        .leader-avatar{width:50px;height:50px;border-radius:50%;overflow:hidden;background:linear-gradient(135deg,#667eea,#764ba2);display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:1.2rem;border:2px solid var(--border);position:relative}
+        .leader-avatar img{width:100%;height:100%;object-fit:cover;position:absolute;top:0;left:0}
+        .leader-info{flex:1}
+        .leader-name{font-weight:700;margin-bottom:.2rem}
+        .leader-time{color:var(--text-light);font-size:.9rem}
+        .cookie-consent{position:fixed;bottom:0;left:0;right:0;background:var(--card);border-top:2px solid var(--border);padding:1.5rem;z-index:3000;box-shadow:0 -5px 20px rgba(0,0,0,0.1);display:none}
+        .cookie-consent.show{display:block}
+        .cookie-content{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap}
+        .cookie-text{flex:1;min-width:250px}
+        .privacy-link{color:var(--primary);text-decoration:none;font-weight:600}
+        .privacy-link:hover{text-decoration:underline}
+        footer{background:var(--card);border-top:1px solid var(--border);padding:2rem 1rem;margin-top:3rem}
+        .footer-content{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+        .footer-links{display:flex;gap:1.5rem;flex-wrap:wrap}
+        .footer-links a{color:var(--text);text-decoration:none;transition:color .2s}
+        .footer-links a:hover{color:var(--primary)}
+        .welcome-modal{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.85);backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;z-index:3000;animation:fadeIn .5s}
+        .welcome-content{background:var(--card);padding:3rem 2rem;border-radius:20px;max-width:500px;width:90%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,0.4);animation:scaleIn .5s}
+        .welcome-content h2{font-size:2rem;margin-bottom:1rem;background:linear-gradient(135deg,#667eea,#764ba2);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+        .welcome-content p{color:var(--text-light);margin-bottom:2rem;line-height:1.8}
+        @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+        @keyframes scaleIn{from{opacity:0;transform:scale(0.9)}to{opacity:1;transform:scale(1)}}
+        @media (max-width:768px){
+            nav{flex-direction:column}
+            .search-wrapper{width:100%;max-width:100%}
+            .podium{grid-template-columns:1fr;gap:1rem}
+            .podium-place:nth-child(2){transform:scale(1);order:0}
+            .detail-header{flex-direction:column}
+            .detail-cover{width:100%;height:auto}
+            .stats-grid{grid-template-columns:1fr}
+            .cookie-content{flex-direction:column;text-align:center}
+            .footer-content{flex-direction:column;text-align:center}
         }
     </style>
 </head>
 <body data-theme="light">
-    <!-- Auth Modal -->
-    <div class="modal" id="authModal">
-        <div class="modal-content">
-            <h2>📚 ManhvaUZ</h2>
-            
-            <div class="auth-tabs">
-                <button class="auth-tab active" data-tab="login">Kirish</button>
-                <button class="auth-tab" data-tab="register">Ro'yxatdan o'tish</button>
-            </div>
 
-            <div class="alert alert-error" id="errorMsg"></div>
-            <div class="alert alert-success" id="successMsg"></div>
-
-            <form id="loginForm">
-                <div class="form-group">
-                    <label>Email</label>
-                    <input type="email" id="loginEmail" class="form-input" required autocomplete="email">
-                </div>
-                <div class="form-group">
-                    <label>Parol</label>
-                    <div class="password-toggle">
-                        <input type="password" id="loginPass" class="form-input" required autocomplete="current-password">
-                        <button type="button" class="toggle-password" data-target="loginPass">👁️</button>
-                    </div>
-                </div>
-                <div style="margin-bottom:1rem;">
-                    <label style="display:flex;align-items:center;gap:0.5rem;cursor:pointer;">
-                        <input type="checkbox" id="remember"> Eslab qolish
-                    </label>
-                </div>
-                <button type="submit" class="btn btn-primary" style="width:100%;margin-bottom:0.5rem;" id="loginBtn">Kirish</button>
-                <button type="button" class="btn btn-glass" style="width:100%;" id="closeModal1">Bekor qilish</button>
-            </form>
-
-            <form id="registerForm" style="display:none;">
-                <div class="form-group">
-                    <label>Username</label>
-                    <input type="text" id="regUser" class="form-input" minlength="3" required autocomplete="username">
-                </div>
-                <div class="form-group">
-                    <label>Email</label>
-                    <input type="email" id="regEmail" class="form-input" required autocomplete="email">
-                </div>
-                <div class="form-group">
-                    <label>Parol</label>
-                    <div class="password-toggle">
-                        <input type="password" id="regPass" class="form-input" minlength="6" required autocomplete="new-password">
-                        <button type="button" class="toggle-password" data-target="regPass">👁️</button>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label>Parolni tasdiqlang</label>
-                    <div class="password-toggle">
-                        <input type="password" id="regPass2" class="form-input" required autocomplete="new-password">
-                        <button type="button" class="toggle-password" data-target="regPass2">👁️</button>
-                    </div>
-                </div>
-                <button type="submit" class="btn btn-primary" style="width:100%;margin-bottom:0.5rem;" id="regBtn">Ro'yxatdan o'tish</button>
-                <button type="button" class="btn btn-glass" style="width:100%;" id="closeModal2">Bekor qilish</button>
-            </form>
-        </div>
+<!-- WELCOME MODAL (Birinchi kirganida) -->
+<div class="welcome-modal" id="welcomeModal" style="display:none">
+    <div class="welcome-content">
+        <h2>🎉 Xush kelibsiz!</h2>
+        <p>ManhvaUZ - O'zbekistondagi eng yaxshi manhva platformasi!<br><br>
+        Davom etish uchun ro'yxatdan o'ting yoki tizimga kiring.</p>
+        <button class="btn btn-primary" style="width:100%;margin-bottom:.5rem" id="welcomeLoginBtn">
+            <i class="fas fa-sign-in-alt"></i> Kirish / Ro'yxatdan o'tish
+        </button>
+        <button class="btn btn-glass" style="width:100%" id="welcomeLaterBtn">
+            Keyinroq
+        </button>
     </div>
+</div>
 
-    <!-- Toast Notification -->
-    <div class="toast" id="toast"></div>
-
-    <header>
-        <nav>
-            <div class="logo" id="logoBtn">ManhvaUZ</div>
-            <div class="search-wrapper">
-                <input type="text" class="search-box" id="search" placeholder="Qidirish...">
-                <div class="search-results" id="searchResults"></div>
-            </div>
-            <div style="display:flex;gap:1rem;align-items:center;flex-wrap:wrap;">
-                <button class="btn btn-glass" id="bookmarksBtn">🔖 Sevimlilar</button>
-                <button class="btn btn-glass" id="leaderboardBtn">🏆 Liderlar</button>
-                <button class="theme-btn" id="themeBtn">🌙</button>
-                <div id="userInfo" style="position:relative;"></div>
-            </div>
-        </nav>
-    </header>
-
-    <div class="hero">
-        <h1>🎭 O'zbek Tilida Manhvalar</h1>
-        <p>Eng zo'r manhvalarni bepul o'qing! Turli janrdagi manhvalar, chapterlar va foydalanuvchi baholari bilan.</p>
-    </div>
-
-    <div class="container">
-        <!-- Main View -->
-        <div id="mainView">
-            <div class="manhva-grid" id="grid"></div>
+<!-- COOKIE CONSENT BANNER -->
+<div class="cookie-consent" id="cookieConsent">
+    <div class="cookie-content">
+        <div class="cookie-text">
+            🍪 Biz saytimizda tajribangizni yaxshilash uchun cookie'lardan foydalanamiz. Davom etish orqali siz <a href="#privacy" class="privacy-link" id="privacyLink">Maxfiylik siyosati</a>mizga rozilik bildirasiz.
         </div>
+        <button class="btn btn-primary" id="acceptCookies">Qabul qilish</button>
+    </div>
+</div>
 
-        <!-- Profile -->
-        <div class="profile-container" id="profileContainer">
-            <button class="btn btn-glass" id="backToMainFromProfile">← Orqaga</button>
-            
-            <div class="profile-header">
-                <div class="profile-avatar-large" id="profileAvatarLarge">
-                    <span id="profileInitial"></span>
-                    <img id="profileAvatarImg" src="" alt="" style="display:none;">
+<!-- AUTH MODAL -->
+<div class="modal" id="authModal">
+    <div class="modal-content">
+        <h2 style="text-align:center;margin-bottom:1.5rem">ManhvaUZ</h2>
+        <div class="auth-tabs">
+            <button class="auth-tab active" data-tab="login">Kirish</button>
+            <button class="auth-tab" data-tab="register">Ro'yxatdan o'tish</button>
+        </div>
+        <div class="alert alert-error" id="errorMsg"></div>
+        <div class="alert alert-success" id="successMsg"></div>
+        
+        <form id="loginForm">
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" id="loginEmail" class="form-input" required autocomplete="email">
+            </div>
+            <div class="form-group">
+                <label>Parol</label>
+                <div class="password-toggle">
+                    <input type="password" id="loginPass" class="form-input" required autocomplete="current-password">
+                    <button type="button" class="toggle-password" data-target="loginPass"><i class="fas fa-eye"></i></button>
                 </div>
-                <h2 id="profileUsername"></h2>
-                <p id="profileEmail" style="color:var(--text-light);"></p>
-                
-                <div class="profile-stats">
+            </div>
+            <div style="margin-bottom:1rem">
+                <label style="display:flex;align-items:center;gap:.5rem;cursor:pointer">
+                    <input type="checkbox" id="remember"> Eslab qolish
+                </label>
+            </div>
+            <button type="submit" class="btn btn-primary" style="width:100%;margin-bottom:.5rem" id="loginBtn">Kirish</button>
+            <button type="button" class="btn btn-glass" style="width:100%" id="closeModal1">Bekor qilish</button>
+        </form>
+        
+        <form id="registerForm" style="display:none">
+            <div class="form-group">
+                <label>Username</label>
+                <input type="text" id="regUser" class="form-input" minlength="3" required autocomplete="username">
+            </div>
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" id="regEmail" class="form-input" required autocomplete="email">
+            </div>
+            <div class="form-group">
+                <label>Parol</label>
+                <div class="password-toggle">
+                    <input type="password" id="regPass" class="form-input" minlength="6" required autocomplete="new-password">
+                    <button type="button" class="toggle-password" data-target="regPass"><i class="fas fa-eye"></i></button>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Parolni tasdiqlang</label>
+                <div class="password-toggle">
+                    <input type="password" id="regPass2" class="form-input" required autocomplete="new-password">
+                    <button type="button" class="toggle-password" data-target="regPass2"><i class="fas fa-eye"></i></button>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary" style="width:100%;margin-bottom:.5rem" id="regBtn">Ro'yxatdan o'tish</button>
+            <button type="button" class="btn btn-glass" style="width:100%" id="closeModal2">Bekor qilish</button>
+        </form>
+    </div>
+</div>
+
+<!-- PROFILE MODAL -->
+<div class="profile-modal" id="profileModal">
+    <div class="profile-modal-content">
+        <div class="profile-header">
+            <div class="profile-avatar-large" id="profileAvatarLarge">
+                <span id="profileInitial">U</span>
+                <img id="profileAvatarImg" style="display:none" alt="Avatar">
+            </div>
+            <div class="profile-username" id="profileUsername">Username</div>
+            <div class="profile-email" id="profileEmail">email@example.com</div>
+        </div>
+        <div class="profile-body">
+            <div class="profile-tabs">
+                <button class="profile-tab active" data-tab="stats">Statistika</button>
+                <button class="profile-tab" data-tab="edit">Tahrirlash</button>
+                <button class="profile-tab" data-tab="avatars">Avatar</button>
+            </div>
+            
+            <div class="tab-content active" id="statsTab">
+                <div class="stats-grid">
                     <div class="stat-card">
                         <div class="stat-value" id="totalTimeValue">0s</div>
-                        <div class="stat-label">O'qish vaqti</div>
+                        <div class="stat-label">Umumiy vaqt</div>
                     </div>
                     <div class="stat-card">
                         <div class="stat-value" id="ratingsCountValue">0</div>
@@ -1032,10 +313,9 @@
                     </div>
                 </div>
             </div>
-
-            <div class="profile-section">
-                <h3>👤 Profil ma'lumotlari</h3>
-                <form class="edit-form" id="editProfileForm">
+            
+            <div class="tab-content" id="editTab">
+                <form id="editProfileForm">
                     <div class="form-group">
                         <label>Username</label>
                         <input type="text" id="editUsername" class="form-input" minlength="3" required>
@@ -1044,1560 +324,1173 @@
                         <label>Email</label>
                         <input type="email" id="editEmail" class="form-input" required>
                     </div>
-                    <button type="submit" class="btn btn-primary" id="saveProfileBtn">💾 Saqlash</button>
+                    <button type="submit" class="btn btn-primary" style="width:100%;margin-bottom:.5rem">Saqlash</button>
                 </form>
-            </div>
-
-            <div class="profile-section">
-                <h3>🎨 Avatar tanlash</h3>
-                <p style="color:var(--text-light);margin-bottom:1.5rem;">Avatarlar saytda o'tkazgan vaqtingizga qarab ochiladi</p>
-                <div class="avatar-grid" id="avatarGrid"></div>
-            </div>
-
-            <div class="profile-section">
-                <h3>🔐 Parolni o'zgartirish</h3>
-                <form class="edit-form" id="changePasswordForm">
+                <hr style="margin:1.5rem 0;border:none;border-top:1px solid var(--border)">
+                <form id="changePasswordForm">
+                    <h3 style="margin-bottom:1rem">Parolni o'zgartirish</h3>
                     <div class="form-group">
                         <label>Yangi parol</label>
                         <div class="password-toggle">
                             <input type="password" id="newPassword" class="form-input" minlength="6" required>
-                            <button type="button" class="toggle-password" data-target="newPassword">👁️</button>
+                            <button type="button" class="toggle-password" data-target="newPassword"><i class="fas fa-eye"></i></button>
                         </div>
                     </div>
                     <div class="form-group">
                         <label>Parolni tasdiqlang</label>
                         <div class="password-toggle">
                             <input type="password" id="confirmPassword" class="form-input" required>
-                            <button type="button" class="toggle-password" data-target="confirmPassword">👁️</button>
+                            <button type="button" class="toggle-password" data-target="confirmPassword"><i class="fas fa-eye"></i></button>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-primary" id="changePasswordBtn">🔑 Parolni o'zgartirish</button>
+                    <button type="submit" class="btn btn-primary" style="width:100%">Parolni o'zgartirish</button>
                 </form>
             </div>
+            
+            <div class="tab-content" id="avatarsTab">
+                <p style="margin-bottom:1rem;color:var(--text-light);text-align:center">
+                    🎯 Avatarlarni ochish uchun ko'proq vaqt o'tkazing!<br>
+                    <small>Sizning vaqtingiz: <strong id="currentUserTime">0s</strong></small>
+                </p>
+                <div class="avatar-grid" id="avatarGrid"></div>
+            </div>
+            
+            <button class="btn btn-glass" style="width:100%;margin-top:1.5rem" id="closeProfileModal">Yopish</button>
+            <button class="btn" style="width:100%;margin-top:.5rem;background:var(--error);color:white" id="logoutBtn">
+                <i class="fas fa-sign-out-alt"></i> Chiqish
+            </button>
         </div>
+    </div>
+</div>
 
-        <!-- Bookmarks -->
-        <div class="bookmarks" id="bookmarks">
-            <button class="btn btn-glass" id="backToMain3">← Orqaga</button>
-            <h2 style="text-align:center;margin:2rem 0;">🔖 Sevimli Manhvalar</h2>
-            <div class="manhva-grid" id="bookmarkGrid"></div>
+<!-- PRIVACY POLICY MODAL -->
+<div class="modal" id="privacyModal">
+    <div class="modal-content" style="max-width:600px">
+        <h2 style="margin-bottom:1rem">Maxfiylik Siyosati</h2>
+        <div style="max-height:400px;overflow-y:auto;margin-bottom:1rem;line-height:1.8">
+            <h3>1. Ma'lumotlar yig'ish</h3>
+            <p>Biz quyidagi ma'lumotlarni yig'amiz:</p>
+            <ul style="margin-left:1.5rem;margin-bottom:1rem">
+                <li>Email manzil va username</li>
+                <li>Saytdagi faoliyatingiz (o'qilgan chapterlar, baholar)</li>
+                <li>Cookie'lar orqali sayt tajribasi</li>
+            </ul>
+            
+            <h3>2. Ma'lumotlardan foydalanish</h3>
+            <p>Sizning ma'lumotlaringiz faqat sayt xizmatlarini taqdim etish uchun ishlatiladi. Biz hech qachon ma'lumotlaringizni uchinchi shaxslarga sotmaymiz.</p>
+            
+            <h3>3. Cookie'lar</h3>
+            <p>Biz sayt tajribasini yaxshilash uchun cookie'lardan foydalanamiz. Siz brauzer sozlamalarida ularni o'chirishingiz mumkin.</p>
+            
+            <h3>4. Google AdSense</h3>
+            <p>Saytimizda Google AdSense reklamalari ko'rsatiladi. Google sizning harakatlaringiz haqida ma'lumot to'plashi va cookie'lar ishlatishi mumkin. Bu reklamalarni shaxsiylashtirish uchun kerak.</p>
+            
+            <h3>5. Xavfsizlik</h3>
+            <p>Sizning parolingiz shifrlangan holda saqlanadi. Biz eng yuqori xavfsizlik standartlariga amal qilamiz.</p>
+            
+            <h3>6. Aloqa</h3>
+            <p>Savollar bo'lsa, biz bilan bog'laning: support@manhvauz.com</p>
         </div>
+        <button class="btn btn-glass" style="width:100%" id="closePrivacy">Yopish</button>
+    </div>
+</div>
 
-        <!-- Chapter List -->
-        <div class="chapter-list" id="chapterList">
-            <button class="btn btn-glass" id="backToMain">← Orqaga</button>
-            <div class="detail-header">
-                <img class="detail-cover" id="detailCover" src="" alt="">
-                <div class="detail-info">
-                    <h2 id="detailTitle"></h2>
-                    <p id="detailDesc"></p>
-                    
-                    <div class="detail-actions">
-                        <button class="btn btn-glass" id="bookmarkBtn">🔖 Sevimlilar</button>
-                        <button class="btn btn-glass" id="shareBtn">📤 Ulashish</button>
+<div class="toast" id="toast"></div>
+
+<!-- HEADER -->
+<header>
+    <nav>
+        <div class="logo" id="logoBtn">
+            <img class="logo-icon" src="https://w0.peakpx.com/wallpaper/486/994/HD-wallpaper-shadow-ninja-anime-black-ans-white-logo-manga-ninja-symbole.jpg" alt="Logo">
+            ManhvaUZ
+        </div>
+        <div class="search-wrapper">
+            <input type="text" class="search-box" id="search" placeholder="Qidirish...">
+            <div class="search-results" id="searchResults"></div>
+        </div>
+        <div style="display:flex;gap:1rem;align-items:center;flex-wrap:wrap">
+            <button class="btn btn-glass" id="bookmarksBtn"><i class="far fa-bookmark"></i> Sevimlilar</button>
+            <button class="btn btn-glass" id="leaderboardBtn"><i class="fas fa-trophy"></i> Liderlar</button>
+            <button class="theme-btn" id="themeBtn"><i class="fas fa-moon"></i></button>
+            <div id="userInfo" style="position:relative"></div>
+        </div>
+    </nav>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+    <h1>O'zbek Tilida Manhvalar</h1>
+    <p>Eng zo'r manhvalarni bepul o'qing! Turli janrdagi manhvalar, chapterlar va foydalanuvchi baholari bilan.</p>
+</div>
+
+<!-- AD SPACE 1 -->
+<div class="ad-container">
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-1670894419218881"
+         data-ad-slot="1234567890"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+</div>
+
+<!-- MAIN CONTAINER -->
+<div class="container">
+    <div id="mainView">
+        <div class="manhva-grid" id="grid"></div>
+    </div>
+
+    <!-- BOOKMARKS -->
+    <div class="bookmarks" id="bookmarks">
+        <button class="btn btn-glass" id="backToMain3"><i class="fas fa-arrow-left"></i> Orqaga</button>
+        <h2 style="text-align:center;margin:2rem 0">Sevimli Manhvalar</h2>
+        <div class="manhva-grid" id="bookmarkGrid"></div>
+    </div>
+
+    <!-- CHAPTER LIST -->
+    <div class="chapter-list" id="chapterList">
+        <button class="btn btn-glass" id="backToMain"><i class="fas fa-arrow-left"></i> Orqaga</button>
+        <div class="detail-header">
+            <img class="detail-cover" id="detailCover" src="" alt="">
+            <div class="detail-info">
+                <h2 id="detailTitle"></h2>
+                <p id="detailDesc"></p>
+                <div class="detail-actions">
+                    <button class="btn btn-glass" id="bookmarkBtn"><i class="far fa-bookmark"></i> Sevimlilar</button>
+                    <button class="btn btn-glass" id="shareBtn"><i class="fas fa-share"></i> Ulashish</button>
+                </div>
+                <div class="detail-rating">
+                    <div class="rating-display">
+                        <div class="rating-number" id="avgRating">0.0</div>
+                        <div>
+                            <div class="rating-stars-large" id="avgStars"></div>
+                            <div class="rating-info" id="ratingCount">0 baho</div>
+                        </div>
                     </div>
-                    
-                    <div class="detail-rating">
-                        <div class="rating-display">
-                            <div class="rating-number" id="avgRating">0.0</div>
-                            <div>
-                                <div class="rating-stars-large" id="avgStars"></div>
-                                <div class="rating-info" id="ratingCount">0 baho</div>
-                            </div>
-                        </div>
-                        
-                        <div class="user-rating-section" id="userRatingSection" style="display:none;">
-                            <p>Sizning bahoyingiz:</p>
-                            <div class="rating" id="userRating"></div>
-                        </div>
+                    <div class="user-rating-section" id="userRatingSection" style="display:none">
+                        <p>Sizning bahoyingiz:</p>
+                        <div class="rating" id="userRating"></div>
                     </div>
                 </div>
             </div>
-            <div id="chapters"></div>
         </div>
-
-        <!-- Reader -->
-        <div class="reader-container" id="reader">
-            <button class="btn btn-glass" id="backToChapters">← Orqaga</button>
-            <div id="pages"></div>
-            <div class="reader-nav" id="readerNav"></div>
-        </div>
-
-        <!-- Leaderboard -->
-        <div class="leaderboard" id="leaderboard">
-            <button class="btn btn-glass" id="backToMain2">← Orqaga</button>
-            <h2 style="text-align:center;margin-bottom:2rem;">🏆 Liderlar Jadvali (Top 50)</h2>
-            <div class="leaderboard-list" id="leaders"></div>
-        </div>
-
-        <!-- Loading -->
-        <div class="loading" id="loading">
-            <div class="spinner"></div>
-            <p style="margin-top:1rem;">Yuklanmoqda...</p>
+        <div id="chapters"></div>
+        <div class="show-all-chapters">
+            <button class="btn btn-glass" id="showAllChaptersBtn" style="display:none">Barcha chapterlarni ko'rish</button>
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script>
-        const supabase = window.supabase.createClient(
-            'https://slyvzbqtflcypdiurcju.supabase.co',
-            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNseXZ6YnF0ZmxjeXBkaXVyY2p1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjEwNzM1MTcsImV4cCI6MjA3NjY0OTUxN30.g4r-gpXptgewpEW0LhI_R7Znr8BSk0UcdTh-QUE8OcE'
-        );
+    <!-- READER -->
+    <div class="reader-container" id="reader">
+        <button class="btn btn-glass" id="backToChapters"><i class="fas fa-arrow-left"></i> Orqaga</button>
+        <div id="pages"></div>
+        <div class="reader-nav" id="readerNav" style="display:flex;justify-content:space-between;padding:1rem;position:sticky;bottom:0;background:var(--card);border-top:1px solid var(--border)"></div>
+    </div>
 
-        let user = null;
-        let manhvas = [];
-        let currentManhva = null;
-        let currentChapters = [];
-        let currentChapterIndex = -1;
-        let userRatings = {};
-        let userBookmarks = new Set();
-        let readChapters = new Set();
-        let avatars = [];
-        let unlockedAvatars = new Set();
-        let timeTracker = {
-            interval: null,
-            lastUpdate: Date.now(),
-            readingStart: null
-        };
+    <!-- LEADERBOARD -->
+    <div class="leaderboard" id="leaderboard">
+        <button class="btn btn-glass" id="backToMain2"><i class="fas fa-arrow-left"></i> Orqaga</button>
+        <h2 style="text-align:center;margin-bottom:2rem">🏆 Liderlar Jadvali</h2>
+        <div class="podium" id="podium"></div>
+        <h3 style="margin:2rem 0 1rem;text-align:center">Top 50 Foydalanuvchilar</h3>
+        <div class="leaderboard-list" id="leaders"></div>
+    </div>
 
-        // Avatar requirements (in seconds)
-        const AVATAR_REQUIREMENTS = [
-            { id: 1, time: 0, label: 'Boshlang\'ich' },
-            { id: 2, time: 3600, label: '1 soat' },
-            { id: 3, time: 86400, label: '1 kun' },
-            { id: 4, time: 604800, label: '1 hafta' },
-            { id: 5, time: 2592000, label: '1 oy' },
-            { id: 6, time: 7776000, label: '3 oy' },
-            { id: 7, time: 15552000, label: '6 oy' },
-            { id: 8, time: 31536000, label: '1 yil' }
-        ];
+    <!-- LOADING -->
+    <div class="loading" id="loading">
+        <div class="spinner"></div>
+        <p style="margin-top:1rem">Yuklanmoqda...</p>
+    </div>
+</div>
 
-        window.addEventListener('unhandledrejection', event => {
-            console.error('Unhandled promise rejection:', event.reason);
-            showToast('Kutilmagan xatolik yuz berdi', 'error');
+<!-- AD SPACE 2 -->
+<div class="ad-container">
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-1670894419218881"
+         data-ad-slot="9876543210"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+</div>
+
+<!-- FOOTER -->
+<footer>
+    <div class="footer-content">
+        <div>&copy; 2024 ManhvaUZ. Barcha huquqlar himoyalangan.</div>
+        <div class="footer-links">
+            <a href="#privacy" id="footerPrivacy">Maxfiylik</a>
+            <a href="#terms">Foydalanish shartlari</a>
+            <a href="#contact">Bog'lanish</a>
+        </div>
+    </div>
+</footer>
+
+<!-- SUPABASE -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<!-- GOOGLE ADSENSE -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1670894419218881" crossorigin="anonymous"></script>
+
+<script>
+// SUPABASE CONFIG
+const supabase = window.supabase.createClient(
+    'https://slyvzbqtflcypdiurcju.supabase.co',
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNseXZ6YnF0ZmxjeXBkaXVyY2p1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjEwNzM1MTcsImV4cCI6MjA3NjY0OTUxN30.g4r-gpXptgewpEW0LhI_R7Znr8BSk0UcdTh-QUE8OcE'
+);
+
+// GLOBAL STATE
+let user = null;
+let manhvas = [];
+let currentManhva = null;
+let currentChapters = [];
+let currentChapterIndex = -1;
+let userRatings = {};
+let userBookmarks = new Set();
+let readChapters = new Set();
+let avatars = [];
+let unlockedAvatars = new Set();
+let showAllChapters = false;
+
+const timeTracker = {
+    interval: null,
+    lastUpdate: Date.now()
+};
+
+// INIT
+document.addEventListener('DOMContentLoaded', async () => {
+    setupAuthEvents();
+    setupProfileEvents();
+    setupNavigationEvents();
+    await checkStoredUser();
+    await loadManhvas();
+    await loadAvatars();
+    checkCookieConsent();
+    initAds();
+    setInterval(() => location.reload(), 3600000);
+});
+
+// ADSENSE INIT
+function initAds() {
+    try {
+        (adsbygoogle = window.adsbygoogle || []).push({});
+        (adsbygoogle = window.adsbygoogle || []).push({});
+    } catch (e) {
+        console.log('AdSense yuklanmadi');
+    }
+}
+
+// WELCOME MODAL
+function showWelcomeModal() {
+    document.getElementById('welcomeModal').style.display = 'flex';
+}
+
+document.getElementById('welcomeLoginBtn')?.addEventListener('click', () => {
+    document.getElementById('welcomeModal').style.display = 'none';
+    openModal();
+});
+
+document.getElementById('welcomeLaterBtn')?.addEventListener('click', () => {
+    document.getElementById('welcomeModal').style.display = 'none';
+    localStorage.setItem('welcomeShown', 'true');
+});
+
+// COOKIE CONSENT
+function checkCookieConsent() {
+    if (!localStorage.getItem('cookieConsent')) {
+        document.getElementById('cookieConsent').classList.add('show');
+    }
+}
+
+document.getElementById('acceptCookies').addEventListener('click', () => {
+    localStorage.setItem('cookieConsent', 'true');
+    document.getElementById('cookieConsent').classList.remove('show');
+    showToast('Cookie qabul qilindi', 'success');
+});
+
+// PRIVACY MODAL
+document.getElementById('privacyLink').addEventListener('click', e => {
+    e.preventDefault();
+    document.getElementById('privacyModal').classList.add('show');
+});
+
+document.getElementById('footerPrivacy').addEventListener('click', e => {
+    e.preventDefault();
+    document.getElementById('privacyModal').classList.add('show');
+});
+
+document.getElementById('closePrivacy').addEventListener('click', () => {
+    document.getElementById('privacyModal').classList.remove('show');
+});
+
+document.getElementById('privacyModal').addEventListener('click', e => {
+    if (e.target.id === 'privacyModal') document.getElementById('privacyModal').classList.remove('show');
+});
+
+// AUTH EVENTS
+function setupAuthEvents() {
+    document.querySelectorAll('.auth-tab').forEach(t => t.addEventListener('click', () => switchAuthTab(t.dataset.tab)));
+    document.getElementById('loginForm').addEventListener('submit', handleLogin);
+    document.getElementById('registerForm').addEventListener('submit', handleRegister);
+    document.getElementById('closeModal1').addEventListener('click', closeModal);
+    document.getElementById('closeModal2').addEventListener('click', closeModal);
+    document.getElementById('authModal').addEventListener('click', e => { if (e.target.id === 'authModal') closeModal() });
+    document.querySelectorAll('.toggle-password').forEach(b => b.addEventListener('click', togglePassword));
+}
+
+// PROFILE EVENTS
+function setupProfileEvents() {
+    document.querySelectorAll('.profile-tab').forEach(t => t.addEventListener('click', () => switchProfileTab(t.dataset.tab)));
+    document.getElementById('closeProfileModal').addEventListener('click', closeProfileModal);
+    document.getElementById('profileModal').addEventListener('click', e => { if (e.target.id === 'profileModal') closeProfileModal() });
+    document.getElementById('logoutBtn').addEventListener('click', handleLogout);
+    document.getElementById('editProfileForm').addEventListener('submit', handleEditProfile);
+    document.getElementById('changePasswordForm').addEventListener('submit', handleChangePassword);
+    document.getElementById('profileAvatarLarge').addEventListener('click', () => switchProfileTab('avatars'));
+}
+
+// NAVIGATION EVENTS
+function setupNavigationEvents() {
+    document.getElementById('logoBtn').addEventListener('click', showMain);
+    document.getElementById('bookmarksBtn').addEventListener('click', showBookmarks);
+    document.getElementById('leaderboardBtn').addEventListener('click', showLeaderboard);
+    document.getElementById('themeBtn').addEventListener('click', toggleTheme);
+    document.getElementById('search').addEventListener('input', handleSearch);
+    document.getElementById('backToMain').addEventListener('click', showMain);
+    document.getElementById('backToMain2').addEventListener('click', showMain);
+    document.getElementById('backToMain3').addEventListener('click', showMain);
+}
+
+async function checkStoredUser() {
+    const stored = localStorage.getItem('user') || sessionStorage.getItem('user');
+    if (stored) {
+        user = JSON.parse(stored);
+        updateUserUI();
+        startTimeTracking();
+        await syncUserData();
+    } else {
+        // Birinchi kirganda welcome modal ko'rsatish
+        if (!localStorage.getItem('welcomeShown')) {
+            setTimeout(showWelcomeModal, 1000);
+        }
+    }
+}
+
+function switchAuthTab(tab) {
+    document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
+    document.querySelector(`[data-tab="${tab}"]`).classList.add('active');
+    document.getElementById('loginForm').style.display = tab === 'login' ? 'block' : 'none';
+    document.getElementById('registerForm').style.display = tab === 'register' ? 'block' : 'none';
+    clearAlerts();
+}
+
+function togglePassword() {
+    const target = document.getElementById(this.dataset.target);
+    const icon = this.querySelector('i');
+    if (target.type === 'password') {
+        target.type = 'text';
+        icon.classList.replace('fa-eye', 'fa-eye-slash');
+    } else {
+        target.type = 'password';
+        icon.classList.replace('fa-eye-slash', 'fa-eye');
+    }
+}
+
+async function handleLogin(e) {
+    e.preventDefault();
+    clearAlerts();
+    const email = document.getElementById('loginEmail').value.trim();
+    const password = document.getElementById('loginPass').value;
+    const remember = document.getElementById('remember').checked;
+
+    if (!email || !password) return showAlert('error', 'Barcha maydonlarni to\'ldiring');
+
+    const loginBtn = document.getElementById('loginBtn');
+    loginBtn.disabled = true;
+    loginBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Yuklanmoqda...';
+
+    try {
+        const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+        if (error) throw error;
+
+        const { data: userData } = await supabase.from('users').select('*').eq('id', data.user.id).single();
+        user = userData;
+
+        const storage = remember ? localStorage : sessionStorage;
+        storage.setItem('user', JSON.stringify(user));
+
+        await syncUserData();
+        updateUserUI();
+        startTimeTracking();
+        showToast('Xush kelibsiz!', 'success');
+        closeModal();
+        renderManhvas(manhvas);
+    } catch (error) {
+        showAlert('error', error.message.includes('Invalid') ? 'Email yoki parol xato' : error.message);
+    } finally {
+        loginBtn.disabled = false;
+        loginBtn.innerHTML = 'Kirish';
+    }
+}
+
+async function handleRegister(e) {
+    e.preventDefault();
+    clearAlerts();
+    const username = document.getElementById('regUser').value.trim();
+    const email = document.getElementById('regEmail').value.trim();
+    const password = document.getElementById('regPass').value;
+    const password2 = document.getElementById('regPass2').value;
+
+    if (!username || !email || !password || !password2) return showAlert('error', 'Barcha maydonlarni to\'ldiring');
+    if (username.length < 3) return showAlert('error', 'Username kamida 3 belgi');
+    if (password.length < 6) return showAlert('error', 'Parol kamida 6 belgi');
+    if (password !== password2) return showAlert('error', 'Parollar mos kelmadi');
+
+    const regBtn = document.getElementById('regBtn');
+    regBtn.disabled = true;
+    regBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Yuklanmoqda...';
+
+    try {
+        const { data: existing } = await supabase.from('users').select('username').eq('username', username).maybeSingle();
+        if (existing) return showAlert('error', 'Bu username band');
+
+        const { data: authData, error } = await supabase.auth.signUp({
+            email,
+            password,
+            options: { data: { username } }
         });
 
-        document.addEventListener('DOMContentLoaded', () => {
-            initApp();
+        if (error) throw error;
+
+        if (!authData.session) {
+            showAlert('success', 'Emailni tasdiqlang');
+            setTimeout(() => switchAuthTab('login'), 2000);
+            return;
+        }
+
+        const { error: insertError } = await supabase.from('users').insert({
+            id: authData.user.id,
+            username,
+            email,
+            total_time: 0
         });
 
-        async function initApp() {
-            await checkAuth();
-            await loadManhvas();
-            await loadAvatars();
-            setupEventListeners();
-            loadTheme();
+        if (insertError) throw insertError;
+
+        showAlert('success', 'Muvaffaqiyatli!');
+        setTimeout(() => switchAuthTab('login'), 1500);
+    } catch (error) {
+        showAlert('error', error.message);
+    } finally {
+        regBtn.disabled = false;
+        regBtn.textContent = 'Ro\'yxatdan o\'tish';
+    }
+}
+
+function handleLogout() {
+    if (confirm('Haqiqatan ham chiqmoqchimisiz?')) {
+        if (timeTracker.interval) {
+            clearInterval(timeTracker.interval);
+            saveTime();
+        }
+        localStorage.removeItem('user');
+        sessionStorage.removeItem('user');
+        user = null;
+        userRatings = {};
+        userBookmarks.clear();
+        readChapters.clear();
+        unlockedAvatars.clear();
+        updateUserUI();
+        closeProfileModal();
+        showMain();
+        showToast('Xayr!', 'success');
+    }
+}
+
+function switchProfileTab(tab) {
+    document.querySelectorAll('.profile-tab').forEach(t => t.classList.remove('active'));
+    document.querySelector(`.profile-tab[data-tab="${tab}"]`).classList.add('active');
+    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+    document.getElementById(`${tab}Tab`).classList.add('active');
+}
+
+function openProfileModal() {
+    if (!user) return openModal();
+    renderProfile();
+    document.getElementById('profileModal').classList.add('show');
+}
+
+function closeProfileModal() {
+    document.getElementById('profileModal').classList.remove('show');
+}
+
+async function renderProfile() {
+    const initial = user.username[0].toUpperCase();
+    document.getElementById('profileUsername').textContent = user.username;
+    document.getElementById('profileEmail').textContent = user.email;
+    renderAvatar(document.getElementById('profileAvatarLarge'), user.avatar_url, initial, '100px');
+
+    document.getElementById('totalTimeValue').textContent = formatTime(user.total_time || 0);
+    document.getElementById('ratingsCountValue').textContent = Object.keys(userRatings).length;
+    document.getElementById('bookmarksCountValue').textContent = userBookmarks.size;
+    document.getElementById('readChaptersValue').textContent = readChapters.size;
+
+    document.getElementById('editUsername').value = user.username;
+    document.getElementById('editEmail').value = user.email;
+
+    document.getElementById('currentUserTime').textContent = formatTime(user.total_time || 0);
+
+    await checkUnlockedAvatars();
+    renderAvatars();
+}
+
+async function handleEditProfile(e) {
+    e.preventDefault();
+    const username = document.getElementById('editUsername').value.trim();
+    const email = document.getElementById('editEmail').value.trim();
+
+    if (!username || !email) return showToast('Barcha maydonlarni to\'ldiring', 'error');
+    if (username.length < 3) return showToast('Username kamida 3 belgi', 'error');
+
+    try {
+        if (username !== user.username) {
+            const { data: existing } = await supabase.from('users').select('username').eq('username', username).maybeSingle();
+            if (existing && existing.id !== user.id) return showToast('Bu username band', 'error');
         }
 
-        async function checkAuth() {
-            const { data: { session } } = await supabase.auth.getSession();
-            
-            if (session) {
-                const { data: userData } = await supabase
-                    .from('users')
-                    .select('*')
-                    .eq('id', session.user.id)
-                    .single();
-                
-                if (userData) {
-                    user = userData;
-                    await syncUserData();
-                    updateUserUI();
-                    startTimeTracking();
-                }
-            } else {
-                const stored = localStorage.getItem('user') || sessionStorage.getItem('user');
-                if (stored) {
-                    try {
-                        user = JSON.parse(stored);
-                        await syncUserData();
-                        updateUserUI();
-                        startTimeTracking();
-                    } catch (error) {
-                        console.error('Stored user invalid:', error);
-                        localStorage.removeItem('user');
-                        sessionStorage.removeItem('user');
-                    }
-                }
-            }
-        }
+        const { error } = await supabase.from('users').update({ username, email }).eq('id', user.id);
+        if (error) throw error;
 
-        async function syncUserData() {
-            try {
-                const { data, error } = await supabase
-                    .from('users')
-                    .select('*')
-                    .eq('id', user.id)
-                    .single();
-                
-                if (data) {
-                    user = data;
-                }
-                await loadUserRatings();
-                await loadUserBookmarks();
-                await loadReadChapters();
-                await checkUnlockedAvatars();
-            } catch (error) {
-                console.error('Sync error:', error);
-            }
-        }
+        user.username = username;
+        user.email = email;
+        localStorage.setItem('user', JSON.stringify(user));
 
-        async function loadAvatars() {
-            try {
-                const { data, error } = await supabase
-                    .from('avatars')
-                    .select('*')
-                    .order('required_time', { ascending: true });
-                
-                if (error) throw error;
-                avatars = data || [];
-            } catch (error) {
-                console.error('Load avatars error:', error);
-            }
-        }
+        renderProfile();
+        updateUserUI();
+        showToast('Saqlandi!', 'success');
+    } catch (error) {
+        showToast('Xatolik', 'error');
+    }
+}
 
-        async function checkUnlockedAvatars() {
-            if (!user) return;
-            
-            const userTime = user.total_time || 0;
-            const previouslyUnlocked = new Set(unlockedAvatars);
-            unlockedAvatars = new Set();
-            
-            avatars.forEach(avatar => {
-                if (userTime >= avatar.required_time) {
-                    unlockedAvatars.add(avatar.id);
-                    
-                    // Check if newly unlocked
-                    if (!previouslyUnlocked.has(avatar.id) && previouslyUnlocked.size > 0) {
-                        showToast(`🎉 Yangi avatar ochildi: ${avatar.name}!`, 'success');
-                    }
-                }
-            });
-        }
+async function handleChangePassword(e) {
+    e.preventDefault();
+    const newPass = document.getElementById('newPassword').value;
+    const confirmPass = document.getElementById('confirmPassword').value;
 
-        function setupEventListeners() {
-            // Auth tabs
-            document.querySelectorAll('.auth-tab').forEach(tab => {
-                tab.addEventListener('click', () => switchAuthTab(tab.dataset.tab));
-            });
+    if (!newPass || !confirmPass) return showToast('Barcha maydonlarni to\'ldiring', 'error');
+    if (newPass.length < 6) return showToast('Parol kamida 6 belgi', 'error');
+    if (newPass !== confirmPass) return showToast('Parollar mos kelmadi', 'error');
 
-            // Auth forms
-            document.getElementById('loginForm').addEventListener('submit', handleLogin);
-            document.getElementById('registerForm').addEventListener('submit', handleRegister);
+    try {
+        const { error } = await supabase.auth.updateUser({ password: newPass });
+        if (error) throw error;
 
-            // Modal
-            document.getElementById('closeModal1').addEventListener('click', closeModal);
-            document.getElementById('closeModal2').addEventListener('click', closeModal);
-            document.getElementById('authModal').addEventListener('click', (e) => {
-                if (e.target.id === 'authModal') closeModal();
-            });
+        document.getElementById('changePasswordForm').reset();
+        showToast('Parol o\'zgartirildi!', 'success');
+    } catch (error) {
+        showToast('Xatolik', 'error');
+    }
+}
 
-            // Password toggles
-            document.querySelectorAll('.toggle-password').forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    const target = document.getElementById(btn.dataset.target);
-                    if (target.type === 'password') {
-                        target.type = 'text';
-                        btn.textContent = '🙈';
-                    } else {
-                        target.type = 'password';
-                        btn.textContent = '👁️';
-                    }
-                });
-            });
+function formatTime(seconds) {
+    const h = Math.floor(seconds / 3600);
+    const m = Math.floor((seconds % 3600) / 60);
+    const s = seconds % 60;
+    if (h > 0) return `${h}s ${m}m`;
+    if (m > 0) return `${m}m ${s}s`;
+    return `${s}s`;
+}
 
-            // Navigation
-            document.getElementById('search').addEventListener('input', handleSearch);
-            document.getElementById('themeBtn').addEventListener('click', toggleTheme);
-            document.getElementById('leaderboardBtn').addEventListener('click', showLeaderboard);
-            document.getElementById('bookmarksBtn').addEventListener('click', showBookmarks);
-            document.getElementById('logoBtn').addEventListener('click', showMain);
-            document.getElementById('backToMain').addEventListener('click', showMain);
-            document.getElementById('backToMain2').addEventListener('click', showMain);
-            document.getElementById('backToMain3').addEventListener('click', showMain);
-            document.getElementById('backToMainFromProfile').addEventListener('click', showMain);
-            document.getElementById('backToChapters').addEventListener('click', showChapters);
+function updateUserUI() {
+    const userInfo = document.getElementById('userInfo');
+    if (!user) {
+        userInfo.innerHTML = '<button class="btn btn-primary" id="loginShowBtn">Kirish</button>';
+        document.getElementById('loginShowBtn').addEventListener('click', openModal);
+        return;
+    }
 
-            // Profile forms
-            document.getElementById('editProfileForm').addEventListener('submit', handleEditProfile);
-            document.getElementById('changePasswordForm').addEventListener('submit', handleChangePassword);
+    const initial = user.username[0].toUpperCase();
+    userInfo.innerHTML = `
+        <div class="user-avatar" id="userAvatar"></div>
+        <div class="user-dropdown" id="userDropdown">
+            <div class="dropdown-item" id="profileBtn"><i class="fas fa-user"></i> Profil</div>
+            <div class="dropdown-item" id="closeDropdownBtn"><i class="fas fa-times"></i> Yopish</div>
+        </div>
+    `;
 
-            // Keyboard shortcuts
-            document.addEventListener('keydown', handleKeyboard);
+    renderAvatar(document.getElementById('userAvatar'), user.avatar_url, initial, '40px');
 
-            // Visibility change
-            document.addEventListener('visibilitychange', handleVisibilityChange);
-            window.addEventListener('beforeunload', saveTimeBeforeExit);
-        }
+    document.getElementById('userAvatar').addEventListener('click', toggleUserDropdown);
+    document.getElementById('profileBtn').addEventListener('click', () => {
+        toggleUserDropdown();
+        openProfileModal();
+    });
+    document.getElementById('closeDropdownBtn').addEventListener('click', toggleUserDropdown);
+}
 
-        function handleKeyboard(e) {
-            if (e.key === 'Escape') {
-                const dropdown = document.getElementById('dropdown');
-                if (dropdown) dropdown.classList.remove('show');
-                
-                const modal = document.getElementById('authModal');
-                if (modal.classList.contains('show')) {
-                    closeModal();
-                }
-            }
-        }
+function toggleUserDropdown() {
+    document.getElementById('userDropdown').classList.toggle('show');
+}
 
-        function switchAuthTab(tab) {
-            document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
-            document.querySelector(`[data-tab="${tab}"]`).classList.add('active');
-            
-            document.getElementById('loginForm').style.display = tab === 'login' ? 'block' : 'none';
-            document.getElementById('registerForm').style.display = tab === 'register' ? 'block' : 'none';
-            
-            clearAlerts();
-        }
+document.addEventListener('click', e => {
+    const dropdown = document.getElementById('userDropdown');
+    const avatar = document.getElementById('userAvatar');
+    if (dropdown && !dropdown.contains(e.target) && !avatar?.contains(e.target)) {
+        dropdown.classList.remove('show');
+    }
+});
 
-        async function handleLogin(e) {
-            e.preventDefault();
-            clearAlerts();
-            
-            const email = document.getElementById('loginEmail').value.trim();
-            const password = document.getElementById('loginPass').value;
-            const remember = document.getElementById('remember').checked;
+function startTimeTracking() {
+    if (!user || timeTracker.interval) return;
+    timeTracker.lastUpdate = Date.now();
+    timeTracker.interval = setInterval(saveTime, 30000);
+}
 
-            if (!email || !password) {
-                showAlert('error', 'Barcha maydonlarni to\'ldiring');
-                return;
-            }
-
-            const loginBtn = document.getElementById('loginBtn');
-            loginBtn.disabled = true;
-            loginBtn.textContent = 'Yuklanmoqda...';
-
-            try {
-                const { data, error } = await supabase.auth.signInWithPassword({
-                    email,
-                    password
-                });
-
-                if (error) throw error;
-
-                const { data: userData, error: userError } = await supabase
-                    .from('users')
-                    .select('*')
-                    .eq('id', data.user.id)
-                    .single();
-
-                if (userError || !userData) {
-                    throw new Error('Foydalanuvchi ma\'lumotlari topilmadi');
-                }
-
-                user = userData;
-
-                const storage = remember ? localStorage : sessionStorage;
-                storage.setItem('user', JSON.stringify(user));
-
-                await syncUserData();
-                updateUserUI();
-                startTimeTracking();
-
-                showAlert('success', 'Xush kelibsiz!');
-                setTimeout(() => {
-                    closeModal();
-                    renderManhvas(manhvas);
-                }, 1000);
-            } catch (error) {
-                console.error('Login error:', error);
-                if (error.message.includes('Invalid login')) {
-                    showAlert('error', 'Email yoki parol xato');
-                } else {
-                    showAlert('error', 'Xatolik: ' + error.message);
-                }
-            } finally {
-                loginBtn.disabled = false;
-                loginBtn.textContent = 'Kirish';
-            }
-        }
-
-        async function handleRegister(e) {
-            e.preventDefault();
-            clearAlerts();
-            
-            const username = document.getElementById('regUser').value.trim();
-            const email = document.getElementById('regEmail').value.trim();
-            const password = document.getElementById('regPass').value;
-            const password2 = document.getElementById('regPass2').value;
-
-            if (!username || !email || !password || !password2) {
-                showAlert('error', 'Barcha maydonlarni to\'ldiring');
-                return;
-            }
-
-            if (username.length < 3) {
-                showAlert('error', 'Username kamida 3 ta belgi bo\'lishi kerak');
-                return;
-            }
-
-            if (password.length < 6) {
-                showAlert('error', 'Parol kamida 6 ta belgi bo\'lishi kerak');
-                return;
-            }
-
-            if (password !== password2) {
-                showAlert('error', 'Parollar mos kelmadi');
-                return;
-            }
-
-            const regBtn = document.getElementById('regBtn');
-            regBtn.disabled = true;
-            regBtn.textContent = 'Yuklanmoqda...';
-
-            try {
-                const { data: existingUsername } = await supabase
-                    .from('users')
-                    .select('username')
-                    .eq('username', username)
-                    .maybeSingle();
-
-                if (existingUsername) {
-                    showAlert('error', 'Bu username band');
-                    regBtn.disabled = false;
-                    regBtn.textContent = 'Ro\'yxatdan o\'tish';
-                    return;
-                }
-
-                await new Promise(resolve => setTimeout(resolve, 1000));
-
-                const { data: authData, error: authError } = await supabase.auth.signUp({
-                    email,
-                    password,
-                    options: {
-                        data: { username },
-                        emailRedirectTo: window.location.origin
-                    }
-                });
-
-                if (authError) {
-                    if (authError.message.includes('rate')) {
-                        showAlert('error', 'Iltimos, bir necha soniya kuting');
-                    } else if (authError.message.includes('already registered')) {
-                        showAlert('error', 'Bu email allaqachon ro\'yxatdan o\'tgan');
-                    } else if (authError.message.includes('User already registered')) {
-                        showAlert('error', 'Bu email allaqachon ro\'yxatdan o\'tgan. Login qiling!');
-                    } else {
-                        showAlert('error', 'Xatolik: ' + authError.message);
-                    }
-                    regBtn.disabled = false;
-                    regBtn.textContent = 'Ro\'yxatdan o\'tish';
-                    return;
-                }
-
-                if (!authData.user) {
-                    showAlert('error', 'Ro\'yxatdan o\'tishda xatolik');
-                    regBtn.disabled = false;
-                    regBtn.textContent = 'Ro\'yxatdan o\'tish';
-                    return;
-                }
-
-                if (!authData.session) {
-                    showAlert('success', 'Ro\'yxatdan o\'tdingiz! Emailingizga tasdiqlash havolasi yuborildi.');
-                    
-                    document.getElementById('regUser').value = '';
-                    document.getElementById('regEmail').value = '';
-                    document.getElementById('regPass').value = '';
-                    document.getElementById('regPass2').value = '';
-                    
-                    setTimeout(() => {
-                        switchAuthTab('login');
-                        showAlert('success', 'Emailni tasdiqlang va login qiling');
-                    }, 2000);
-                    
-                    regBtn.disabled = false;
-                    regBtn.textContent = 'Ro\'yxatdan o\'tish';
-                    return;
-                }
-
-                await new Promise(resolve => setTimeout(resolve, 2000));
-
-                const { data: existingUser } = await supabase
-                    .from('users')
-                    .select('*')
-                    .eq('id', authData.user.id)
-                    .maybeSingle();
-
-                if (!existingUser) {
-                    const { error: insertError } = await supabase
-                        .from('users')
-                        .insert({
-                            id: authData.user.id,
-                            username: username,
-                            email: email,
-                            total_time: 0
-                        });
-
-                    if (insertError) {
-                        console.error('Insert error:', insertError);
-                        showAlert('error', 'Xatolik: ' + insertError.message);
-                        regBtn.disabled = false;
-                        regBtn.textContent = 'Ro\'yxatdan o\'tish';
-                        return;
-                    }
-                }
-
-                if (authData.session) {
-                    showAlert('success', 'Muvaffaqiyatli! Endi kirishingiz mumkin.');
-                } else {
-                    showAlert('success', 'Ro\'yxatdan o\'tdingiz! Emailingizni tasdiqlang va login qiling.');
-                }
-                
-                document.getElementById('regUser').value = '';
-                document.getElementById('regEmail').value = '';
-                document.getElementById('regPass').value = '';
-                document.getElementById('regPass2').value = '';
-                
-                setTimeout(() => {
-                    switchAuthTab('login');
-                    document.getElementById('loginEmail').value = email;
-                }, 1500);
-            } catch (error) {
-                console.error('Register error:', error);
-                showAlert('error', 'Xatolik: ' + error.message);
-            } finally {
-                regBtn.disabled = false;
-                regBtn.textContent = 'Ro\'yxatdan o\'tish';
-            }
-        }
-
-        async function handleSignOut() {
-            if (confirm('Chiqmoqchimisiz?')) {
-                await saveTime();
-                stopTimeTracking();
-                await supabase.auth.signOut();
-                
-                user = null;
-                userRatings = {};
-                userBookmarks = new Set();
-                readChapters = new Set();
-                unlockedAvatars = new Set();
-                localStorage.removeItem('user');
-                sessionStorage.removeItem('user');
-                
-                updateUserUI();
-                showMain();
-                renderManhvas(manhvas);
-                showToast('Xayr!', 'success');
-            }
-        }
-
-        function updateUserUI() {
-            const userInfo = document.getElementById('userInfo');
-            
-            if (user) {
-                const avatarContent = user.avatar_url 
-                    ? `<img src="${user.avatar_url}" alt="${user.username}">` 
-                    : user.username.charAt(0).toUpperCase();
-                
-                userInfo.innerHTML = `
-                    <div class="user-avatar" id="userAvatar">${avatarContent}</div>
-                    <div class="user-dropdown" id="dropdown">
-                        <div class="user-dropdown-header">
-                            <h4>${user.username}</h4>
-                            <p>${user.email}</p>
-                        </div>
-                        <div class="user-dropdown-item" id="profileBtn">
-                            👤 Profil
-                        </div>
-                        <div class="user-dropdown-item" id="signOutBtn">
-                            🚪 Chiqish
-                        </div>
-                    </div>
-                `;
-                
-                document.getElementById('userAvatar').addEventListener('click', toggleDropdown);
-                document.getElementById('profileBtn').addEventListener('click', showProfile);
-                document.getElementById('signOutBtn').addEventListener('click', handleSignOut);
-            } else {
-                userInfo.innerHTML = '<button class="btn btn-primary" id="loginBtn2">Kirish</button>';
-                document.getElementById('loginBtn2').addEventListener('click', openModal);
-            }
-        }
-
-        function toggleDropdown() {
-            document.getElementById('dropdown').classList.toggle('show');
-        }
-
-        document.addEventListener('click', (e) => {
-            if (!e.target.closest('#userInfo')) {
-                const dropdown = document.getElementById('dropdown');
-                if (dropdown) dropdown.classList.remove('show');
-            }
-        });
-
-        async function showProfile() {
-            if (!user) {
-                openModal();
-                return;
-            }
-
-            document.getElementById('dropdown').classList.remove('show');
-            
-            hideAllViews();
-            document.getElementById('profileContainer').classList.add('show');
-            
-            // Update profile info
-            const initial = user.username.charAt(0).toUpperCase();
-            document.getElementById('profileInitial').textContent = initial;
-            
-            if (user.avatar_url) {
-                document.getElementById('profileAvatarImg').src = user.avatar_url;
-                document.getElementById('profileAvatarImg').style.display = 'block';
-                document.getElementById('profileInitial').style.display = 'none';
-            } else {
-                document.getElementById('profileAvatarImg').style.display = 'none';
-                document.getElementById('profileInitial').style.display = 'block';
-            }
-            
-            document.getElementById('profileUsername').textContent = user.username;
-            document.getElementById('profileEmail').textContent = user.email;
-            
-            // Update stats
-            const hours = Math.floor((user.total_time || 0) / 3600);
-            const minutes = Math.floor(((user.total_time || 0) % 3600) / 60);
-            const seconds = (user.total_time || 0) % 60;
-            let timeStr = '';
-            if (hours > 0) timeStr += `${hours}s `;
-            if (minutes > 0 || hours > 0) timeStr += `${minutes}m `;
-            timeStr += `${seconds}s`;
-            
-            document.getElementById('totalTimeValue').textContent = timeStr;
-            document.getElementById('ratingsCountValue').textContent = Object.keys(userRatings).length;
-            document.getElementById('bookmarksCountValue').textContent = userBookmarks.size;
-            document.getElementById('readChaptersValue').textContent = readChapters.size;
-            
-            // Update edit form
-            document.getElementById('editUsername').value = user.username;
-            document.getElementById('editEmail').value = user.email;
-            
-            // Render avatars
+async function saveTime() {
+    if (!user) return;
+    const now = Date.now();
+    const elapsed = Math.floor((now - timeTracker.lastUpdate) / 1000);
+    if (elapsed > 0) {
+        user.total_time += elapsed;
+        timeTracker.lastUpdate = now;
+        await supabase.from('users').update({ total_time: user.total_time }).eq('id', user.id);
+        const storage = localStorage.getItem('user') ? localStorage : sessionStorage;
+        storage.setItem('user', JSON.stringify(user));
+        await checkUnlockedAvatars();
+        if (document.getElementById('profileModal').classList.contains('show')) {
+            document.getElementById('totalTimeValue').textContent = formatTime(user.total_time || 0);
+            document.getElementById('currentUserTime').textContent = formatTime(user.total_time || 0);
             renderAvatars();
         }
+    }
+}
 
-        function renderAvatars() {
-            const grid = document.getElementById('avatarGrid');
-            const userTime = user.total_time || 0;
-            
-            grid.innerHTML = avatars.map(avatar => {
-                const isUnlocked = unlockedAvatars.has(avatar.id);
-                const isSelected = user.avatar_url === avatar.image_url;
-                const requirement = AVATAR_REQUIREMENTS.find(r => r.id === avatar.id);
-                
-                return `
-                    <div class="avatar-option ${isSelected ? 'selected' : ''} ${!isUnlocked ? 'locked' : ''}" 
-                         data-avatar-id="${avatar.id}" 
-                         data-avatar-url="${avatar.image_url}"
-                         title="${isUnlocked ? avatar.name : 'Qulflangan: ' + (requirement ? requirement.label : '') + ' kerak'}">
-                        ${!isUnlocked ? '<div class="avatar-lock">🔒</div>' : ''}
-                        <img src="${avatar.image_url}" alt="${avatar.name}">
+async function loadAvatars() {
+    try {
+        const { data } = await supabase.from('avatars').select('*').order('required_time');
+        avatars = data || [];
+        if (user) await checkUnlockedAvatars();
+    } catch (error) {
+        console.error('Avatar yuklash xatosi:', error);
+    }
+}
+
+async function checkUnlockedAvatars() {
+    if (!user) return;
+    const previousSize = unlockedAvatars.size;
+    unlockedAvatars.clear();
+    avatars.forEach(avatar => {
+        if ((user.total_time || 0) >= avatar.required_time) {
+            unlockedAvatars.add(avatar.id);
+        }
+    });
+    if (unlockedAvatars.size > previousSize) {
+        showToast('🎉 Yangi avatar ochildi!', 'success');
+    }
+}
+
+function renderAvatars() {
+    const grid = document.getElementById('avatarGrid');
+    if (!avatars.length) return grid.innerHTML = '<p style="grid-column:1/-1;text-align:center;color:var(--text-light)">Avatarlar yuklanmadi</p>';
+
+    grid.innerHTML = avatars.map(avatar => {
+        const unlocked = unlockedAvatars.has(avatar.id);
+        const selected = user.avatar_url === avatar.url;
+        return `<div class="avatar-option ${unlocked ? '' : 'locked'} ${selected ? 'selected' : ''}" data-id="${avatar.id}" data-url="${avatar.url}" title="${unlocked ? avatar.name : `Kerak: ${formatTime(avatar.required_time)}`}">
+            ${unlocked ? `<img src="${avatar.url}" onerror="this.style.display='none';" alt="${avatar.name}">` : ''}
+        </div>`;
+    }).join('');
+
+    document.querySelectorAll('.avatar-option:not(.locked)').forEach(option => option.addEventListener('click', () => selectAvatar(option.dataset.url)));
+}
+
+async function selectAvatar(url) {
+    try {
+        const { error } = await supabase.from('users').update({ avatar_url: url }).eq('id', user.id);
+        if (error) throw error;
+
+        user.avatar_url = url;
+        const storage = localStorage.getItem('user') ? localStorage : sessionStorage;
+        storage.setItem('user', JSON.stringify(user));
+
+        renderProfile();
+        updateUserUI();
+        showToast('Avatar o\'zgartirildi!', 'success');
+    } catch (error) {
+        showToast('Xatolik', 'error');
+    }
+}
+
+function renderAvatar(container, url, initial, size = '40px') {
+    const hasUrl = url && url.trim() !== '';
+    container.innerHTML = hasUrl ?
+        `<img src="${url}" alt="Avatar" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" style="width:100%;height:100%;object-fit:cover;position:absolute;top:0;left:0"><span style="display:none;width:100%;height:100%;display:flex;align-items:center;justify-content:center">${initial}</span>` :
+        `<span style="width:100%;height:100%;display:flex;align-items:center;justify-content:center">${initial}</span>`;
+}
+
+async function loadManhvas() {
+    showLoading(true);
+    try {
+        const { data } = await supabase.from('manhvas').select('*').order('created_at', { ascending: false });
+        manhvas = data || [];
+        await loadAllRatings();
+        manhvas.sort((a, b) => (b.avg_rating || 0) - (a.avg_rating || 0));
+        renderManhvas(manhvas);
+    } catch (error) {
+        showToast('Manhvalarni yuklashda xatolik', 'error');
+    } finally {
+        showLoading(false);
+    }
+}
+
+async function loadAllRatings() {
+    try {
+        const { data } = await supabase.from('ratings').select('*');
+        if (data) {
+            const ratingMap = {};
+            data.forEach(r => {
+                if (!ratingMap[r.manhva_id]) ratingMap[r.manhva_id] = [];
+                ratingMap[r.manhva_id].push(r.rating);
+                if (user && r.user_id === user.id) userRatings[r.manhva_id] = r.rating;
+            });
+            manhvas.forEach(m => {
+                const ratings = ratingMap[m.id] || [];
+                m.avg_rating = ratings.length ? ratings.reduce((a, b) => a + b, 0) / ratings.length : 0;
+                m.rating_count = ratings.length;
+            });
+        }
+    } catch (error) {
+        console.error('Ratinglarni yuklash xatosi:', error);
+    }
+}
+
+async function syncUserData() {
+    if (!user) return;
+    try {
+        const [bookmarks, ratings, reads] = await Promise.all([
+            supabase.from('bookmarks').select('manhva_id').eq('user_id', user.id),
+            supabase.from('ratings').select('*').eq('user_id', user.id),
+            supabase.from('read_chapters').select('chapter_id').eq('user_id', user.id)
+        ]);
+
+        userBookmarks = new Set(bookmarks.data?.map(b => b.manhva_id) || []);
+        userRatings = {};
+        ratings.data?.forEach(r => userRatings[r.manhva_id] = r.rating);
+        readChapters = new Set(reads.data?.map(r => r.chapter_id) || []);
+    } catch (error) {
+        console.error('Sync xatosi:', error);
+    }
+}
+
+function renderManhvas(list) {
+    const grid = document.getElementById('grid');
+    if (!list.length) return grid.innerHTML = '<p style="text-align:center;color:var(--text-light);grid-column:1/-1">Topilmadi</p>';
+
+    grid.innerHTML = list.map(m => {
+        const avg = m.avg_rating || 0;
+        const userRate = user ? (userRatings[m.id] || 0) : 0;
+        const bookmark = user && userBookmarks.has(m.id);
+
+        return `<div class="manhva-card" data-id="${m.id}">
+            ${bookmark ? '<div style="position:absolute;top:10px;right:10px;font-size:1.5rem;z-index:1"><i class="fas fa-heart" style="color:var(--error)"></i></div>' : ''}
+            <img class="manhva-cover" src="${m.cover_url || 'https://via.placeholder.com/300x400?text=' + encodeURIComponent(m.title)}" loading="lazy" alt="${m.title}">
+            <div class="manhva-info">
+                <div class="manhva-title">${m.title}</div>
+                <div class="manhva-genre">${m.genre}</div>
+                <div class="rating" data-manhva-id="${m.id}">
+                    ${[1, 2, 3, 4, 5].map(i => `<span class="star ${i <= Math.round(avg) ? 'filled' : ''} ${userRate === i ? 'user-rated' : ''}" data-rating="${i}"><i class="fas fa-star"></i></span>`).join('')}
+                    <span class="rating-info">${avg.toFixed(1)}</span>
+                </div>
+            </div>
+        </div>`;
+    }).join('');
+
+    document.querySelectorAll('.manhva-card').forEach(card => card.addEventListener('click', e => { if (!e.target.closest('.star')) showDetail(parseInt(card.dataset.id)) }));
+    document.querySelectorAll('.rating .star').forEach(star => star.addEventListener('click', e => { e.stopPropagation(); rateManhva(parseInt(star.closest('.rating').dataset.manhvaId), parseInt(star.dataset.rating)) }));
+}
+
+async function rateManhva(id, rating) {
+    if (!user) return openModal();
+
+    try {
+        const { data: existing } = await supabase.from('ratings').select('*').eq('manhva_id', id).eq('user_id', user.id).maybeSingle();
+
+        if (existing) {
+            await supabase.from('ratings').update({ rating }).eq('manhva_id', id).eq('user_id', user.id);
+        } else {
+            await supabase.from('ratings').insert({ manhva_id: id, user_id: user.id, rating });
+        }
+
+        userRatings[id] = rating;
+        await loadAllRatings();
+        renderManhvas(manhvas);
+        showToast('Baholandi!', 'success');
+    } catch (error) {
+        showToast('Xatolik', 'error');
+    }
+}
+
+function handleSearch(e) {
+    const query = e.target.value.toLowerCase().trim();
+    const results = document.getElementById('searchResults');
+
+    if (!query) return results.classList.remove('show');
+
+    const filtered = manhvas.filter(m => m.title.toLowerCase().includes(query) || m.genre.toLowerCase().includes(query)).slice(0, 5);
+
+    if (!filtered.length) {
+        results.innerHTML = '<div style="padding:1rem;text-align:center;color:var(--text-light)">Hech narsa topilmadi</div>';
+        results.classList.add('show');
+        return;
+    }
+
+    results.innerHTML = filtered.map(m => `
+        <div class="search-result-item" data-id="${m.id}">
+            <img class="search-result-cover" src="${m.cover_url || 'https://via.placeholder.com/50x65'}" alt="${m.title}">
+            <div style="flex:1">
+                <div style="font-weight:700">${m.title}</div>
+                <div style="color:var(--text-light);font-size:.85rem">${m.genre}</div>
+                <div style="color:var(--text-light);font-size:.85rem">
+                    <i class="fas fa-star" style="color:#ffd700"></i> ${(m.avg_rating || 0).toFixed(1)} (${m.rating_count || 0})
+                </div>
+            </div>
+        </div>
+    `).join('');
+
+    results.classList.add('show');
+
+    document.querySelectorAll('.search-result-item').forEach(item => item.addEventListener('click', () => {
+        showDetail(parseInt(item.dataset.id));
+        results.classList.remove('show');
+        document.getElementById('search').value = '';
+    }));
+}
+
+async function showDetail(id) {
+    showLoading(true);
+    currentManhva = manhvas.find(m => m.id === id);
+
+    if (!currentManhva) {
+        showLoading(false);
+        return;
+    }
+
+    hideAllViews();
+    document.getElementById('chapterList').classList.add('show');
+
+    document.getElementById('detailCover').src = currentManhva.cover_url;
+    document.getElementById('detailTitle').textContent = currentManhva.title;
+    document.getElementById('detailDesc').textContent = currentManhva.description || 'Tavsif yo\'q';
+
+    document.getElementById('avgRating').textContent = (currentManhva.avg_rating || 0).toFixed(1);
+    document.getElementById('avgStars').innerHTML = [1, 2, 3, 4, 5].map(i => `<span class="star ${i <= Math.round(currentManhva.avg_rating || 0) ? 'filled' : ''}"><i class="fas fa-star"></i></span>`).join('');
+    document.getElementById('ratingCount').textContent = `${currentManhva.rating_count || 0} baho`;
+
+    const bookmarkBtn = document.getElementById('bookmarkBtn');
+    bookmarkBtn.innerHTML = userBookmarks.has(id) ? '<i class="fas fa-heart"></i> Sevimlilardan' : '<i class="far fa-bookmark"></i> Sevimlilar';
+    bookmarkBtn.onclick = () => toggleBookmark(id);
+
+    document.getElementById('shareBtn').onclick = () => {
+        navigator.clipboard.writeText(window.location.href);
+        showToast('Link nusxalandi!', 'success');
+    };
+
+    if (user) {
+        document.getElementById('userRatingSection').style.display = 'block';
+        const userRate = userRatings[id] || 0;
+        document.getElementById('userRating').innerHTML = [1, 2, 3, 4, 5].map(i => `<span class="star ${i <= userRate ? 'filled' : ''}" data-rating="${i}"><i class="fas fa-star"></i></span>`).join('');
+        document.querySelectorAll('#userRating .star').forEach(star => star.addEventListener('click', () => rateManhva(id, parseInt(star.dataset.rating))));
+    } else {
+        document.getElementById('userRatingSection').style.display = 'none';
+    }
+
+    await loadChapters(id);
+    showLoading(false);
+}
+
+async function loadChapters(manhvaId) {
+    try {
+        const { data } = await supabase.from('chapters').select('*').eq('manhva_id', manhvaId).order('chapter_number');
+        currentChapters = data || [];
+        showAllChapters = false;
+        renderChapters();
+    } catch (error) {
+        showToast('Chapterlar yuklanmadi', 'error');
+    }
+}
+
+function renderChapters() {
+    const container = document.getElementById('chapters');
+    const showAllBtn = document.getElementById('showAllChaptersBtn');
+
+    if (!currentChapters.length) {
+        container.innerHTML = '<p style="text-align:center;color:var(--text-light)">Chapterlar yo\'q</p>';
+        showAllBtn.style.display = 'none';
+        return;
+    }
+
+    const displayChapters = showAllChapters ? currentChapters : currentChapters.slice(0, 1);
+
+    container.innerHTML = displayChapters.map(ch => `
+        <div class="chapter-item ${readChapters.has(ch.id) ? 'read' : ''}" data-index="${currentChapters.indexOf(ch)}">
+            <span>Chapter ${ch.chapter_number}: ${ch.title || ''}</span>
+            ${readChapters.has(ch.id) ? '<span style="color:var(--success)"><i class="fas fa-check"></i></span>' : ''}
+        </div>
+    `).join('');
+
+    document.querySelectorAll('.chapter-item').forEach(item => item.addEventListener('click', () => openReader(parseInt(item.dataset.index))));
+
+    if (currentChapters.length > 1) {
+        showAllBtn.style.display = 'block';
+        showAllBtn.textContent = showAllChapters ? 'Kamroq ko\'rish' : `Barcha chapterlarni ko\'rish (${currentChapters.length})`;
+        showAllBtn.onclick = () => {
+            showAllChapters = !showAllChapters;
+            renderChapters();
+        };
+    } else {
+        showAllBtn.style.display = 'none';
+    }
+}
+
+async function openReader(index) {
+    currentChapterIndex = index;
+    const chapter = currentChapters[index];
+
+    hideAllViews();
+    document.getElementById('reader').classList.add('show');
+    showLoading(true);
+
+    try {
+        const { data } = await supabase.from('pages').select('*').eq('chapter_id', chapter.id).order('page_number');
+        const pages = data || [];
+
+        document.getElementById('pages').innerHTML = pages.map(p => `<img src="${p.image_url}" style="width:100%;max-width:800px;margin:0 auto 1rem;display:block" alt="Page ${p.page_number}">`).join('');
+
+        renderReaderNav();
+
+        if (user && !readChapters.has(chapter.id)) {
+            await supabase.from('read_chapters').insert({ user_id: user.id, chapter_id: chapter.id });
+            readChapters.add(chapter.id);
+        }
+    } catch (error) {
+        showToast('Sahifalar yuklanmadi', 'error');
+    } finally {
+        showLoading(false);
+    }
+}
+
+function renderReaderNav() {
+    const nav = document.getElementById('readerNav');
+    const hasPrev = currentChapterIndex > 0;
+    const hasNext = currentChapterIndex < currentChapters.length - 1;
+
+    nav.innerHTML = `
+        <button class="btn btn-glass" ${!hasPrev ? 'disabled' : ''} id="prevChapter">
+            <i class="fas fa-chevron-left"></i> Oldingi
+        </button>
+        <span>Chapter ${currentChapters[currentChapterIndex].chapter_number}</span>
+        <button class="btn btn-glass" ${!hasNext ? 'disabled' : ''} id="nextChapter">
+            Keyingi <i class="fas fa-chevron-right"></i>
+        </button>
+    `;
+
+    if (hasPrev) document.getElementById('prevChapter').onclick = () => openReader(currentChapterIndex - 1);
+    if (hasNext) document.getElementById('nextChapter').onclick = () => openReader(currentChapterIndex + 1);
+}
+
+document.getElementById('backToChapters').addEventListener('click', () => showDetail(currentManhva.id));
+
+async function toggleBookmark(id) {
+    if (!user) return openModal();
+
+    try {
+        if (userBookmarks.has(id)) {
+            await supabase.from('bookmarks').delete().eq('user_id', user.id).eq('manhva_id', id);
+            userBookmarks.delete(id);
+            showToast('Sevimlilardan o\'chirildi', 'success');
+        } else {
+            await supabase.from('bookmarks').insert({ user_id: user.id, manhva_id: id });
+            userBookmarks.add(id);
+            showToast('Sevimlilarga qo\'shildi!', 'success');
+        }
+
+        const bookmarkBtn = document.getElementById('bookmarkBtn');
+        bookmarkBtn.innerHTML = userBookmarks.has(id) ? '<i class="fas fa-heart"></i> Sevimlilardan' : '<i class="far fa-bookmark"></i> Sevimlilar';
+    } catch (error) {
+        showToast('Xatolik', 'error');
+    }
+}
+
+function showBookmarks() {
+    if (!user) return openModal();
+
+    hideAllViews();
+    document.getElementById('bookmarks').classList.add('show');
+
+    const bookmarked = manhvas.filter(m => userBookmarks.has(m.id));
+    const grid = document.getElementById('bookmarkGrid');
+
+    if (!bookmarked.length) {
+        grid.innerHTML = '<p style="text-align:center;color:var(--text-light);grid-column:1/-1">Sevimlilar bo\'sh</p>';
+    } else {
+        grid.innerHTML = bookmarked.map(m => {
+            const avg = m.avg_rating || 0;
+            const userRate = user ? (userRatings[m.id] || 0) : 0;
+            return `<div class="manhva-card" data-id="${m.id}">
+                <div style="position:absolute;top:10px;right:10px;font-size:1.5rem;z-index:1"><i class="fas fa-heart" style="color:var(--error)"></i></div>
+                <img class="manhva-cover" src="${m.cover_url || 'https://via.placeholder.com/300x400?text=' + encodeURIComponent(m.title)}" loading="lazy" alt="${m.title}">
+                <div class="manhva-info">
+                    <div class="manhva-title">${m.title}</div>
+                    <div class="manhva-genre">${m.genre}</div>
+                    <div class="rating" data-manhva-id="${m.id}">
+                        ${[1, 2, 3, 4, 5].map(i => `<span class="star ${i <= Math.round(avg) ? 'filled' : ''} ${userRate === i ? 'user-rated' : ''}" data-rating="${i}"><i class="fas fa-star"></i></span>`).join('')}
+                        <span class="rating-info">${avg.toFixed(1)}</span>
                     </div>
-                `;
-            }).join('');
-            
-            // Add click handlers
-            document.querySelectorAll('.avatar-option').forEach(option => {
-                option.addEventListener('click', () => selectAvatar(option));
-            });
-        }
+                </div>
+            </div>`;
+        }).join('');
 
-        async function selectAvatar(option) {
-            if (option.classList.contains('locked')) {
-                showToast('Bu avatar hali ochilmagan', 'error');
-                return;
-            }
-            
-            const avatarUrl = option.dataset.avatarUrl;
-            
-            try {
-                const { error } = await supabase
-                    .from('users')
-                    .update({ avatar_url: avatarUrl })
-                    .eq('id', user.id);
-                
-                if (error) throw error;
-                
-                user.avatar_url = avatarUrl;
-                
-                const storage = localStorage.getItem('user') ? localStorage : sessionStorage;
-                storage.setItem('user', JSON.stringify(user));
-                
-                // Update UI
-                document.querySelectorAll('.avatar-option').forEach(opt => {
-                    opt.classList.remove('selected');
-                });
-                option.classList.add('selected');
-                
-                // Update profile avatar
-                document.getElementById('profileAvatarImg').src = avatarUrl;
-                document.getElementById('profileAvatarImg').style.display = 'block';
-                document.getElementById('profileInitial').style.display = 'none';
-                
-                // Update header avatar
-                updateUserUI();
-                
-                showToast('Avatar o\'zgartirildi!', 'success');
-            } catch (error) {
-                console.error('Update avatar error:', error);
-                showToast('Xatolik yuz berdi', 'error');
-            }
-        }
+        document.querySelectorAll('#bookmarkGrid .manhva-card').forEach(card => card.addEventListener('click', e => { if (!e.target.closest('.star')) showDetail(parseInt(card.dataset.id)) }));
+        document.querySelectorAll('#bookmarkGrid .rating .star').forEach(star => star.addEventListener('click', e => { e.stopPropagation(); rateManhva(parseInt(star.closest('.rating').dataset.manhvaId), parseInt(star.dataset.rating)) }));
+    }
+}
 
-        async function handleEditProfile(e) {
-            e.preventDefault();
-            
-            const newUsername = document.getElementById('editUsername').value.trim();
-            const newEmail = document.getElementById('editEmail').value.trim();
-            
-            if (newUsername.length < 3) {
-                showToast('Username kamida 3 ta belgi bo\'lishi kerak', 'error');
-                return;
-            }
-            
-            const saveBtn = document.getElementById('saveProfileBtn');
-            saveBtn.disabled = true;
-            saveBtn.textContent = 'Saqlanmoqda...';
-            
-            try {
-                // Check username availability if changed
-                if (newUsername !== user.username) {
-                    const { data: existing } = await supabase
-                        .from('users')
-                        .select('username')
-                        .eq('username', newUsername)
-                        .neq('id', user.id)
-                        .maybeSingle();
-                    
-                    if (existing) {
-                        showToast('Bu username band', 'error');
-                        saveBtn.disabled = false;
-                        saveBtn.textContent = '💾 Saqlash';
-                        return;
-                    }
-                }
-                
-                // Update user
-                const { error } = await supabase
-                    .from('users')
-                    .update({ 
-                        username: newUsername,
-                        email: newEmail 
-                    })
-                    .eq('id', user.id);
-                
-                if (error) throw error;
-                
-                // Update auth email if changed
-                if (newEmail !== user.email) {
-                    const { error: emailError } = await supabase.auth.updateUser({
-                        email: newEmail
-                    });
-                    
-                    if (emailError) {
-                        showToast('Email tasdiqlash havolasi yuborildi', 'success');
-                    }
-                }
-                
-                user.username = newUsername;
-                user.email = newEmail;
-                
-                const storage = localStorage.getItem('user') ? localStorage : sessionStorage;
-                storage.setItem('user', JSON.stringify(user));
-                
-                // Update UI
-                document.getElementById('profileUsername').textContent = newUsername;
-                document.getElementById('profileEmail').textContent = newEmail;
-                updateUserUI();
-                
-                showToast('Ma\'lumotlar saqlandi!', 'success');
-            } catch (error) {
-                console.error('Update profile error:', error);
-                showToast('Xatolik: ' + error.message, 'error');
-            } finally {
-                saveBtn.disabled = false;
-                saveBtn.textContent = '💾 Saqlash';
-            }
-        }
+async function showLeaderboard() {
+    hideAllViews();
+    document.getElementById('leaderboard').classList.add('show');
+    showLoading(true);
 
-        async function handleChangePassword(e) {
-            e.preventDefault();
-            
-            const newPassword = document.getElementById('newPassword').value;
-            const confirmPassword = document.getElementById('confirmPassword').value;
-            
-            if (newPassword.length < 6) {
-                showToast('Parol kamida 6 ta belgi bo\'lishi kerak', 'error');
-                return;
-            }
-            
-            if (newPassword !== confirmPassword) {
-                showToast('Parollar mos kelmadi', 'error');
-                return;
-            }
-            
-            const changeBtn = document.getElementById('changePasswordBtn');
-            changeBtn.disabled = true;
-            changeBtn.textContent = 'O\'zgartirmoqda...';
-            
-            try {
-                const { error } = await supabase.auth.updateUser({
-                    password: newPassword
-                });
-                
-                if (error) throw error;
-                
-                document.getElementById('newPassword').value = '';
-                document.getElementById('confirmPassword').value = '';
-                
-                showToast('Parol o\'zgartirildi!', 'success');
-            } catch (error) {
-                console.error('Change password error:', error);
-                showToast('Xatolik: ' + error.message, 'error');
-            } finally {
-                changeBtn.disabled = false;
-                changeBtn.textContent = '🔑 Parolni o\'zgartirish';
-            }
-        }
+    try {
+        const { data } = await supabase.from('users').select('*').order('total_time', { ascending: false }).limit(50);
+        const leaders = data || [];
 
-        function startTimeTracking() {
-            if (!user) return;
-            
-            timeTracker.lastUpdate = Date.now();
-            timeTracker.interval = setInterval(async () => {
-                await saveTime();
-            }, 30000); // Save every 30 seconds
-        }
-
-        function stopTimeTracking() {
-            if (timeTracker.interval) {
-                clearInterval(timeTracker.interval);
-                timeTracker.interval = null;
-            }
-        }
-
-        async function saveTime() {
-            if (!user) return;
-            
-            const now = Date.now();
-            const elapsed = Math.floor((now - timeTracker.lastUpdate) / 1000);
-            
-            if (elapsed > 0) {
-                const previousTime = user.total_time;
-                user.total_time += elapsed;
-                timeTracker.lastUpdate = now;
-                
-                try {
-                    await supabase.from('users').update({ 
-                        total_time: user.total_time,
-                        updated_at: new Date().toISOString()
-                    }).eq('id', user.id);
-                    
-                    const storage = localStorage.getItem('user') ? localStorage : sessionStorage;
-                    storage.setItem('user', JSON.stringify(user));
-                    
-                    // Check for newly unlocked avatars
-                    await checkUnlockedAvatars();
-                } catch (error) {
-                    console.error('Save time error:', error);
-                }
-            }
-        }
-
-        function handleVisibilityChange() {
-            if (document.hidden) {
-                saveTime();
-                stopTimeTracking();
-            } else {
-                if (user) {
-                    timeTracker.lastUpdate = Date.now();
-                    startTimeTracking();
-                }
-            }
-        }
-
-        async function saveTimeBeforeExit() {
-            await saveTime();
-        }
-
-        async function loadManhvas() {
-            showLoading(true);
-            
-            try {
-                const { data, error } = await supabase
-                    .from('manhvas')
-                    .select('*')
-                    .order('created_at', { ascending: false });
-                
-                if (error) throw error;
-                
-                if (data) {
-                    manhvas = data;
-                    await loadAllRatings();
-                    manhvas.sort((a, b) => (b.avg_rating || 0) - (a.avg_rating || 0));
-                    renderManhvas(manhvas);
-                }
-            } catch (error) {
-                console.error('Load manhvas error:', error);
-                showToast('Manhvalarni yuklashda xatolik', 'error');
-            } finally {
-                showLoading(false);
-            }
-        }
-
-        async function loadAllRatings() {
-            try {
-                const { data } = await supabase
-                    .from('ratings')
-                    .select('manhva_id, rating, user_id');
-                
-                const ratings = data || [];
-                
-                manhvas.forEach(m => {
-                    const mRatings = ratings.filter(r => r.manhva_id === m.id);
-                    m.rating_count = mRatings.length;
-                    m.avg_rating = mRatings.length ? mRatings.reduce((a, b) => a + b.rating, 0) / mRatings.length : 0;
-                });
-            } catch (error) {
-                console.error('Load ratings error:', error);
-            }
-        }
-
-        async function loadUserRatings() {
-            if (!user) {
-                userRatings = {};
-                return;
-            }
-            
-            try {
-                const { data } = await supabase
-                    .from('ratings')
-                    .select('*')
-                    .eq('user_id', user.id);
-                
-                userRatings = {};
-                (data || []).forEach(r => {
-                    userRatings[r.manhva_id] = r.rating;
-                });
-            } catch (error) {
-                console.error('Load user ratings error:', error);
-            }
-        }
-
-        async function loadUserBookmarks() {
-            if (!user) return;
-            
-            try {
-                const { data } = await supabase
-                    .from('bookmarks')
-                    .select('manhva_id')
-                    .eq('user_id', user.id);
-                
-                userBookmarks = new Set((data || []).map(b => b.manhva_id));
-            } catch (error) {
-                console.error('Load bookmarks error:', error);
-            }
-        }
-
-        async function loadReadChapters() {
-            if (!user) return;
-            
-            try {
-                const { data } = await supabase
-                    .from('read_chapters')
-                    .select('chapter_id')
-                    .eq('user_id', user.id);
-                
-                readChapters = new Set((data || []).map(r => r.chapter_id));
-            } catch (error) {
-                console.error('Load read chapters error:', error);
-            }
-        }
-
-        function renderManhvas(list) {
-            const grid = document.getElementById('grid');
-            
-            if (list.length === 0) {
-                grid.innerHTML = '<p style="text-align:center;color:var(--text-light);grid-column:1/-1;">Manhvalar topilmadi</p>';
-                return;
-            }
-            
-            grid.innerHTML = list.map(m => {
-                const avgRating = m.avg_rating || 0;
-                const userRating = user ? (userRatings[m.id] || 0) : 0;
-                const isBookmarked = user && userBookmarks.has(m.id);
-                
-                return `
-                    <div class="manhva-card" data-id="${m.id}">
-                        ${isBookmarked ? '<div style="position:absolute;top:10px;right:10px;font-size:1.5rem;">🔖</div>' : ''}
-                        <img class="manhva-cover" src="${m.cover_url || 'https://via.placeholder.com/300x400?text=' + encodeURIComponent(m.title)}" alt="${m.title}" loading="lazy">
-                        <div class="manhva-info">
-                            <div class="manhva-title">${m.title}</div>
-                            <div class="manhva-genre">${m.genre}</div>
-                            <div class="rating" data-manhva-id="${m.id}">
-                                ${[1,2,3,4,5].map(i => `
-                                    <span class="star ${i <= Math.round(avgRating) ? 'filled' : ''} ${userRating === i ? 'user-rated' : ''}" data-rating="${i}">★</span>
-                                `).join('')}
-                                <span class="rating-info">${avgRating.toFixed(1)}</span>
-                            </div>
-                        </div>
+        const podium = document.getElementById('podium');
+        if (leaders.length >= 3) {
+            const top3 = [leaders[1], leaders[0], leaders[2]];
+            podium.innerHTML = top3.map((u, i) => {
+                const rank = i === 1 ? 1 : i === 0 ? 2 : 3;
+                const initial = u.username[0].toUpperCase();
+                const medal = ['🥈', '🥇', '🥉'][i];
+                return `<div class="podium-place">
+                    <div class="podium-rank">${medal}</div>
+                    <div class="podium-avatar">
+                        ${u.avatar_url ? `<img src="${u.avatar_url}" alt="${u.username}" onerror="this.style.display='none'">` : ''}
+                        <span style="display:${u.avatar_url ? 'none' : 'flex'};width:100%;height:100%;align-items:center;justify-content:center">${initial}</span>
                     </div>
-                `;
+                    <div class="podium-name">${u.username}</div>
+                    <div class="podium-time"><i class="fas fa-clock"></i> ${formatTime(u.total_time || 0)}</div>
+                </div>`;
             }).join('');
-            
-            document.querySelectorAll('.manhva-card').forEach(card => {
-                card.addEventListener('click', (e) => {
-                    if (!e.target.classList.contains('star')) {
-                        showDetail(parseInt(card.dataset.id));
-                    }
-                });
-            });
-            
-            document.querySelectorAll('.rating .star').forEach(star => {
-                star.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    const manhvaId = parseInt(star.closest('.rating').dataset.manhvaId);
-                    const rating = parseInt(star.dataset.rating);
-                    rateManhva(manhvaId, rating);
-                });
-            });
+        } else {
+            podium.innerHTML = '<p style="text-align:center;color:var(--text-light);grid-column:1/-1">Yetarli foydalanuvchilar yo\'q</p>';
         }
 
-        async function rateManhva(manhvaId, rating) {
-            if (!user) {
-                showToast('Baho berish uchun tizimga kiring', 'error');
-                setTimeout(() => openModal(), 500);
-                return;
-            }
+        const rest = leaders.slice(3);
+        const list = document.getElementById('leaders');
 
-            try {
-                const { data: existing } = await supabase
-                    .from('ratings')
-                    .select('*')
-                    .eq('manhva_id', manhvaId)
-                    .eq('user_id', user.id)
-                    .maybeSingle();
-
-                if (existing) {
-                    await supabase
-                        .from('ratings')
-                        .update({ rating, updated_at: new Date().toISOString() })
-                        .eq('manhva_id', manhvaId)
-                        .eq('user_id', user.id);
-                } else {
-                    await supabase
-                        .from('ratings')
-                        .insert({ manhva_id: manhvaId, user_id: user.id, rating });
-                }
-
-                userRatings[manhvaId] = rating;
-                
-                await loadAllRatings();
-                
-                const currentView = document.getElementById('mainView').style.display;
-                if (currentView !== 'none') {
-                    renderManhvas(manhvas);
-                }
-                
-                if (currentManhva && currentManhva.id === manhvaId) {
-                    const updatedManhva = manhvas.find(m => m.id === manhvaId);
-                    if (updatedManhva) {
-                        currentManhva.avg_rating = updatedManhva.avg_rating;
-                        currentManhva.rating_count = updatedManhva.rating_count;
-                    }
-                    updateDetailRating();
-                }
-                
-                showToast('Baholandi!', 'success');
-            } catch (error) {
-                console.error('Rating error:', error);
-                showToast('Baholashda xatolik', 'error');
-            }
-        }
-
-        async function toggleBookmark() {
-            if (!user) {
-                openModal();
-                return;
-            }
-
-            const manhvaId = currentManhva.id;
-            const isBookmarked = userBookmarks.has(manhvaId);
-
-            try {
-                if (isBookmarked) {
-                    await supabase
-                        .from('bookmarks')
-                        .delete()
-                        .eq('manhva_id', manhvaId)
-                        .eq('user_id', user.id);
-                    
-                    userBookmarks.delete(manhvaId);
-                    showToast('Sevimlilardan o\'chirildi', 'success');
-                } else {
-                    await supabase
-                        .from('bookmarks')
-                        .insert({ manhva_id: manhvaId, user_id: user.id });
-                    
-                    userBookmarks.add(manhvaId);
-                    showToast('Sevimlilarga qo\'shildi!', 'success');
-                }
-
-                updateBookmarkButton();
-            } catch (error) {
-                console.error('Bookmark error:', error);
-                showToast('Xatolik yuz berdi', 'error');
-            }
-        }
-
-        function updateBookmarkButton() {
-            const btn = document.getElementById('bookmarkBtn');
-            if (userBookmarks.has(currentManhva.id)) {
-                btn.innerHTML = '❤️ Sevimlilar';
-            } else {
-                btn.innerHTML = '🔖 Sevimlilar';
-            }
-        }
-
-        function shareContent() {
-            const url = window.location.href;
-            const title = currentManhva ? currentManhva.title : 'ManhvaUZ';
-            const text = `${title} - ManhvaUZ`;
-
-            if (navigator.share) {
-                navigator.share({
-                    title: title,
-                    text: text,
-                    url: url
-                }).then(() => {
-                    showToast('Ulashildi!', 'success');
-                }).catch(err => {
-                    console.error('Share error:', err);
-                });
-            } else {
-                navigator.clipboard.writeText(url).then(() => {
-                    showToast('Link nusxalandi!', 'success');
-                }).catch(err => {
-                    console.error('Copy error:', err);
-                    showToast('Xatolik yuz berdi', 'error');
-                });
-            }
-        }
-
-        function handleSearch(e) {
-            const query = e.target.value.toLowerCase().trim();
-            const searchResults = document.getElementById('searchResults');
-            
-            if (!query) {
-                searchResults.classList.remove('show');
-                searchResults.innerHTML = '';
-                return;
-            }
-            
-            const filtered = manhvas.filter(m => 
-                m.title.toLowerCase().includes(query) || 
-                m.genre.toLowerCase().includes(query) || 
-                (m.description && m.description.toLowerCase().includes(query))
-            ).slice(0, 5);
-            
-            if (filtered.length === 0) {
-                searchResults.innerHTML = '<div style="padding:1rem;text-align:center;color:var(--text-light);">Hech narsa topilmadi</div>';
-                searchResults.classList.add('show');
-                return;
-            }
-            
-            searchResults.innerHTML = filtered.map(m => {
-                const avgRating = m.avg_rating || 0;
-                return `
-                    <div class="search-result-item" data-id="${m.id}">
-                        <img class="search-result-cover" src="${m.cover_url || 'https://via.placeholder.com/50x65?text=' + encodeURIComponent(m.title)}" alt="${m.title}">
-                        <div class="search-result-info">
-                            <div class="search-result-title">${m.title}</div>
-                            <div class="search-result-genre">${m.genre}</div>
-                            <div class="search-result-rating">
-                                <span style="color:#ffd700;">★</span>
-                                <span>${avgRating.toFixed(1)}</span>
-                                <span style="color:var(--text-light);">(${m.rating_count || 0})</span>
-                            </div>
-                        </div>
+        if (!rest.length) {
+            list.style.display = 'none';
+        } else {
+            list.style.display = 'block';
+            list.innerHTML = rest.map((u, i) => {
+                const rank = i + 4;
+                const initial = u.username[0].toUpperCase();
+                const isCurrentUser = user && u.id === user.id;
+                return `<div class="leader-item" style="${isCurrentUser ? 'background:var(--glass)' : ''}">
+                    <div class="leader-rank">${rank}</div>
+                    <div class="leader-avatar">
+                        ${u.avatar_url ? `<img src="${u.avatar_url}" alt="${u.username}" onerror="this.style.display='none'">` : ''}
+                        <span style="display:${u.avatar_url ? 'none' : 'flex'};width:100%;height:100%;align-items:center;justify-content:center">${initial}</span>
                     </div>
-                `;
+                    <div class="leader-info">
+                        <div class="leader-name">${u.username} ${isCurrentUser ? '(Siz)' : ''}</div>
+                        <div class="leader-time">${formatTime(u.total_time || 0)}</div>
+                    </div>
+                </div>`;
             }).join('');
-            
-            searchResults.classList.add('show');
-            
-            document.querySelectorAll('.search-result-item').forEach(item => {
-                item.addEventListener('click', () => {
-                    const id = parseInt(item.dataset.id);
-                    searchResults.classList.remove('show');
-                    document.getElementById('search').value = '';
-                    showDetail(id);
-                });
-            });
         }
+    } catch (error) {
+        showToast('Liderlar yuklanmadi', 'error');
+    } finally {
+        showLoading(false);
+    }
+}
 
-        document.addEventListener('click', (e) => {
-            if (!e.target.closest('.search-wrapper')) {
-                document.getElementById('searchResults').classList.remove('show');
-            }
-        });
+function hideAllViews() {
+    document.getElementById('mainView').style.display = 'none';
+    document.getElementById('chapterList').classList.remove('show');
+    document.getElementById('reader').classList.remove('show');
+    document.getElementById('bookmarks').classList.remove('show');
+    document.getElementById('leaderboard').classList.remove('show');
+}
 
-        async function showDetail(id) {
-            if (!user) {
-                showToast('To\'liq ko\'rish uchun tizimga kiring', 'error');
-                setTimeout(() => openModal(), 500);
-                return;
-            }
-            
-            showLoading(true);
-            
-            currentManhva = manhvas.find(m => m.id === id);
-            
-            hideAllViews();
-            document.getElementById('chapterList').classList.add('show');
-            
-            document.getElementById('detailTitle').textContent = currentManhva.title;
-            document.getElementById('detailDesc').textContent = currentManhva.description || 'Tavsif mavjud emas';
-            document.getElementById('detailCover').src = currentManhva.cover_url || 'https://via.placeholder.com/300x400?text=' + encodeURIComponent(currentManhva.title);
-            
-            updateDetailRating();
-            updateBookmarkButton();
-            
-            document.getElementById('bookmarkBtn').onclick = toggleBookmark;
-            document.getElementById('shareBtn').onclick = shareContent;
-            
-            try {
-                const { data, error } = await supabase
-                    .from('chapters')
-                    .select('*')
-                    .eq('manhva_id', id)
-                    .order('chapter_number', { ascending: true });
-                
-                if (error) throw error;
-                
-                currentChapters = data || [];
-                
-                const chaptersDiv = document.getElementById('chapters');
-                if (currentChapters.length > 0) {
-                    chaptersDiv.innerHTML = currentChapters.map(c => {
-                        const isRead = readChapters.has(c.id);
-                        return `
-                            <div class="chapter-item ${isRead ? 'read' : ''}" data-chapter-id="${c.id}">
-                                <span>Chapter ${c.chapter_number}${c.title ? ' - ' + c.title : ''}</span>
-                                ${isRead ? '<span class="read-badge">✓ O\'qilgan</span>' : ''}
-                            </div>
-                        `;
-                    }).join('');
-                    
-                    document.querySelectorAll('.chapter-item').forEach(item => {
-                        item.addEventListener('click', () => {
-                            openChapter(parseInt(item.dataset.chapterId));
-                        });
-                    });
-                } else {
-                    chaptersDiv.innerHTML = '<p style="text-align:center;color:var(--text-light);padding:2rem;">Chapterlar yo\'q</p>';
-                }
-            } catch (error) {
-                console.error('Load chapters error:', error);
-                showToast('Chapterlarni yuklashda xatolik', 'error');
-            } finally {
-                showLoading(false);
-            }
-        }
+function showMain() {
+    hideAllViews();
+    document.getElementById('mainView').style.display = 'block';
+    renderManhvas(manhvas);
+}
 
-        function updateDetailRating() {
-            const avgRating = currentManhva.avg_rating || 0;
-            const ratingCount = currentManhva.rating_count || 0;
-            const userRating = userRatings[currentManhva.id] || 0;
-            
-            document.getElementById('avgRating').textContent = avgRating.toFixed(1);
-            document.getElementById('avgStars').innerHTML = [1,2,3,4,5].map(i => 
-                `<span class="star ${i <= Math.round(avgRating) ? 'filled' : ''}">★</span>`
-            ).join('');
-            document.getElementById('ratingCount').textContent = `${ratingCount} baho`;
-            
-            if (user) {
-                document.getElementById('userRatingSection').style.display = 'block';
-                document.getElementById('userRating').innerHTML = [1,2,3,4,5].map(i => 
-                    `<span class="star ${i <= userRating ? 'user-rated' : ''}" data-rating="${i}">★</span>`
-                ).join('') + `<span class="rating-info">${userRating ? userRating + ' yulduz' : 'Baho bermagan'}</span>`;
-                
-                document.querySelectorAll('#userRating .star').forEach(star => {
-                    star.addEventListener('click', () => {
-                        rateManhva(currentManhva.id, parseInt(star.dataset.rating));
-                    });
-                });
-            }
-        }
+function toggleTheme() {
+    const current = document.body.dataset.theme;
+    const next = current === 'light' ? 'dark' : 'light';
+    document.body.dataset.theme = next;
+    document.getElementById('themeBtn').innerHTML = next === 'light' ? '<i class="fas fa-moon"></i>' : '<i class="fas fa-sun"></i>';
+    localStorage.setItem('theme', next);
+}
 
-        async function openChapter(chapterId) {
-            showLoading(true);
-            
-            hideAllViews();
-            document.getElementById('reader').classList.add('show');
-            
-            currentChapterIndex = currentChapters.findIndex(c => c.id === chapterId);
-            
-            if (!readChapters.has(chapterId)) {
-                readChapters.add(chapterId);
-                try {
-                    await supabase
-                        .from('read_chapters')
-                        .insert({ chapter_id: chapterId, user_id: user.id });
-                } catch (error) {
-                    console.error('Mark read error:', error);
-                }
-            }
-            
-            try {
-                const { data, error } = await supabase
-                    .from('pages')
-                    .select('*')
-                    .eq('chapter_id', chapterId)
-                    .order('page_number', { ascending: true });
-                
-                if (error) throw error;
-                
-                const pagesDiv = document.getElementById('pages');
-                if (data && data.length > 0) {
-                    pagesDiv.innerHTML = data.map(p => 
-                        `<img src="${p.image_url}" class="reader-page" alt="Page ${p.page_number}" loading="lazy">`
-                    ).join('');
-                } else {
-                    pagesDiv.innerHTML = '<p style="text-align:center;color:var(--text-light);padding:2rem;">Sahifalar yo\'q</p>';
-                }
-                
-                const readerNav = document.getElementById('readerNav');
-                const hasNext = currentChapterIndex < currentChapters.length - 1;
-                
-                if (hasNext) {
-                    readerNav.innerHTML = '<button class="btn btn-primary" id="nextChapterBtn">Keyingi Bob →</button>';
-                    document.getElementById('nextChapterBtn').addEventListener('click', nextChapter);
-                } else {
-                    readerNav.innerHTML = '<button class="btn btn-glass" id="endBtn">✓ Tugadi</button>';
-                    document.getElementById('endBtn').addEventListener('click', showChapters);
-                }
-                
-                timeTracker.readingStart = Date.now();
-            } catch (error) {
-                console.error('Open chapter error:', error);
-                showToast('Chapterni ochishda xatolik', 'error');
-            } finally {
-                showLoading(false);
-            }
-        }
+const savedTheme = localStorage.getItem('theme');
+if (savedTheme) {
+    document.body.dataset.theme = savedTheme;
+    document.getElementById('themeBtn').innerHTML = savedTheme === 'light' ? '<i class="fas fa-moon"></i>' : '<i class="fas fa-sun"></i>';
+}
 
-        function nextChapter() {
-            updateReadingTime();
-            if (currentChapterIndex < currentChapters.length - 1) {
-                openChapter(currentChapters[currentChapterIndex + 1].id);
-            }
-        }
+function openModal() {
+    document.getElementById('authModal').classList.add('show');
+    clearAlerts();
+}
 
-        function updateReadingTime() {
-            if (timeTracker.readingStart) {
-                const elapsed = Math.floor((Date.now() - timeTracker.readingStart) / 1000);
-                if (user) {
-                    user.total_time += elapsed;
-                }
-                timeTracker.readingStart = null;
-            }
-        }
+function closeModal() {
+    document.getElementById('authModal').classList.remove('show');
+    clearAlerts();
+}
 
-        function showChapters() {
-            updateReadingTime();
-            hideAllViews();
-            document.getElementById('chapterList').classList.add('show');
-        }
+function showAlert(type, msg) {
+    const id = type === 'error' ? 'errorMsg' : 'successMsg';
+    const el = document.getElementById(id);
+    el.textContent = msg;
+    el.classList.add('show');
+    setTimeout(() => el.classList.remove('show'), 5000);
+}
 
-        async function showLeaderboard() {
-            if (!user) {
-                showToast('Liderlarni ko\'rish uchun tizimga kiring', 'error');
-                setTimeout(() => openModal(), 500);
-                return;
-            }
-            
-            showLoading(true);
-            
-            hideAllViews();
-            document.getElementById('leaderboard').classList.add('show');
-            
-            try {
-                const { data, error } = await supabase
-                    .from('users')
-                    .select('username, total_time, avatar_url')
-                    .order('total_time', { ascending: false })
-                    .limit(50);
-                
-                if (error) throw error;
-                
-                const leaders = data || [];
-                const leadersDiv = document.getElementById('leaders');
-                
-                if (leaders.length > 0) {
-                    leadersDiv.innerHTML = leaders.map((l, i) => {
-                        const hours = Math.floor(l.total_time / 3600);
-                        const minutes = Math.floor((l.total_time % 3600) / 60);
-                        const seconds = l.total_time % 60;
-                        
-                        let timeStr = '';
-                        if (hours > 0) timeStr += `${hours}s `;
-                        if (minutes > 0 || hours > 0) timeStr += `${minutes}m `;
-                        timeStr += `${seconds}s`;
-                        
-                        const isCurrentUser = user && l.username === user.username;
-                        
-                        return `
-                            <div class="leader-item" style="${isCurrentUser ? 'border: 2px solid var(--primary);' : ''}">
-                                <span class="leader-rank">#${i+1}</span>
-                                <span class="leader-name">${l.username}${isCurrentUser ? ' (Siz)' : ''}</span>
-                                <span class="leader-time">${timeStr}</span>
-                            </div>
-                        `;
-                    }).join('');
-                } else {
-                    leadersDiv.innerHTML = '<p style="text-align:center;color:var(--text-light);padding:2rem;">Hech kim yo\'q</p>';
-                }
-            } catch (error) {
-                console.error('Leaderboard error:', error);
-                showToast('Liderlarni yuklashda xatolik', 'error');
-            } finally {
-                showLoading(false);
-            }
-        }
+function clearAlerts() {
+    document.getElementById('errorMsg').classList.remove('show');
+    document.getElementById('successMsg').classList.remove('show');
+}
 
-        async function showBookmarks() {
-            if (!user) {
-                showToast('Sevimlilarni ko\'rish uchun tizimga kiring', 'error');
-                setTimeout(() => openModal(), 500);
-                return;
-            }
-            
-            showLoading(true);
-            
-            hideAllViews();
-            document.getElementById('bookmarks').classList.add('show');
-            
-            const bookmarkedManhvas = manhvas.filter(m => userBookmarks.has(m.id));
-            const grid = document.getElementById('bookmarkGrid');
-            
-            if (bookmarkedManhvas.length === 0) {
-                grid.innerHTML = '<p style="text-align:center;color:var(--text-light);grid-column:1/-1;padding:3rem;">Sevimli manhvalar yo\'q</p>';
-            } else {
-                grid.innerHTML = bookmarkedManhvas.map(m => {
-                    const avgRating = m.avg_rating || 0;
-                    const userRating = userRatings[m.id] || 0;
-                    
-                    return `
-                        <div class="manhva-card" data-id="${m.id}">
-                            <div style="position:absolute;top:10px;right:10px;font-size:1.5rem;">🔖</div>
-                            <img class="manhva-cover" src="${m.cover_url || 'https://via.placeholder.com/300x400?text=' + encodeURIComponent(m.title)}" alt="${m.title}" loading="lazy">
-                            <div class="manhva-info">
-                                <div class="manhva-title">${m.title}</div>
-                                <div class="manhva-genre">${m.genre}</div>
-                                <div class="rating" data-manhva-id="${m.id}">
-                                    ${[1,2,3,4,5].map(i => `
-                                        <span class="star ${i <= Math.round(avgRating) ? 'filled' : ''} ${userRating === i ? 'user-rated' : ''}" data-rating="${i}">★</span>
-                                    `).join('')}
-                                    <span class="rating-info">${avgRating.toFixed(1)}</span>
-                                </div>
-                            </div>
-                        </div>
-                    `;
-                }).join('');
-                
-                document.querySelectorAll('#bookmarkGrid .manhva-card').forEach(card => {
-                    card.addEventListener('click', (e) => {
-                        if (!e.target.classList.contains('star')) {
-                            showDetail(parseInt(card.dataset.id));
-                        }
-                    });
-                });
-            }
-            
-            showLoading(false);
-        }
+function showLoading(show) {
+    document.getElementById('loading').classList.toggle('show', show);
+}
 
-        function showMain() {
-            updateReadingTime();
-            hideAllViews();
-            document.getElementById('mainView').style.display = 'block';
-            document.getElementById('search').value = '';
-            renderManhvas(manhvas);
-        }
+function showToast(msg, type = 'info') {
+    const toast = document.getElementById('toast');
+    toast.textContent = msg;
+    toast.style.background = type === 'error' ? 'var(--error)' : type === 'success' ? 'var(--success)' : 'var(--card)';
+    toast.style.color = type === 'error' || type === 'success' ? 'white' : 'var(--text)';
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 3000);
+}
 
-        function hideAllViews() {
-            document.getElementById('mainView').style.display = 'none';
-            document.getElementById('profileContainer').classList.remove('show');
-            document.getElementById('chapterList').classList.remove('show');
-            document.getElementById('reader').classList.remove('show');
-            document.getElementById('leaderboard').classList.remove('show');
-            document.getElementById('bookmarks').classList.remove('show');
-        }
+document.addEventListener('click', e => {
+    const searchBox = document.getElementById('search');
+    const searchResults = document.getElementById('searchResults');
+    if (!searchBox.contains(e.target) && !searchResults.contains(e.target)) {
+        searchResults.classList.remove('show');
+    }
+});
 
-        function toggleTheme() {
-            const body = document.body;
-            const current = body.getAttribute('data-theme');
-            const newTheme = current === 'light' ? 'dark' : 'light';
-            
-            body.setAttribute('data-theme', newTheme);
-            document.getElementById('themeBtn').textContent = newTheme === 'light' ? '🌙' : '☀️';
-            localStorage.setItem('theme', newTheme);
-        }
+window.addEventListener('beforeunload', () => {
+    if (user && timeTracker.interval) saveTime();
+});
+</script>
 
-        function loadTheme() {
-            const saved = localStorage.getItem('theme') || 'light';
-            document.body.setAttribute('data-theme', saved);
-            document.getElementById('themeBtn').textContent = saved === 'light' ? '🌙' : '☀️';
-        }
-
-        function openModal() {
-            document.getElementById('authModal').classList.add('show');
-            clearAlerts();
-        }
-
-        function closeModal() {
-            document.getElementById('authModal').classList.remove('show');
-            clearAlerts();
-        }
-
-        function showAlert(type, message) {
-            const alertId = type === 'error' ? 'errorMsg' : 'successMsg';
-            const alert = document.getElementById(alertId);
-            alert.textContent = message;
-            alert.classList.add('show');
-            
-            setTimeout(() => {
-                alert.classList.remove('show');
-            }, 5000);
-        }
-
-        function clearAlerts() {
-            document.getElementById('errorMsg').classList.remove('show');
-            document.getElementById('successMsg').classList.remove('show');
-        }
-
-        function showLoading(show) {
-            const loading = document.getElementById('loading');
-            if (show) {
-                loading.classList.add('show');
-            } else {
-                loading.classList.remove('show');
-            }
-        }
-
-        function showToast(message, type = 'success') {
-            const toast = document.getElementById('toast');
-            toast.textContent = message;
-            toast.style.background = type === 'error' ? 'linear-gradient(135deg, #ef4444, #dc2626)' : 'linear-gradient(135deg, #22c55e, #16a34a)';
-            toast.style.color = 'white';
-            toast.classList.add('show');
-            
-            setTimeout(() => {
-                toast.classList.remove('show');
-            }, 3000);
-        }
-    </script>
 </body>
 </html>
