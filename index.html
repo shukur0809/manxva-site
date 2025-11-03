@@ -2,7 +2,7 @@
 <html lang="uz">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=5.0,user-scalable=yes">
     <title>ManhvaUZ - O'zbek Tilida Manhvalar</title>
     <meta name="description" content="O'zbek tilida eng zo'r manhvalarni bepul o'qing. Turli janrlar, yangilanishlar va foydalanuvchi baholari.">
     <meta name="keywords" content="manhva, manga, uzbek, o'zbek, webtoon, comics">
@@ -10,192 +10,1210 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
         *{margin:0;padding:0;box-sizing:border-box}
-        :root{--bg:#f5f5f5;--card:rgba(255,255,255,0.95);--text:#1a1a1a;--text-light:#666;--border:rgba(0,0,0,0.1);--primary:#667eea;--primary-dark:#5568d3;--glass:rgba(0,0,0,0.05);--success:#22c55e;--error:#ef4444;--gold:#ffd700;--silver:#c0c0c0;--bronze:#cd7f32}
-        [data-theme="dark"]{--bg:#0a0a0a;--card:rgba(20,20,20,0.95);--text:#e0e0e0;--text-light:#999;--border:rgba(255,255,255,0.1);--glass:rgba(255,255,255,0.05)}
-        html{scroll-behavior:smooth}
-        body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);transition:background .3s,color .3s;line-height:1.6}
-        header{position:sticky;top:0;z-index:100;background:var(--card);backdrop-filter:blur(10px);box-shadow:0 2px 10px var(--border)}
-        nav{max-width:1200px;margin:0 auto;padding:1rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
-        .logo{font-size:1.5rem;font-weight:800;background:linear-gradient(135deg,#667eea,#764ba2);-webkit-background-clip:text;-webkit-text-fill-color:transparent;cursor:pointer;display:flex;align-items:center;gap:.8rem;padding:.5rem 1rem;border-radius:12px;transition:all .3s;position:relative}
-        .logo:hover{transform:translateY(-2px);box-shadow:0 4px 15px rgba(102,126,234,0.3)}
-        .logo::before{content:'';position:absolute;inset:0;border-radius:12px;padding:2px;background:linear-gradient(135deg,#667eea,#764ba2);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:0;transition:opacity .3s}
-        .logo:hover::before{opacity:1}
-        .logo-icon{width:40px;height:40px;border-radius:10px;box-shadow:0 4px 12px rgba(0,0,0,0.15);transition:transform .3s}
-        .logo:hover .logo-icon{transform:rotate(5deg) scale(1.1)}
-        .btn{padding:.6rem 1.2rem;border-radius:8px;border:none;cursor:pointer;font-weight:600;transition:all .2s;font-size:.95rem;display:inline-flex;align-items:center;gap:.5rem}
-        .btn:disabled{opacity:.5;cursor:not-allowed}
-        .btn-primary{background:linear-gradient(135deg,#667eea,#764ba2);color:white}
-        .btn-primary:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 4px 12px rgba(102,126,234,0.4)}
-        .btn-glass{background:var(--glass);border:1px solid var(--border);color:var(--text)}
-        .btn-glass:hover{background:var(--border)}
-        .search-wrapper{position:relative;flex:1;max-width:400px}
-        .search-box{padding:.6rem 1rem;border-radius:8px;border:1px solid var(--border);background:var(--card);color:var(--text);width:100%;transition:all .2s}
-        .search-box:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px rgba(102,126,234,0.1)}
-        .search-results{position:absolute;top:100%;left:0;right:0;margin-top:.5rem;background:var(--card);border:1px solid var(--border);border-radius:8px;max-height:400px;overflow-y:auto;box-shadow:0 10px 40px rgba(0,0,0,0.2);z-index:1000;display:none}
+        :root{
+            --bg:#f5f5f5;
+            --card:rgba(255,255,255,0.95);
+            --text:#1a1a1a;
+            --text-light:#666;
+            --border:rgba(0,0,0,0.1);
+            --primary:#667eea;
+            --primary-dark:#5568d3;
+            --glass:rgba(0,0,0,0.05);
+            --success:#22c55e;
+            --error:#ef4444;
+            --gold:#ffd700;
+            --silver:#c0c0c0;
+            --bronze:#cd7f32;
+            --header-height:70px;
+        }
+        [data-theme="dark"]{
+            --bg:#0a0a0a;
+            --card:rgba(20,20,20,0.95);
+            --text:#e0e0e0;
+            --text-light:#999;
+            --border:rgba(255,255,255,0.1);
+            --glass:rgba(255,255,255,0.05);
+        }
+        html{scroll-behavior:smooth;-webkit-tap-highlight-color:transparent}
+        body{
+            font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+            background:var(--bg);
+            color:var(--text);
+            transition:background .3s,color .3s;
+            line-height:1.6;
+            overflow-x:hidden;
+        }
+        
+        /* HEADER - Responsive */
+        header{
+            position:sticky;
+            top:0;
+            z-index:100;
+            background:var(--card);
+            backdrop-filter:blur(10px);
+            box-shadow:0 2px 10px var(--border);
+            height:var(--header-height);
+        }
+        nav{
+            max-width:1200px;
+            margin:0 auto;
+            padding:0.8rem 1rem;
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            gap:0.8rem;
+            height:100%;
+        }
+        
+        /* LOGO - Mobile Optimized */
+        .logo{
+            font-size:clamp(1.1rem, 4vw, 1.5rem);
+            font-weight:800;
+            background:linear-gradient(135deg,#667eea,#764ba2);
+            -webkit-background-clip:text;
+            -webkit-text-fill-color:transparent;
+            cursor:pointer;
+            display:flex;
+            align-items:center;
+            gap:0.5rem;
+            padding:0.4rem 0.8rem;
+            border-radius:12px;
+            transition:all .3s;
+            white-space:nowrap;
+            flex-shrink:0;
+        }
+        .logo-icon{
+            width:clamp(30px, 8vw, 40px);
+            height:clamp(30px, 8vw, 40px);
+            border-radius:10px;
+            box-shadow:0 4px 12px rgba(0,0,0,0.15);
+            transition:transform .3s;
+            flex-shrink:0;
+        }
+        .logo:hover .logo-icon{transform:rotate(5deg) scale(1.05)}
+        
+        /* SEARCH - Mobile First */
+        .search-wrapper{
+            position:relative;
+            flex:1;
+            max-width:100%;
+            min-width:0;
+        }
+        .search-box{
+            padding:0.6rem 0.8rem;
+            border-radius:8px;
+            border:1px solid var(--border);
+            background:var(--card);
+            color:var(--text);
+            width:100%;
+            font-size:0.95rem;
+            transition:all .2s;
+        }
+        .search-box:focus{
+            outline:none;
+            border-color:var(--primary);
+            box-shadow:0 0 0 3px rgba(102,126,234,0.1);
+        }
+        .search-results{
+            position:fixed;
+            top:var(--header-height);
+            left:0;
+            right:0;
+            margin:0.5rem;
+            background:var(--card);
+            border:1px solid var(--border);
+            border-radius:8px;
+            max-height:calc(100vh - var(--header-height) - 1rem);
+            overflow-y:auto;
+            box-shadow:0 10px 40px rgba(0,0,0,0.3);
+            z-index:1000;
+            display:none;
+        }
         .search-results.show{display:block}
-        .search-result-item{padding:.8rem 1rem;cursor:pointer;display:flex;align-items:center;gap:1rem;border-bottom:1px solid var(--border);transition:all .2s}
+        .search-result-item{
+            padding:0.8rem;
+            cursor:pointer;
+            display:flex;
+            align-items:center;
+            gap:0.8rem;
+            border-bottom:1px solid var(--border);
+            transition:all .2s;
+        }
         .search-result-item:hover{background:var(--glass)}
-        .search-result-cover{width:50px;height:65px;border-radius:4px;object-fit:cover}
-        .user-avatar{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#667eea,#764ba2);color:white;display:flex;align-items:center;justify-content:center;font-weight:700;cursor:pointer;transition:all .2s;overflow:hidden;border:2px solid transparent;position:relative}
-        .user-avatar:hover{transform:scale(1.1);border-color:var(--primary)}
-        .user-avatar img{width:100%;height:100%;object-fit:cover;position:absolute;top:0;left:0}
-        .user-dropdown{position:absolute;top:110%;right:0;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:.5rem;min-width:200px;box-shadow:0 10px 40px rgba(0,0,0,0.2);display:none;z-index:1000}
+        .search-result-cover{
+            width:45px;
+            height:60px;
+            border-radius:4px;
+            object-fit:cover;
+            flex-shrink:0;
+        }
+        
+        /* NAVIGATION BUTTONS - Mobile */
+        .nav-actions{
+            display:flex;
+            gap:0.5rem;
+            align-items:center;
+            flex-shrink:0;
+        }
+        .btn{
+            padding:0.6rem 1rem;
+            border-radius:8px;
+            border:none;
+            cursor:pointer;
+            font-weight:600;
+            transition:all .2s;
+            font-size:0.9rem;
+            display:inline-flex;
+            align-items:center;
+            justify-content:center;
+            gap:0.5rem;
+            white-space:nowrap;
+            min-height:44px;
+        }
+        .btn:disabled{opacity:.5;cursor:not-allowed}
+        .btn:active{transform:scale(0.95)}
+        .btn-primary{
+            background:linear-gradient(135deg,#667eea,#764ba2);
+            color:white;
+        }
+        .btn-primary:hover:not(:disabled){
+            transform:translateY(-2px);
+            box-shadow:0 4px 12px rgba(102,126,234,0.4);
+        }
+        .btn-glass{
+            background:var(--glass);
+            border:1px solid var(--border);
+            color:var(--text);
+        }
+        .btn-glass:hover{background:var(--border)}
+        .btn-icon-only{
+            padding:0.6rem;
+            width:44px;
+            height:44px;
+        }
+        .btn-text{display:inline}
+        
+        /* HAMBURGER MENU - Mobile Only */
+        .hamburger{
+            display:none;
+            flex-direction:column;
+            gap:4px;
+            cursor:pointer;
+            padding:0.5rem;
+            width:44px;
+            height:44px;
+            align-items:center;
+            justify-content:center;
+            border-radius:8px;
+            background:var(--glass);
+            transition:all .3s;
+        }
+        .hamburger span{
+            width:22px;
+            height:2px;
+            background:var(--text);
+            border-radius:2px;
+            transition:all .3s;
+        }
+        .hamburger.active span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
+        .hamburger.active span:nth-child(2){opacity:0}
+        .hamburger.active span:nth-child(3){transform:rotate(-45deg) translate(6px,-6px)}
+        
+        /* MOBILE MENU */
+        .mobile-menu{
+            position:fixed;
+            top:var(--header-height);
+            left:0;
+            right:0;
+            bottom:0;
+            background:var(--card);
+            z-index:99;
+            padding:1rem;
+            transform:translateX(-100%);
+            transition:transform .3s;
+            overflow-y:auto;
+        }
+        .mobile-menu.show{transform:translateX(0)}
+        .mobile-menu-item{
+            padding:1rem;
+            margin-bottom:0.5rem;
+            border-radius:8px;
+            cursor:pointer;
+            transition:all .2s;
+            display:flex;
+            align-items:center;
+            gap:0.8rem;
+            font-weight:600;
+            min-height:56px;
+        }
+        .mobile-menu-item:hover{background:var(--glass)}
+        .mobile-menu-item i{font-size:1.2rem;width:24px;text-align:center}
+        
+        /* USER AVATAR */
+        .user-avatar{
+            width:44px;
+            height:44px;
+            border-radius:50%;
+            background:linear-gradient(135deg,#667eea,#764ba2);
+            color:white;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            font-weight:700;
+            cursor:pointer;
+            transition:all .2s;
+            overflow:hidden;
+            border:2px solid transparent;
+            position:relative;
+            flex-shrink:0;
+        }
+        .user-avatar:active{transform:scale(0.9)}
+        .user-avatar img{
+            width:100%;
+            height:100%;
+            object-fit:cover;
+            position:absolute;
+            top:0;
+            left:0;
+        }
+        .theme-btn{
+            width:44px;
+            height:44px;
+            border-radius:50%;
+            background:var(--glass);
+            border:1px solid var(--border);
+            cursor:pointer;
+            font-size:1.1rem;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            transition:all .2s;
+            flex-shrink:0;
+        }
+        .theme-btn:active{transform:scale(0.9)}
+        
+        /* USER DROPDOWN */
+        .user-dropdown{
+            position:fixed;
+            top:calc(var(--header-height) + 0.5rem);
+            right:0.5rem;
+            background:var(--card);
+            border:1px solid var(--border);
+            border-radius:12px;
+            padding:0.5rem;
+            min-width:200px;
+            box-shadow:0 10px 40px rgba(0,0,0,0.3);
+            display:none;
+            z-index:1000;
+        }
         .user-dropdown.show{display:block}
-        .dropdown-item{padding:.8rem 1rem;cursor:pointer;border-radius:8px;transition:all .2s;display:flex;align-items:center;gap:.5rem}
+        .dropdown-item{
+            padding:0.8rem 1rem;
+            cursor:pointer;
+            border-radius:8px;
+            transition:all .2s;
+            display:flex;
+            align-items:center;
+            gap:0.8rem;
+            min-height:48px;
+        }
         .dropdown-item:hover{background:var(--glass)}
-        .modal{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.7);backdrop-filter:blur(5px);align-items:center;justify-content:center;z-index:2000}
+        .dropdown-item i{width:20px;text-align:center}
+        
+        /* MODALS - Mobile Optimized */
+        .modal{
+            display:none;
+            position:fixed;
+            top:0;
+            left:0;
+            right:0;
+            bottom:0;
+            background:rgba(0,0,0,0.7);
+            backdrop-filter:blur(5px);
+            align-items:center;
+            justify-content:center;
+            z-index:2000;
+            padding:1rem;
+        }
         .modal.show{display:flex}
-        .modal-content{background:var(--card);padding:2rem;border-radius:16px;max-width:400px;width:90%;box-shadow:0 20px 60px rgba(0,0,0,0.3);max-height:90vh;overflow-y:auto}
-        .auth-tabs{display:flex;gap:.5rem;margin-bottom:1.5rem;border-bottom:2px solid var(--border)}
-        .auth-tab{flex:1;padding:.8rem;cursor:pointer;border:none;background:transparent;color:var(--text-light);font-weight:600;transition:all .2s;border-bottom:2px solid transparent;margin-bottom:-2px}
-        .auth-tab.active{color:var(--primary);border-bottom-color:var(--primary)}
-        .alert{padding:.8rem;border-radius:8px;margin-bottom:1rem;display:none;font-size:.9rem}
+        .modal-content{
+            background:var(--card);
+            padding:1.5rem;
+            border-radius:16px;
+            max-width:400px;
+            width:100%;
+            box-shadow:0 20px 60px rgba(0,0,0,0.3);
+            max-height:90vh;
+            overflow-y:auto;
+        }
+        .auth-tabs{
+            display:flex;
+            gap:0.5rem;
+            margin-bottom:1.5rem;
+            border-bottom:2px solid var(--border);
+        }
+        .auth-tab{
+            flex:1;
+            padding:0.8rem;
+            cursor:pointer;
+            border:none;
+            background:transparent;
+            color:var(--text-light);
+            font-weight:600;
+            transition:all .2s;
+            border-bottom:2px solid transparent;
+            margin-bottom:-2px;
+            font-size:0.95rem;
+            min-height:48px;
+        }
+        .auth-tab.active{
+            color:var(--primary);
+            border-bottom-color:var(--primary);
+        }
+        .alert{
+            padding:0.8rem;
+            border-radius:8px;
+            margin-bottom:1rem;
+            display:none;
+            font-size:0.9rem;
+        }
         .alert.show{display:block}
-        .alert-error{background:rgba(239,68,68,0.1);color:#ef4444;border:1px solid rgba(239,68,68,0.3)}
-        .alert-success{background:rgba(34,197,94,0.1);color:#22c55e;border:1px solid rgba(34,197,94,0.3)}
+        .alert-error{
+            background:rgba(239,68,68,0.1);
+            color:#ef4444;
+            border:1px solid rgba(239,68,68,0.3);
+        }
+        .alert-success{
+            background:rgba(34,197,94,0.1);
+            color:#22c55e;
+            border:1px solid rgba(34,197,94,0.3);
+        }
+        .form-group{margin-bottom:1rem}
+        .form-group label{
+            display:block;
+            margin-bottom:0.5rem;
+            font-weight:600;
+            color:var(--text);
+            font-size:0.95rem;
+        }
+        .form-input{
+            width:100%;
+            padding:0.8rem;
+            border-radius:8px;
+            border:1px solid var(--border);
+            background:var(--card);
+            color:var(--text);
+            transition:all .2s;
+            font-size:1rem;
+            min-height:48px;
+        }
+        .form-input:focus{
+            outline:none;
+            border-color:var(--primary);
+            box-shadow:0 0 0 3px rgba(102,126,234,0.1);
+        }
         .password-toggle{position:relative}
-        .toggle-password{position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:1.2rem;color:var(--text-light)}
-        .profile-modal{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.7);backdrop-filter:blur(5px);align-items:center;justify-content:center;z-index:2000}
+        .toggle-password{
+            position:absolute;
+            right:10px;
+            top:50%;
+            transform:translateY(-50%);
+            background:none;
+            border:none;
+            cursor:pointer;
+            font-size:1.2rem;
+            color:var(--text-light);
+            padding:0.5rem;
+            min-width:44px;
+            min-height:44px;
+        }
+        
+        /* PROFILE MODAL - Mobile Optimized */
+        .profile-modal{
+            display:none;
+            position:fixed;
+            top:0;
+            left:0;
+            right:0;
+            bottom:0;
+            background:rgba(0,0,0,0.7);
+            backdrop-filter:blur(5px);
+            align-items:center;
+            justify-content:center;
+            z-index:2000;
+            padding:0;
+        }
         .profile-modal.show{display:flex}
-        .profile-modal-content{background:var(--card);border-radius:20px;max-width:500px;width:90%;max-height:90vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,0.3);animation:slideUp .3s}
-        @keyframes slideUp{from{opacity:0;transform:translateY(50px)}to{opacity:1;transform:translateY(0)}}
-        .profile-header{background:linear-gradient(135deg,#667eea,#764ba2);padding:2rem;text-align:center;border-radius:20px 20px 0 0}
-        .profile-avatar-large{width:100px;height:100px;border-radius:50%;background:white;color:var(--primary);display:flex;align-items:center;justify-content:center;font-size:2.5rem;font-weight:700;margin:0 auto 1rem;overflow:hidden;border:4px solid white;box-shadow:0 4px 20px rgba(0,0,0,0.2);cursor:pointer;transition:all .3s;position:relative}
-        .profile-avatar-large:hover{transform:scale(1.05)}
-        .profile-avatar-large img{width:100%;height:100%;object-fit:cover;position:absolute;top:0;left:0}
-        .profile-username{color:white;font-size:1.5rem;font-weight:700;margin-bottom:.5rem}
-        .profile-email{color:rgba(255,255,255,0.9);font-size:.9rem}
-        .profile-body{padding:2rem}
-        .profile-tabs{display:flex;gap:.5rem;margin-bottom:1.5rem;border-bottom:2px solid var(--border)}
-        .profile-tab{padding:.8rem 1.2rem;cursor:pointer;border:none;background:transparent;color:var(--text-light);font-weight:600;transition:all .2s;border-bottom:2px solid transparent;margin-bottom:-2px}
-        .profile-tab.active{color:var(--primary);border-bottom-color:var(--primary)}
+        .profile-modal-content{
+            background:var(--card);
+            border-radius:20px 20px 0 0;
+            max-width:500px;
+            width:100%;
+            max-height:95vh;
+            overflow-y:auto;
+            box-shadow:0 20px 60px rgba(0,0,0,0.3);
+            animation:slideUp .3s;
+            margin-top:auto;
+        }
+        @keyframes slideUp{
+            from{opacity:0;transform:translateY(100%)}
+            to{opacity:1;transform:translateY(0)}
+        }
+        .profile-header{
+            background:linear-gradient(135deg,#667eea,#764ba2);
+            padding:2rem 1rem;
+            text-align:center;
+            border-radius:20px 20px 0 0;
+        }
+        .profile-avatar-large{
+            width:clamp(80px, 20vw, 100px);
+            height:clamp(80px, 20vw, 100px);
+            border-radius:50%;
+            background:white;
+            color:var(--primary);
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            font-size:clamp(2rem, 5vw, 2.5rem);
+            font-weight:700;
+            margin:0 auto 1rem;
+            overflow:hidden;
+            border:4px solid white;
+            box-shadow:0 4px 20px rgba(0,0,0,0.2);
+            cursor:pointer;
+            transition:all .3s;
+            position:relative;
+        }
+        .profile-avatar-large:active{transform:scale(0.95)}
+        .profile-avatar-large img{
+            width:100%;
+            height:100%;
+            object-fit:cover;
+            position:absolute;
+            top:0;
+            left:0;
+        }
+        .profile-username{
+            color:white;
+            font-size:clamp(1.2rem, 4vw, 1.5rem);
+            font-weight:700;
+            margin-bottom:0.5rem;
+            word-break:break-word;
+        }
+        .profile-email{
+            color:rgba(255,255,255,0.9);
+            font-size:clamp(0.85rem, 2.5vw, 0.9rem);
+            word-break:break-word;
+        }
+        .profile-body{padding:1.5rem 1rem}
+        .profile-tabs{
+            display:flex;
+            gap:0.3rem;
+            margin-bottom:1.5rem;
+            border-bottom:2px solid var(--border);
+            overflow-x:auto;
+            -webkit-overflow-scrolling:touch;
+        }
+        .profile-tab{
+            padding:0.8rem 1rem;
+            cursor:pointer;
+            border:none;
+            background:transparent;
+            color:var(--text-light);
+            font-weight:600;
+            transition:all .2s;
+            border-bottom:2px solid transparent;
+            margin-bottom:-2px;
+            white-space:nowrap;
+            font-size:0.9rem;
+            min-height:48px;
+        }
+        .profile-tab.active{
+            color:var(--primary);
+            border-bottom-color:var(--primary);
+        }
         .tab-content{display:none}
         .tab-content.active{display:block}
-        .form-group{margin-bottom:1.2rem}
-        .form-group label{display:block;margin-bottom:.5rem;font-weight:600;color:var(--text)}
-        .form-input{width:100%;padding:.8rem;border-radius:8px;border:1px solid var(--border);background:var(--card);color:var(--text);transition:all .2s}
-        .form-input:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px rgba(102,126,234,0.1)}
-        .stats-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;margin-bottom:1.5rem}
-        .stat-card{background:var(--glass);padding:1rem;border-radius:12px;text-align:center;border:1px solid var(--border)}
-        .stat-value{font-size:1.8rem;font-weight:700;background:linear-gradient(135deg,#667eea,#764ba2);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-        .stat-label{color:var(--text-light);font-size:.85rem;margin-top:.3rem}
-        .avatar-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-top:1rem}
-        .avatar-option{aspect-ratio:1;border-radius:50%;cursor:pointer;transition:all .2s;overflow:hidden;border:3px solid transparent;position:relative;background:var(--glass)}
-        .avatar-option img{width:100%;height:100%;object-fit:cover}
-        .avatar-option.selected{border-color:var(--primary);transform:scale(1.1)}
-        .avatar-option.locked{opacity:.3;cursor:not-allowed}
-        .avatar-option.locked::after{content:'🔒';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:1.5rem}
-        .hero{background:linear-gradient(135deg,rgba(102,126,234,0.1),rgba(118,75,162,0.1));padding:3rem 1rem;text-align:center;position:relative;overflow:hidden}
-        .hero::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:url('https://zefirka.club/uploads/posts/2022-10/1664707769_5-zefirka-club-p-banner-dlya-yutub-anime-cherno-belie-5.jpg') center/cover no-repeat;opacity:.2;z-index:0}
+        .stats-grid{
+            display:grid;
+            grid-template-columns:repeat(2, 1fr);
+            gap:0.8rem;
+            margin-bottom:1.5rem;
+        }
+        .stat-card{
+            background:var(--glass);
+            padding:1rem;
+            border-radius:12px;
+            text-align:center;
+            border:1px solid var(--border);
+        }
+        .stat-value{
+            font-size:clamp(1.3rem, 4vw, 1.8rem);
+            font-weight:700;
+            background:linear-gradient(135deg,#667eea,#764ba2);
+            -webkit-background-clip:text;
+            -webkit-text-fill-color:transparent;
+        }
+        .stat-label{
+            color:var(--text-light);
+            font-size:clamp(0.75rem, 2vw, 0.85rem);
+            margin-top:0.3rem;
+        }
+        .avatar-grid{
+            display:grid;
+            grid-template-columns:repeat(auto-fill, minmax(70px, 1fr));
+            gap:0.8rem;
+            margin-top:1rem;
+        }
+        .avatar-option{
+            aspect-ratio:1;
+            border-radius:50%;
+            cursor:pointer;
+            transition:all .2s;
+            overflow:hidden;
+            border:3px solid transparent;
+            position:relative;
+            background:var(--glass);
+        }
+        .avatar-option img{
+            width:100%;
+            height:100%;
+            object-fit:cover;
+        }
+        .avatar-option.selected{
+            border-color:var(--primary);
+            transform:scale(1.05);
+        }
+        .avatar-option.locked{
+            opacity:0.3;
+            cursor:not-allowed;
+        }
+        .avatar-option.locked::after{
+            content:'🔒';
+            position:absolute;
+            top:50%;
+            left:50%;
+            transform:translate(-50%,-50%);
+            font-size:1.5rem;
+        }
+        .avatar-option:active:not(.locked){transform:scale(0.95)}
+        
+        /* HERO - Mobile Optimized */
+        .hero{
+            background:linear-gradient(135deg,rgba(102,126,234,0.1),rgba(118,75,162,0.1));
+            padding:2rem 1rem;
+            text-align:center;
+            position:relative;
+            overflow:hidden;
+        }
+        .hero::before{
+            content:'';
+            position:absolute;
+            top:0;
+            left:0;
+            right:0;
+            bottom:0;
+            background:url('https://zefirka.club/uploads/posts/2022-10/1664707769_5-zefirka-club-p-banner-dlya-yutub-anime-cherno-belie-5.jpg') center/cover no-repeat;
+            opacity:0.2;
+            z-index:0;
+        }
         .hero>*{position:relative;z-index:1}
-        .hero h1{font-size:2rem;margin-bottom:1rem;background:linear-gradient(135deg,#667eea,#764ba2);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-        .container{max-width:1200px;margin:0 auto;padding:2rem 1rem}
-        .ad-container{max-width:1200px;margin:2rem auto;padding:1rem;text-align:center;min-height:90px;background:var(--glass);border-radius:8px;display:flex;align-items:center;justify-content:center}
-        .manhva-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:1.5rem}
-        .manhva-card{border-radius:12px;overflow:hidden;cursor:pointer;transition:all .3s;box-shadow:0 4px 12px var(--border);background:var(--card);position:relative}
-        .manhva-card:hover{transform:translateY(-5px);box-shadow:0 8px 20px var(--border)}
-        .manhva-cover{width:100%;aspect-ratio:3/4;object-fit:cover;background:var(--glass)}
-        .manhva-info{padding:1rem}
-        .manhva-title{font-weight:700;margin-bottom:.5rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-        .manhva-genre{color:var(--text-light);font-size:.85rem;margin-bottom:.5rem}
-        .rating{display:flex;gap:.2rem;align-items:center}
-        .star{cursor:pointer;color:#ddd;font-size:1.1rem;transition:all .2s}
+        .hero h1{
+            font-size:clamp(1.5rem, 6vw, 2rem);
+            margin-bottom:0.8rem;
+            background:linear-gradient(135deg,#667eea,#764ba2);
+            -webkit-background-clip:text;
+            -webkit-text-fill-color:transparent;
+        }
+        .hero p{
+            font-size:clamp(0.9rem, 3vw, 1rem);
+            line-height:1.6;
+        }
+        
+        /* CONTAINER */
+        .container{
+            max-width:1200px;
+            margin:0 auto;
+            padding:1rem;
+        }
+        
+        /* AD CONTAINER */
+        .ad-container{
+            max-width:1200px;
+            margin:1rem auto;
+            padding:0.5rem 1rem;
+            text-align:center;
+            min-height:90px;
+            background:var(--glass);
+            border-radius:8px;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+        }
+        
+        /* MANHVA GRID - Responsive */
+        .manhva-grid{
+            display:grid;
+            grid-template-columns:repeat(auto-fill, minmax(140px, 1fr));
+            gap:1rem;
+        }
+        .manhva-card{
+            border-radius:12px;
+            overflow:hidden;
+            cursor:pointer;
+            transition:all .3s;
+            box-shadow:0 4px 12px var(--border);
+            background:var(--card);
+            position:relative;
+        }
+        .manhva-card:active{transform:scale(0.98)}
+        .manhva-cover{
+            width:100%;
+            aspect-ratio:3/4;
+            object-fit:cover;
+            background:var(--glass);
+        }
+        .manhva-info{padding:0.8rem}
+        .manhva-title{
+            font-weight:700;
+            margin-bottom:0.5rem;
+            white-space:nowrap;
+            overflow:hidden;
+            text-overflow:ellipsis;
+            font-size:clamp(0.9rem, 2.5vw, 1rem);
+        }
+        .manhva-genre{
+            color:var(--text-light);
+            font-size:clamp(0.75rem, 2vw, 0.85rem);
+            margin-bottom:0.5rem;
+        }
+        .rating{
+            display:flex;
+            gap:0.2rem;
+            align-items:center;
+            flex-wrap:wrap;
+        }
+        .star{
+            cursor:pointer;
+            color:#ddd;
+            font-size:clamp(0.9rem, 2.5vw, 1.1rem);
+            transition:all .2s;
+            padding:0.2rem;
+        }
+        .star:active{transform:scale(1.2)}
         .star.filled{color:#ffd700}
         .star.user-rated{color:#ff6b6b}
-        .rating-info{font-size:.85rem;color:var(--text-light);margin-left:.5rem}
-        .rating-stars-large .star{font-size:1.5rem}
-        .theme-btn{width:40px;height:40px;border-radius:50%;background:var(--glass);border:1px solid var(--border);cursor:pointer;font-size:1.2rem;display:flex;align-items:center;justify-content:center;transition:all .2s}
-        .theme-btn:hover{background:var(--border);transform:rotate(20deg)}
-        .loading{display:none;text-align:center;padding:3rem}
-        .loading.show{display:block}
-        .spinner{border:3px solid var(--border);border-top:3px solid var(--primary);border-radius:50%;width:40px;height:40px;animation:spin .8s linear infinite;margin:0 auto}
-        @keyframes spin{to{transform:rotate(360deg)}}
-        .toast{position:fixed;bottom:2rem;right:2rem;background:var(--card);padding:1rem 1.5rem;border-radius:12px;box-shadow:0 10px 40px rgba(0,0,0,0.3);display:none;z-index:3000;border:1px solid var(--border)}
-        .toast.show{display:block;animation:slideIn .3s}
-        @keyframes slideIn{from{opacity:0;transform:translateX(100px)}to{opacity:1;transform:translateX(0)}}
-        .chapter-list,.reader-container,.bookmarks,.leaderboard{display:none}
-        .chapter-list.show,.reader-container.show,.bookmarks.show,.leaderboard.show{display:block}
-        .detail-header{display:flex;gap:2rem;margin-bottom:2rem}
-        .detail-cover{width:200px;height:267px;object-fit:cover;border-radius:12px;box-shadow:0 4px 20px var(--border)}
-        .detail-info{flex:1}
-        .detail-actions{display:flex;gap:1rem;margin:1rem 0;flex-wrap:wrap}
+        .rating-info{
+            font-size:clamp(0.75rem, 2vw, 0.85rem);
+            color:var(--text-light);
+            margin-left:0.3rem;
+        }
+        .rating-stars-large .star{
+            font-size:clamp(1.2rem, 3vw, 1.5rem);
+        }
+        
+        /* DETAIL VIEW - Mobile Optimized */
+        .detail-header{
+            display:flex;
+            flex-direction:column;
+            gap:1.5rem;
+            margin-bottom:1.5rem;
+        }
+        .detail-cover{
+            width:100%;
+            max-width:300px;
+            aspect-ratio:3/4;
+            object-fit:cover;
+            border-radius:12px;
+            box-shadow:0 4px 20px var(--border);
+            margin:0 auto;
+        }
+        .detail-info{width:100%}
+        .detail-actions{
+            display:flex;
+            gap:0.8rem;
+            margin:1rem 0;
+            flex-wrap:wrap;
+        }
         .detail-rating{margin-top:1rem}
-        .rating-display{display:flex;align-items:center;gap:2rem;margin-bottom:1rem}
-        .rating-number{font-size:3rem;font-weight:700;color:var(--primary)}
+        .rating-display{
+            display:flex;
+            align-items:center;
+            gap:1rem;
+            margin-bottom:1rem;
+            flex-wrap:wrap;
+        }
+        .rating-number{
+            font-size:clamp(2rem, 8vw, 3rem);
+            font-weight:700;
+            color:var(--primary);
+        }
         .user-rating-section{margin-top:1rem}
-        .chapter-item{background:var(--card);padding:1rem;border-radius:8px;margin-bottom:.5rem;cursor:pointer;transition:all .2s;border:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
-        .chapter-item:hover{background:var(--glass);transform:translateX(5px)}
-        .chapter-item.read{opacity:.6}
-        .show-all-chapters{text-align:center;margin-top:1rem}
-        .podium{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin:2rem 0;max-width:900px;margin:2rem auto}
-        .podium-place{background:var(--card);border-radius:16px;padding:2rem 1rem;text-align:center;border:2px solid var(--border);transition:all .3s;position:relative;overflow:hidden}
-        .podium-place::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--primary),var(--primary-dark))}
-        .podium-place:hover{transform:translateY(-5px);box-shadow:0 10px 30px rgba(0,0,0,0.2)}
-        .podium-place:nth-child(2){order:-1;transform:scale(1.1);border-width:3px}
-        .podium-place:nth-child(1)::before{background:linear-gradient(90deg,var(--silver),#e8e8e8)}
-        .podium-place:nth-child(2)::before{background:linear-gradient(90deg,var(--gold),#ffed4e)}
-        .podium-place:nth-child(3)::before{background:linear-gradient(90deg,var(--bronze),#e8a76f)}
-        .podium-rank{position:absolute;top:-15px;left:50%;transform:translateX(-50%);width:50px;height:50px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.5rem;font-weight:700;border:3px solid var(--card);box-shadow:0 4px 15px rgba(0,0,0,0.2)}
-        .podium-place:nth-child(1) .podium-rank{background:linear-gradient(135deg,var(--silver),#e8e8e8);color:#333}
-        .podium-place:nth-child(2) .podium-rank{background:linear-gradient(135deg,var(--gold),#ffed4e);color:#333;width:60px;height:60px;font-size:1.8rem}
-        .podium-place:nth-child(3) .podium-rank{background:linear-gradient(135deg,var(--bronze),#e8a76f);color:#fff}
-        .podium-avatar{width:80px;height:80px;border-radius:50%;margin:2rem auto 1rem;overflow:hidden;border:4px solid;position:relative;background:linear-gradient(135deg,#667eea,#764ba2);display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:2rem;box-shadow:0 4px 20px rgba(0,0,0,0.2)}
-        .podium-place:nth-child(2) .podium-avatar{width:100px;height:100px;font-size:2.5rem;border-width:5px}
-        .podium-avatar img{width:100%;height:100%;object-fit:cover;position:absolute;top:0;left:0}
+        
+        /* CHAPTER LIST */
+        .chapter-item{
+            background:var(--card);
+            padding:1rem;
+            border-radius:8px;
+            margin-bottom:0.5rem;
+            cursor:pointer;
+            transition:all .2s;
+            border:1px solid var(--border);
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            gap:0.5rem;
+            min-height:56px;
+        }
+        .chapter-item:active{transform:scale(0.98)}
+        .chapter-item.read{opacity:0.6}
+        .show-all-chapters{
+            text-align:center;
+            margin-top:1rem;
+        }
+        
+        /* LEADERBOARD - Mobile Optimized */
+        .podium{
+            display:grid;
+            grid-template-columns:1fr;
+            gap:1rem;
+            margin:1rem 0;
+            max-width:900px;
+            margin:1rem auto;
+        }
+        .podium-place{
+            background:var(--card);
+            border-radius:16px;
+            padding:1.5rem 1rem;
+            text-align:center;
+            border:2px solid var(--border);
+            transition:all .3s;
+            position:relative;
+            overflow:hidden;
+        }
+        .podium-place::before{
+            content:'';
+            position:absolute;
+            top:0;
+            left:0;
+            right:0;
+            height:4px;
+            background:linear-gradient(90deg,var(--primary),var(--primary-dark));
+        }
+        .podium-place:nth-child(1)::before{
+            background:linear-gradient(90deg,var(--silver),#e8e8e8);
+        }
+        .podium-place:nth-child(2)::before{
+            background:linear-gradient(90deg,var(--gold),#ffed4e);
+        }
+        .podium-place:nth-child(3)::before{
+            background:linear-gradient(90deg,var(--bronze),#e8a76f);
+        }
+        .podium-rank{
+            position:absolute;
+            top:-15px;
+            left:50%;
+            transform:translateX(-50%);
+            width:50px;
+            height:50px;
+            border-radius:50%;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            font-size:1.5rem;
+            font-weight:700;
+            border:3px solid var(--card);
+            box-shadow:0 4px 15px rgba(0,0,0,0.2);
+        }
+        .podium-place:nth-child(1) .podium-rank{
+            background:linear-gradient(135deg,var(--silver),#e8e8e8);
+            color:#333;
+        }
+        .podium-place:nth-child(2) .podium-rank{
+            background:linear-gradient(135deg,var(--gold),#ffed4e);
+            color:#333;
+        }
+        .podium-place:nth-child(3) .podium-rank{
+            background:linear-gradient(135deg,var(--bronze),#e8a76f);
+            color:#fff;
+        }
+        .podium-avatar{
+            width:clamp(70px, 15vw, 80px);
+            height:clamp(70px, 15vw, 80px);
+            border-radius:50%;
+            margin:2rem auto 1rem;
+            overflow:hidden;
+            border:4px solid;
+            position:relative;
+            background:linear-gradient(135deg,#667eea,#764ba2);
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            color:white;
+            font-weight:700;
+            font-size:clamp(1.5rem, 4vw, 2rem);
+            box-shadow:0 4px 20px rgba(0,0,0,0.2);
+        }
+        .podium-avatar img{
+            width:100%;
+            height:100%;
+            object-fit:cover;
+            position:absolute;
+            top:0;
+            left:0;
+        }
         .podium-place:nth-child(1) .podium-avatar{border-color:var(--silver)}
         .podium-place:nth-child(2) .podium-avatar{border-color:var(--gold)}
         .podium-place:nth-child(3) .podium-avatar{border-color:var(--bronze)}
-        .podium-name{font-weight:700;font-size:1.1rem;margin-bottom:.5rem;color:var(--text)}
-        .podium-time{color:var(--text-light);font-size:.95rem;font-weight:600;display:flex;align-items:center;justify-content:center;gap:.5rem}
-        .podium-time i{color:var(--primary)}
-        .leaderboard-list{background:var(--card);border-radius:12px;border:1px solid var(--border);overflow:hidden;margin-top:2rem}
-        .leader-item{display:flex;align-items:center;gap:1rem;padding:1rem;border-bottom:1px solid var(--border);transition:all .2s}
-        .leader-item:hover{background:var(--glass)}
-        .leader-rank{font-weight:700;font-size:1.2rem;min-width:40px;text-align:center;color:var(--text-light)}
-        .leader-avatar{width:50px;height:50px;border-radius:50%;overflow:hidden;background:linear-gradient(135deg,#667eea,#764ba2);display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:1.2rem;border:2px solid var(--border);position:relative}
-        .leader-avatar img{width:100%;height:100%;object-fit:cover;position:absolute;top:0;left:0}
-        .leader-info{flex:1}
-        .leader-name{font-weight:700;margin-bottom:.2rem}
-        .leader-time{color:var(--text-light);font-size:.9rem}
-        .cookie-consent{position:fixed;bottom:0;left:0;right:0;background:var(--card);border-top:2px solid var(--border);padding:1.5rem;z-index:3000;box-shadow:0 -5px 20px rgba(0,0,0,0.1);display:none}
+        .podium-name{
+            font-weight:700;
+            font-size:clamp(1rem, 3vw, 1.1rem);
+            margin-bottom:0.5rem;
+            color:var(--text);
+            word-break:break-word;
+        }
+        .podium-time{
+            color:var(--text-light);
+            font-size:clamp(0.85rem, 2.5vw, 0.95rem);
+            font-weight:600;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            gap:0.5rem;
+        }
+        .leaderboard-list{
+            background:var(--card);
+            border-radius:12px;
+            border:1px solid var(--border);
+            overflow:hidden;
+            margin-top:1.5rem;
+        }
+        .leader-item{
+            display:flex;
+            align-items:center;
+            gap:0.8rem;
+            padding:1rem;
+            border-bottom:1px solid var(--border);
+            transition:all .2s;
+        }
+        .leader-item:active{background:var(--glass)}
+        .leader-rank{
+            font-weight:700;
+            font-size:clamp(1rem, 3vw, 1.2rem);
+            min-width:40px;
+            text-align:center;
+            color:var(--text-light);
+        }
+        .leader-avatar{
+            width:clamp(45px, 10vw, 50px);
+            height:clamp(45px, 10vw, 50px);
+            border-radius:50%;
+            overflow:hidden;
+            background:linear-gradient(135deg,#667eea,#764ba2);
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            color:white;
+            font-weight:700;
+            font-size:clamp(1rem, 2.5vw, 1.2rem);
+            border:2px solid var(--border);
+            position:relative;
+            flex-shrink:0;
+        }
+        .leader-avatar img{
+            width:100%;
+            height:100%;
+            object-fit:cover;
+            position:absolute;
+            top:0;
+            left:0;
+        }
+        .leader-info{
+            flex:1;
+            min-width:0;
+        }
+        .leader-name{
+            font-weight:700;
+            margin-bottom:0.2rem;
+            font-size:clamp(0.9rem, 2.5vw, 1rem);
+            word-break:break-word;
+        }
+        .leader-time{
+            color:var(--text-light);
+            font-size:clamp(0.8rem, 2vw, 0.9rem);
+        }
+        
+        /* COOKIE & WELCOME MODALS */
+        .cookie-consent{
+            position:fixed;
+            bottom:0;
+            left:0;
+            right:0;
+            background:var(--card);
+            border-top:2px solid var(--border);
+            padding:1rem;
+            z-index:3000;
+            box-shadow:0 -5px 20px rgba(0,0,0,0.1);
+            display:none;
+        }
         .cookie-consent.show{display:block}
-        .cookie-content{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap}
-        .cookie-text{flex:1;min-width:250px}
-        .privacy-link{color:var(--primary);text-decoration:none;font-weight:600}
-        .privacy-link:hover{text-decoration:underline}
-        footer{background:var(--card);border-top:1px solid var(--border);padding:2rem 1rem;margin-top:3rem}
-        .footer-content{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
-        .footer-links{display:flex;gap:1.5rem;flex-wrap:wrap}
-        .footer-links a{color:var(--text);text-decoration:none;transition:color .2s}
-        .footer-links a:hover{color:var(--primary)}
-        .welcome-modal{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.85);backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;z-index:3000;animation:fadeIn .5s}
-        .welcome-content{background:var(--card);padding:3rem 2rem;border-radius:20px;max-width:500px;width:90%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,0.4);animation:scaleIn .5s}
-        .welcome-content h2{font-size:2rem;margin-bottom:1rem;background:linear-gradient(135deg,#667eea,#764ba2);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-        .welcome-content p{color:var(--text-light);margin-bottom:2rem;line-height:1.8}
+        .cookie-content{
+            max-width:1200px;
+            margin:0 auto;
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            gap:1rem;
+            flex-wrap:wrap;
+        }
+        .cookie-text{
+            flex:1;
+            min-width:200px;
+            font-size:clamp(0.85rem, 2vw, 0.95rem);
+            line-height:1.6;
+        }
+        .privacy-link{
+            color:var(--primary);
+            text-decoration:none;
+            font-weight:600;
+        }
+        .welcome-modal{
+            position:fixed;
+            top:0;
+            left:0;
+            right:0;
+            bottom:0;
+            background:rgba(0,0,0,0.85);
+            backdrop-filter:blur(10px);
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            z-index:3000;
+            animation:fadeIn .5s;
+            padding:1rem;
+        }
+        .welcome-content{
+            background:var(--card);
+            padding:2rem 1.5rem;
+            border-radius:20px;
+            max-width:500px;
+            width:100%;
+            text-align:center;
+            box-shadow:0 20px 60px rgba(0,0,0,0.4);
+            animation:scaleIn .5s;
+        }
+        .welcome-content h2{
+            font-size:clamp(1.5rem, 5vw, 2rem);
+            margin-bottom:1rem;
+            background:linear-gradient(135deg,#667eea,#764ba2);
+            -webkit-background-clip:text;
+            -webkit-text-fill-color:transparent;
+        }
+        .welcome-content p{
+            color:var(--text-light);
+            margin-bottom:1.5rem;
+            line-height:1.8;
+            font-size:clamp(0.9rem, 2.5vw, 1rem);
+        }
         @keyframes fadeIn{from{opacity:0}to{opacity:1}}
         @keyframes scaleIn{from{opacity:0;transform:scale(0.9)}to{opacity:1;transform:scale(1)}}
-        @media (max-width:768px){
-            nav{flex-direction:column}
-            .search-wrapper{width:100%;max-width:100%}
-            .podium{grid-template-columns:1fr;gap:1rem}
-            .podium-place:nth-child(2){transform:scale(1);order:0}
-            .detail-header{flex-direction:column}
-            .detail-cover{width:100%;height:auto}
-            .stats-grid{grid-template-columns:1fr}
-            .cookie-content{flex-direction:column;text-align:center}
-            .footer-content{flex-direction:column;text-align:center}
+        
+        /* TOAST */
+        .toast{
+            position:fixed;
+            bottom:2rem;
+            right:1rem;
+            left:1rem;
+            background:var(--card);
+            padding:1rem;
+            border-radius:12px;
+            box-shadow:0 10px 40px rgba(0,0,0,0.3);
+            display:none;
+            z-index:3000;
+            border:1px solid var(--border);
+            max-width:400px;
+            margin:0 auto;
+            text-align:center;
+            font-size:clamp(0.9rem, 2.5vw, 1rem);
+        }
+        .toast.show{
+            display:block;
+            animation:slideInUp .3s;
+        }
+        @keyframes slideInUp{
+            from{opacity:0;transform:translateY(50px)}
+            to{opacity:1;transform:translateY(0)}
+        }
+        
+        /* LOADING */
+        .loading{
+            display:none;
+            text-align:center;
+            padding:2rem;
+        }
+        .loading.show{display:block}
+        .spinner{
+            border:3px solid var(--border);
+            border-top:3px solid var(--primary);
+            border-radius:50%;
+            width:40px;
+            height:40px;
+            animation:spin .8s linear infinite;
+            margin:0 auto;
+        }
+        @keyframes spin{to{transform:rotate(360deg)}}
+        
+        /* FOOTER */
+        footer{
+            background:var(--card);
+            border-top:1px solid var(--border);
+            padding:1.5rem 1rem;
+            margin-top:2rem;
+        }
+        .footer-content{
+            max-width:1200px;
+            margin:0 auto;
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            flex-wrap:wrap;
+            gap:1rem;
+            font-size:clamp(0.85rem, 2vw, 0.95rem);
+        }
+        .footer-links{
+            display:flex;
+            gap:1rem;
+            flex-wrap:wrap;
+        }
+        .footer-links a{
+            color:var(--text);
+            text-decoration:none;
+            transition:color .2s;
+        }
+        .footer-links a:hover{color:var(--primary)}
+        
+        /* VISIBILITY HELPERS */
+        .chapter-list,.reader-container,.bookmarks,.leaderboard{display:none}
+        .chapter-list.show,.reader-container.show,.bookmarks.show,.leaderboard.show{display:block}
+        
+        /* TABLET & UP */
+        @media (min-width:768px){
+            :root{--header-height:80px}
+            nav{padding:1rem;gap:1rem}
+            .logo{font-size:1.5rem;gap:0.8rem;padding:0.5rem 1rem}
+            .logo-icon{width:40px;height:40px}
+            .search-wrapper{max-width:400px}
+            .search-results{
+                position:absolute;
+                top:100%;
+                left:0;
+                right:0;
+                margin-top:0.5rem;
+                max-height:400px;
+            }
+            .btn-text{display:inline}
+            .mobile-menu{display:none !important}
+            .hamburger{display:none !important}
+            .nav-actions{gap:1rem}
+            .manhva-grid{
+                grid-template-columns:repeat(auto-fill, minmax(160px, 1fr));
+                gap:1.5rem;
+            }
+            .detail-header{
+                flex-direction:row;
+                gap:2rem;
+            }
+            .detail-cover{
+                width:200px;
+                max-width:200px;
+            }
+            .podium{
+                grid-template-columns:repeat(3, 1fr);
+                gap:1.5rem;
+                margin:2rem auto;
+            }
+            .podium-place{padding:2rem 1rem}
+            .podium-place:nth-child(2){
+                order:-1;
+                transform:scale(1.1);
+                border-width:3px;
+            }
+            .podium-place:nth-child(2) .podium-rank{
+                width:60px;
+                height:60px;
+                font-size:1.8rem;
+            }
+            .podium-place:nth-child(2) .podium-avatar{
+                width:100px;
+                height:100px;
+                font-size:2.5rem;
+                border-width:5px;
+            }
+            .profile-modal-content{
+                border-radius:20px;
+                margin:auto;
+                max-height:90vh;
+            }
+            .profile-header{
+                border-radius:20px 20px 0 0;
+                padding:2rem;
+            }
+            .profile-body{padding:2rem}
+            .modal-content{padding:2rem}
+            .cookie-content{
+                flex-direction:row;
+                text-align:left;
+            }
+            .footer-content{
+                flex-direction:row;
+                text-align:left;
+            }
+            .toast{
+                left:auto;
+                right:2rem;
+                margin:0;
+                text-align:left;
+            }
+            .stats-grid{grid-template-columns:repeat(2, 1fr)}
+            .avatar-grid{
+                grid-template-columns:repeat(4, 1fr);
+                gap:1rem;
+            }
+        }
+        
+        /* MOBILE ONLY STYLES */
+        @media (max-width:767px){
+            .hamburger{display:flex}
+            .nav-actions .btn:not(.btn-icon-only){display:none}
+            .user-dropdown{
+                right:0.5rem;
+                left:0.5rem;
+                width:auto;
+            }
+        }
+        
+        /* SMALL MOBILE */
+        @media (max-width:375px){
+            .manhva-grid{
+                grid-template-columns:repeat(auto-fill, minmax(120px, 1fr));
+                gap:0.8rem;
+            }
+            .stat-card{padding:0.8rem}
+            .avatar-grid{
+                grid-template-columns:repeat(auto-fill, minmax(60px, 1fr));
+            }
         }
     </style>
 </head>
 <body data-theme="light">
 
-<!-- WELCOME MODAL (Birinchi kirganida) -->
+<!-- WELCOME MODAL -->
 <div class="welcome-modal" id="welcomeModal" style="display:none">
     <div class="welcome-content">
         <h2>🎉 Xush kelibsiz!</h2>
         <p>ManhvaUZ - O'zbekistondagi eng yaxshi manhva platformasi!<br><br>
         Davom etish uchun ro'yxatdan o'ting yoki tizimga kiring.</p>
-        <button class="btn btn-primary" style="width:100%;margin-bottom:.5rem" id="welcomeLoginBtn">
+        <button class="btn btn-primary" style="width:100%;margin-bottom:0.5rem" id="welcomeLoginBtn">
             <i class="fas fa-sign-in-alt"></i> Kirish / Ro'yxatdan o'tish
         </button>
         <button class="btn btn-glass" style="width:100%" id="welcomeLaterBtn">
@@ -204,11 +1222,12 @@
     </div>
 </div>
 
-<!-- COOKIE CONSENT BANNER -->
+<!-- COOKIE CONSENT -->
 <div class="cookie-consent" id="cookieConsent">
     <div class="cookie-content">
         <div class="cookie-text">
-            🍪 Biz saytimizda tajribangizni yaxshilash uchun cookie'lardan foydalanamiz. Davom etish orqali siz <a href="#privacy" class="privacy-link" id="privacyLink">Maxfiylik siyosati</a>mizga rozilik bildirasiz.
+            🍪 Biz saytimizda tajribangizni yaxshilash uchun cookie'lardan foydalanamiz. 
+            <a href="#privacy" class="privacy-link" id="privacyLink">Maxfiylik siyosati</a>
         </div>
         <button class="btn btn-primary" id="acceptCookies">Qabul qilish</button>
     </div>
@@ -234,15 +1253,17 @@
                 <label>Parol</label>
                 <div class="password-toggle">
                     <input type="password" id="loginPass" class="form-input" required autocomplete="current-password">
-                    <button type="button" class="toggle-password" data-target="loginPass"><i class="fas fa-eye"></i></button>
+                    <button type="button" class="toggle-password" data-target="loginPass" aria-label="Ko'rsatish">
+                        <i class="fas fa-eye"></i>
+                    </button>
                 </div>
             </div>
             <div style="margin-bottom:1rem">
-                <label style="display:flex;align-items:center;gap:.5rem;cursor:pointer">
-                    <input type="checkbox" id="remember"> Eslab qolish
+                <label style="display:flex;align-items:center;gap:0.5rem;cursor:pointer">
+                    <input type="checkbox" id="remember" style="width:20px;height:20px"> Eslab qolish
                 </label>
             </div>
-            <button type="submit" class="btn btn-primary" style="width:100%;margin-bottom:.5rem" id="loginBtn">Kirish</button>
+            <button type="submit" class="btn btn-primary" style="width:100%;margin-bottom:0.5rem" id="loginBtn">Kirish</button>
             <button type="button" class="btn btn-glass" style="width:100%" id="closeModal1">Bekor qilish</button>
         </form>
         
@@ -259,17 +1280,21 @@
                 <label>Parol</label>
                 <div class="password-toggle">
                     <input type="password" id="regPass" class="form-input" minlength="6" required autocomplete="new-password">
-                    <button type="button" class="toggle-password" data-target="regPass"><i class="fas fa-eye"></i></button>
+                    <button type="button" class="toggle-password" data-target="regPass" aria-label="Ko'rsatish">
+                        <i class="fas fa-eye"></i>
+                    </button>
                 </div>
             </div>
             <div class="form-group">
                 <label>Parolni tasdiqlang</label>
                 <div class="password-toggle">
                     <input type="password" id="regPass2" class="form-input" required autocomplete="new-password">
-                    <button type="button" class="toggle-password" data-target="regPass2"><i class="fas fa-eye"></i></button>
+                    <button type="button" class="toggle-password" data-target="regPass2" aria-label="Ko'rsatish">
+                        <i class="fas fa-eye"></i>
+                    </button>
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary" style="width:100%;margin-bottom:.5rem" id="regBtn">Ro'yxatdan o'tish</button>
+            <button type="submit" class="btn btn-primary" style="width:100%;margin-bottom:0.5rem" id="regBtn">Ro'yxatdan o'tish</button>
             <button type="button" class="btn btn-glass" style="width:100%" id="closeModal2">Bekor qilish</button>
         </form>
     </div>
@@ -324,7 +1349,7 @@
                         <label>Email</label>
                         <input type="email" id="editEmail" class="form-input" required>
                     </div>
-                    <button type="submit" class="btn btn-primary" style="width:100%;margin-bottom:.5rem">Saqlash</button>
+                    <button type="submit" class="btn btn-primary" style="width:100%;margin-bottom:0.5rem">Saqlash</button>
                 </form>
                 <hr style="margin:1.5rem 0;border:none;border-top:1px solid var(--border)">
                 <form id="changePasswordForm">
@@ -333,14 +1358,18 @@
                         <label>Yangi parol</label>
                         <div class="password-toggle">
                             <input type="password" id="newPassword" class="form-input" minlength="6" required>
-                            <button type="button" class="toggle-password" data-target="newPassword"><i class="fas fa-eye"></i></button>
+                            <button type="button" class="toggle-password" data-target="newPassword" aria-label="Ko'rsatish">
+                                <i class="fas fa-eye"></i>
+                            </button>
                         </div>
                     </div>
                     <div class="form-group">
                         <label>Parolni tasdiqlang</label>
                         <div class="password-toggle">
                             <input type="password" id="confirmPassword" class="form-input" required>
-                            <button type="button" class="toggle-password" data-target="confirmPassword"><i class="fas fa-eye"></i></button>
+                            <button type="button" class="toggle-password" data-target="confirmPassword" aria-label="Ko'rsatish">
+                                <i class="fas fa-eye"></i>
+                            </button>
                         </div>
                     </div>
                     <button type="submit" class="btn btn-primary" style="width:100%">Parolni o'zgartirish</button>
@@ -356,19 +1385,19 @@
             </div>
             
             <button class="btn btn-glass" style="width:100%;margin-top:1.5rem" id="closeProfileModal">Yopish</button>
-            <button class="btn" style="width:100%;margin-top:.5rem;background:var(--error);color:white" id="logoutBtn">
+            <button class="btn" style="width:100%;margin-top:0.5rem;background:var(--error);color:white" id="logoutBtn">
                 <i class="fas fa-sign-out-alt"></i> Chiqish
             </button>
         </div>
     </div>
 </div>
 
-<!-- PRIVACY POLICY MODAL -->
+<!-- PRIVACY MODAL -->
 <div class="modal" id="privacyModal">
     <div class="modal-content" style="max-width:600px">
         <h2 style="margin-bottom:1rem">Maxfiylik Siyosati</h2>
-        <div style="max-height:400px;overflow-y:auto;margin-bottom:1rem;line-height:1.8">
-            <h3>1. Ma'lumotlar yig'ish</h3>
+        <div style="max-height:60vh;overflow-y:auto;margin-bottom:1rem;line-height:1.8;font-size:0.95rem">
+            <h3 style="margin-top:1rem">1. Ma'lumotlar yig'ish</h3>
             <p>Biz quyidagi ma'lumotlarni yig'amiz:</p>
             <ul style="margin-left:1.5rem;margin-bottom:1rem">
                 <li>Email manzil va username</li>
@@ -377,19 +1406,19 @@
             </ul>
             
             <h3>2. Ma'lumotlardan foydalanish</h3>
-            <p>Sizning ma'lumotlaringiz faqat sayt xizmatlarini taqdim etish uchun ishlatiladi. Biz hech qachon ma'lumotlaringizni uchinchi shaxslarga sotmaymiz.</p>
+            <p>Sizning ma'lumotlaringiz faqat sayt xizmatlarini taqdim etish uchun ishlatiladi.</p>
             
             <h3>3. Cookie'lar</h3>
-            <p>Biz sayt tajribasini yaxshilash uchun cookie'lardan foydalanamiz. Siz brauzer sozlamalarida ularni o'chirishingiz mumkin.</p>
+            <p>Biz sayt tajribasini yaxshilash uchun cookie'lardan foydalanamiz.</p>
             
             <h3>4. Google AdSense</h3>
-            <p>Saytimizda Google AdSense reklamalari ko'rsatiladi. Google sizning harakatlaringiz haqida ma'lumot to'plashi va cookie'lar ishlatishi mumkin. Bu reklamalarni shaxsiylashtirish uchun kerak.</p>
+            <p>Saytimizda Google AdSense reklamalari ko'rsatiladi.</p>
             
             <h3>5. Xavfsizlik</h3>
-            <p>Sizning parolingiz shifrlangan holda saqlanadi. Biz eng yuqori xavfsizlik standartlariga amal qilamiz.</p>
+            <p>Sizning parolingiz shifrlangan holda saqlanadi.</p>
             
             <h3>6. Aloqa</h3>
-            <p>Savollar bo'lsa, biz bilan bog'laning: support@manhvauz.com</p>
+            <p>Savollar bo'lsa: support@manhvauz.com</p>
         </div>
         <button class="btn btn-glass" style="width:100%" id="closePrivacy">Yopish</button>
     </div>
@@ -402,20 +1431,55 @@
     <nav>
         <div class="logo" id="logoBtn">
             <img class="logo-icon" src="https://w0.peakpx.com/wallpaper/486/994/HD-wallpaper-shadow-ninja-anime-black-ans-white-logo-manga-ninja-symbole.jpg" alt="Logo">
-            ManhvaUZ
+            <span>ManhvaUZ</span>
         </div>
+        
         <div class="search-wrapper">
-            <input type="text" class="search-box" id="search" placeholder="Qidirish...">
+            <input type="text" class="search-box" id="search" placeholder="Qidirish..." autocomplete="off">
             <div class="search-results" id="searchResults"></div>
         </div>
-        <div style="display:flex;gap:1rem;align-items:center;flex-wrap:wrap">
-            <button class="btn btn-glass" id="bookmarksBtn"><i class="far fa-bookmark"></i> Sevimlilar</button>
-            <button class="btn btn-glass" id="leaderboardBtn"><i class="fas fa-trophy"></i> Liderlar</button>
-            <button class="theme-btn" id="themeBtn"><i class="fas fa-moon"></i></button>
-            <div id="userInfo" style="position:relative"></div>
+        
+        <div class="nav-actions">
+            <button class="btn btn-glass" id="bookmarksBtn">
+                <i class="far fa-bookmark"></i>
+                <span class="btn-text">Sevimlilar</span>
+            </button>
+            <button class="btn btn-glass" id="leaderboardBtn">
+                <i class="fas fa-trophy"></i>
+                <span class="btn-text">Liderlar</span>
+            </button>
+            <button class="theme-btn" id="themeBtn" aria-label="Rejim">
+                <i class="fas fa-moon"></i>
+            </button>
+            <div id="userInfo"></div>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
         </div>
     </nav>
 </header>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+    <div class="mobile-menu-item" id="mobileBookmarks">
+        <i class="far fa-bookmark"></i>
+        <span>Sevimlilar</span>
+    </div>
+    <div class="mobile-menu-item" id="mobileLeaderboard">
+        <i class="fas fa-trophy"></i>
+        <span>Liderlar Jadvali</span>
+    </div>
+    <div class="mobile-menu-item" id="mobileProfile">
+        <i class="fas fa-user"></i>
+        <span>Profil</span>
+    </div>
+    <div class="mobile-menu-item" id="mobileTheme">
+        <i class="fas fa-moon"></i>
+        <span>Qorong'i Rejim</span>
+    </div>
+</div>
 
 <!-- HERO -->
 <div class="hero">
@@ -441,22 +1505,30 @@
 
     <!-- BOOKMARKS -->
     <div class="bookmarks" id="bookmarks">
-        <button class="btn btn-glass" id="backToMain3"><i class="fas fa-arrow-left"></i> Orqaga</button>
-        <h2 style="text-align:center;margin:2rem 0">Sevimli Manhvalar</h2>
+        <button class="btn btn-glass" id="backToMain3" style="margin-bottom:1rem">
+            <i class="fas fa-arrow-left"></i> Orqaga
+        </button>
+        <h2 style="text-align:center;margin:1rem 0">❤️ Sevimli Manhvalar</h2>
         <div class="manhva-grid" id="bookmarkGrid"></div>
     </div>
 
     <!-- CHAPTER LIST -->
     <div class="chapter-list" id="chapterList">
-        <button class="btn btn-glass" id="backToMain"><i class="fas fa-arrow-left"></i> Orqaga</button>
+        <button class="btn btn-glass" id="backToMain" style="margin-bottom:1rem">
+            <i class="fas fa-arrow-left"></i> Orqaga
+        </button>
         <div class="detail-header">
             <img class="detail-cover" id="detailCover" src="" alt="">
             <div class="detail-info">
-                <h2 id="detailTitle"></h2>
-                <p id="detailDesc"></p>
+                <h2 id="detailTitle" style="font-size:clamp(1.3rem, 5vw, 1.8rem);margin-bottom:0.8rem"></h2>
+                <p id="detailDesc" style="font-size:clamp(0.9rem, 2.5vw, 1rem);line-height:1.6"></p>
                 <div class="detail-actions">
-                    <button class="btn btn-glass" id="bookmarkBtn"><i class="far fa-bookmark"></i> Sevimlilar</button>
-                    <button class="btn btn-glass" id="shareBtn"><i class="fas fa-share"></i> Ulashish</button>
+                    <button class="btn btn-glass" id="bookmarkBtn">
+                        <i class="far fa-bookmark"></i> Sevimlilar
+                    </button>
+                    <button class="btn btn-glass" id="shareBtn">
+                        <i class="fas fa-share"></i> Ulashish
+                    </button>
                 </div>
                 <div class="detail-rating">
                     <div class="rating-display">
@@ -481,17 +1553,21 @@
 
     <!-- READER -->
     <div class="reader-container" id="reader">
-        <button class="btn btn-glass" id="backToChapters"><i class="fas fa-arrow-left"></i> Orqaga</button>
+        <button class="btn btn-glass" id="backToChapters" style="margin-bottom:1rem">
+            <i class="fas fa-arrow-left"></i> Orqaga
+        </button>
         <div id="pages"></div>
-        <div class="reader-nav" id="readerNav" style="display:flex;justify-content:space-between;padding:1rem;position:sticky;bottom:0;background:var(--card);border-top:1px solid var(--border)"></div>
+        <div class="reader-nav" id="readerNav" style="display:flex;justify-content:space-between;align-items:center;padding:1rem;position:sticky;bottom:0;background:var(--card);border-top:1px solid var(--border);gap:1rem;flex-wrap:wrap"></div>
     </div>
 
     <!-- LEADERBOARD -->
     <div class="leaderboard" id="leaderboard">
-        <button class="btn btn-glass" id="backToMain2"><i class="fas fa-arrow-left"></i> Orqaga</button>
-        <h2 style="text-align:center;margin-bottom:2rem">🏆 Liderlar Jadvali</h2>
+        <button class="btn btn-glass" id="backToMain2" style="margin-bottom:1rem">
+            <i class="fas fa-arrow-left"></i> Orqaga
+        </button>
+        <h2 style="text-align:center;margin-bottom:1.5rem;font-size:clamp(1.3rem, 5vw, 1.8rem)">🏆 Liderlar Jadvali</h2>
         <div class="podium" id="podium"></div>
-        <h3 style="margin:2rem 0 1rem;text-align:center">Top 50 Foydalanuvchilar</h3>
+        <h3 style="margin:1.5rem 0 1rem;text-align:center;font-size:clamp(1.1rem, 4vw, 1.3rem)">Top 50 Foydalanuvchilar</h3>
         <div class="leaderboard-list" id="leaders"></div>
     </div>
 
@@ -518,7 +1594,7 @@
         <div>&copy; 2024 ManhvaUZ. Barcha huquqlar himoyalangan.</div>
         <div class="footer-links">
             <a href="#privacy" id="footerPrivacy">Maxfiylik</a>
-            <a href="#terms">Foydalanish shartlari</a>
+            <a href="#terms">Shartlar</a>
             <a href="#contact">Bog'lanish</a>
         </div>
     </div>
@@ -560,6 +1636,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     setupAuthEvents();
     setupProfileEvents();
     setupNavigationEvents();
+    setupMobileMenu();
     await checkStoredUser();
     await loadManhvas();
     await loadAvatars();
@@ -567,6 +1644,59 @@ document.addEventListener('DOMContentLoaded', async () => {
     initAds();
     setInterval(() => location.reload(), 3600000);
 });
+
+// MOBILE MENU
+function setupMobileMenu() {
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    
+    hamburger?.addEventListener('click', () => {
+        hamburger.classList.toggle('active');
+        mobileMenu.classList.toggle('show');
+    });
+    
+    document.getElementById('mobileBookmarks')?.addEventListener('click', () => {
+        closeMobileMenu();
+        showBookmarks();
+    });
+    
+    document.getElementById('mobileLeaderboard')?.addEventListener('click', () => {
+        closeMobileMenu();
+        showLeaderboard();
+    });
+    
+    document.getElementById('mobileProfile')?.addEventListener('click', () => {
+        closeMobileMenu();
+        if (!user) return openModal();
+        openProfileModal();
+    });
+    
+    document.getElementById('mobileTheme')?.addEventListener('click', () => {
+        toggleTheme();
+        updateMobileThemeText();
+    });
+    
+    // Close on outside click
+    document.addEventListener('click', e => {
+        if (!hamburger?.contains(e.target) && !mobileMenu?.contains(e.target)) {
+            closeMobileMenu();
+        }
+    });
+}
+
+function closeMobileMenu() {
+    document.getElementById('hamburger')?.classList.remove('active');
+    document.getElementById('mobileMenu')?.classList.remove('show');
+}
+
+function updateMobileThemeText() {
+    const theme = document.body.dataset.theme;
+    const mobileThemeItem = document.getElementById('mobileTheme');
+    if (mobileThemeItem) {
+        mobileThemeItem.querySelector('i').className = theme === 'light' ? 'fas fa-moon' : 'fas fa-sun';
+        mobileThemeItem.querySelector('span').textContent = theme === 'light' ? 'Qorong\'i Rejim' : 'Yorug\' Rejim';
+    }
+}
 
 // ADSENSE INIT
 function initAds() {
@@ -603,7 +1733,7 @@ function checkCookieConsent() {
 document.getElementById('acceptCookies').addEventListener('click', () => {
     localStorage.setItem('cookieConsent', 'true');
     document.getElementById('cookieConsent').classList.remove('show');
-    showToast('Cookie qabul qilindi', 'success');
+    showToast('✅ Cookie qabul qilindi', 'success');
 });
 
 // PRIVACY MODAL
@@ -649,7 +1779,10 @@ function setupProfileEvents() {
 
 // NAVIGATION EVENTS
 function setupNavigationEvents() {
-    document.getElementById('logoBtn').addEventListener('click', showMain);
+    document.getElementById('logoBtn').addEventListener('click', () => {
+        closeMobileMenu();
+        showMain();
+    });
     document.getElementById('bookmarksBtn').addEventListener('click', showBookmarks);
     document.getElementById('leaderboardBtn').addEventListener('click', showLeaderboard);
     document.getElementById('themeBtn').addEventListener('click', toggleTheme);
@@ -667,7 +1800,6 @@ async function checkStoredUser() {
         startTimeTracking();
         await syncUserData();
     } else {
-        // Birinchi kirganda welcome modal ko'rsatish
         if (!localStorage.getItem('welcomeShown')) {
             setTimeout(showWelcomeModal, 1000);
         }
@@ -720,7 +1852,7 @@ async function handleLogin(e) {
         await syncUserData();
         updateUserUI();
         startTimeTracking();
-        showToast('Xush kelibsiz!', 'success');
+        showToast('🎉 Xush kelibsiz!', 'success');
         closeModal();
         renderManhvas(manhvas);
     } catch (error) {
@@ -801,7 +1933,7 @@ function handleLogout() {
         updateUserUI();
         closeProfileModal();
         showMain();
-        showToast('Xayr!', 'success');
+        showToast('👋 Xayr!', 'success');
     }
 }
 
@@ -865,9 +1997,9 @@ async function handleEditProfile(e) {
 
         renderProfile();
         updateUserUI();
-        showToast('Saqlandi!', 'success');
+        showToast('✅ Saqlandi!', 'success');
     } catch (error) {
-        showToast('Xatolik', 'error');
+        showToast('❌ Xatolik', 'error');
     }
 }
 
@@ -885,9 +2017,9 @@ async function handleChangePassword(e) {
         if (error) throw error;
 
         document.getElementById('changePasswordForm').reset();
-        showToast('Parol o\'zgartirildi!', 'success');
+        showToast('✅ Parol o\'zgartirildi!', 'success');
     } catch (error) {
-        showToast('Xatolik', 'error');
+        showToast('❌ Xatolik', 'error');
     }
 }
 
@@ -903,7 +2035,7 @@ function formatTime(seconds) {
 function updateUserUI() {
     const userInfo = document.getElementById('userInfo');
     if (!user) {
-        userInfo.innerHTML = '<button class="btn btn-primary" id="loginShowBtn">Kirish</button>';
+        userInfo.innerHTML = '<button class="btn btn-primary btn-icon-only" id="loginShowBtn"><i class="fas fa-sign-in-alt"></i></button>';
         document.getElementById('loginShowBtn').addEventListener('click', openModal);
         return;
     }
@@ -917,7 +2049,7 @@ function updateUserUI() {
         </div>
     `;
 
-    renderAvatar(document.getElementById('userAvatar'), user.avatar_url, initial, '40px');
+    renderAvatar(document.getElementById('userAvatar'), user.avatar_url, initial, '44px');
 
     document.getElementById('userAvatar').addEventListener('click', toggleUserDropdown);
     document.getElementById('profileBtn').addEventListener('click', () => {
@@ -928,7 +2060,7 @@ function updateUserUI() {
 }
 
 function toggleUserDropdown() {
-    document.getElementById('userDropdown').classList.toggle('show');
+    document.getElementById('userDropdown')?.classList.toggle('show');
 }
 
 document.addEventListener('click', e => {
@@ -1014,13 +2146,13 @@ async function selectAvatar(url) {
 
         renderProfile();
         updateUserUI();
-        showToast('Avatar o\'zgartirildi!', 'success');
+        showToast('✅ Avatar o\'zgartirildi!', 'success');
     } catch (error) {
-        showToast('Xatolik', 'error');
+        showToast('❌ Xatolik', 'error');
     }
 }
 
-function renderAvatar(container, url, initial, size = '40px') {
+function renderAvatar(container, url, initial, size = '44px') {
     const hasUrl = url && url.trim() !== '';
     container.innerHTML = hasUrl ?
         `<img src="${url}" alt="Avatar" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" style="width:100%;height:100%;object-fit:cover;position:absolute;top:0;left:0"><span style="display:none;width:100%;height:100%;display:flex;align-items:center;justify-content:center">${initial}</span>` :
@@ -1036,7 +2168,7 @@ async function loadManhvas() {
         manhvas.sort((a, b) => (b.avg_rating || 0) - (a.avg_rating || 0));
         renderManhvas(manhvas);
     } catch (error) {
-        showToast('Manhvalarni yuklashda xatolik', 'error');
+        showToast('❌ Manhvalarni yuklashda xatolik', 'error');
     } finally {
         showLoading(false);
     }
@@ -1091,7 +2223,7 @@ function renderManhvas(list) {
         const bookmark = user && userBookmarks.has(m.id);
 
         return `<div class="manhva-card" data-id="${m.id}">
-            ${bookmark ? '<div style="position:absolute;top:10px;right:10px;font-size:1.5rem;z-index:1"><i class="fas fa-heart" style="color:var(--error)"></i></div>' : ''}
+            ${bookmark ? '<div style="position:absolute;top:10px;right:10px;font-size:1.2rem;z-index:1"><i class="fas fa-heart" style="color:var(--error)"></i></div>' : ''}
             <img class="manhva-cover" src="${m.cover_url || 'https://via.placeholder.com/300x400?text=' + encodeURIComponent(m.title)}" loading="lazy" alt="${m.title}">
             <div class="manhva-info">
                 <div class="manhva-title">${m.title}</div>
@@ -1123,9 +2255,9 @@ async function rateManhva(id, rating) {
         userRatings[id] = rating;
         await loadAllRatings();
         renderManhvas(manhvas);
-        showToast('Baholandi!', 'success');
+        showToast('⭐ Baholandi!', 'success');
     } catch (error) {
-        showToast('Xatolik', 'error');
+        showToast('❌ Xatolik', 'error');
     }
 }
 
@@ -1146,10 +2278,10 @@ function handleSearch(e) {
     results.innerHTML = filtered.map(m => `
         <div class="search-result-item" data-id="${m.id}">
             <img class="search-result-cover" src="${m.cover_url || 'https://via.placeholder.com/50x65'}" alt="${m.title}">
-            <div style="flex:1">
+            <div style="flex:1;min-width:0">
                 <div style="font-weight:700">${m.title}</div>
-                <div style="color:var(--text-light);font-size:.85rem">${m.genre}</div>
-                <div style="color:var(--text-light);font-size:.85rem">
+                <div style="color:var(--text-light);font-size:0.85rem">${m.genre}</div>
+                <div style="color:var(--text-light);font-size:0.85rem">
                     <i class="fas fa-star" style="color:#ffd700"></i> ${(m.avg_rating || 0).toFixed(1)} (${m.rating_count || 0})
                 </div>
             </div>
@@ -1166,6 +2298,7 @@ function handleSearch(e) {
 }
 
 async function showDetail(id) {
+    closeMobileMenu();
     showLoading(true);
     currentManhva = manhvas.find(m => m.id === id);
 
@@ -1190,8 +2323,16 @@ async function showDetail(id) {
     bookmarkBtn.onclick = () => toggleBookmark(id);
 
     document.getElementById('shareBtn').onclick = () => {
-        navigator.clipboard.writeText(window.location.href);
-        showToast('Link nusxalandi!', 'success');
+        if (navigator.share) {
+            navigator.share({
+                title: currentManhva.title,
+                text: currentManhva.description,
+                url: window.location.href
+            }).catch(() => {});
+        } else {
+            navigator.clipboard.writeText(window.location.href);
+            showToast('🔗 Link nusxalandi!', 'success');
+        }
     };
 
     if (user) {
@@ -1214,7 +2355,7 @@ async function loadChapters(manhvaId) {
         showAllChapters = false;
         renderChapters();
     } catch (error) {
-        showToast('Chapterlar yuklanmadi', 'error');
+        showToast('❌ Chapterlar yuklanmadi', 'error');
     }
 }
 
@@ -1263,7 +2404,7 @@ async function openReader(index) {
         const { data } = await supabase.from('pages').select('*').eq('chapter_id', chapter.id).order('page_number');
         const pages = data || [];
 
-        document.getElementById('pages').innerHTML = pages.map(p => `<img src="${p.image_url}" style="width:100%;max-width:800px;margin:0 auto 1rem;display:block" alt="Page ${p.page_number}">`).join('');
+        document.getElementById('pages').innerHTML = pages.map(p => `<img src="${p.image_url}" style="width:100%;max-width:800px;margin:0 auto 1rem;display:block" alt="Page ${p.page_number}" loading="lazy">`).join('');
 
         renderReaderNav();
 
@@ -1271,8 +2412,10 @@ async function openReader(index) {
             await supabase.from('read_chapters').insert({ user_id: user.id, chapter_id: chapter.id });
             readChapters.add(chapter.id);
         }
+
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     } catch (error) {
-        showToast('Sahifalar yuklanmadi', 'error');
+        showToast('❌ Sahifalar yuklanmadi', 'error');
     } finally {
         showLoading(false);
     }
@@ -1287,7 +2430,7 @@ function renderReaderNav() {
         <button class="btn btn-glass" ${!hasPrev ? 'disabled' : ''} id="prevChapter">
             <i class="fas fa-chevron-left"></i> Oldingi
         </button>
-        <span>Chapter ${currentChapters[currentChapterIndex].chapter_number}</span>
+        <span style="font-weight:600;text-align:center">Chapter ${currentChapters[currentChapterIndex].chapter_number}</span>
         <button class="btn btn-glass" ${!hasNext ? 'disabled' : ''} id="nextChapter">
             Keyingi <i class="fas fa-chevron-right"></i>
         </button>
@@ -1306,23 +2449,24 @@ async function toggleBookmark(id) {
         if (userBookmarks.has(id)) {
             await supabase.from('bookmarks').delete().eq('user_id', user.id).eq('manhva_id', id);
             userBookmarks.delete(id);
-            showToast('Sevimlilardan o\'chirildi', 'success');
+            showToast('❌ Sevimlilardan o\'chirildi', 'success');
         } else {
             await supabase.from('bookmarks').insert({ user_id: user.id, manhva_id: id });
             userBookmarks.add(id);
-            showToast('Sevimlilarga qo\'shildi!', 'success');
+            showToast('❤️ Sevimlilarga qo\'shildi!', 'success');
         }
 
         const bookmarkBtn = document.getElementById('bookmarkBtn');
         bookmarkBtn.innerHTML = userBookmarks.has(id) ? '<i class="fas fa-heart"></i> Sevimlilardan' : '<i class="far fa-bookmark"></i> Sevimlilar';
     } catch (error) {
-        showToast('Xatolik', 'error');
+        showToast('❌ Xatolik', 'error');
     }
 }
 
 function showBookmarks() {
     if (!user) return openModal();
 
+    closeMobileMenu();
     hideAllViews();
     document.getElementById('bookmarks').classList.add('show');
 
@@ -1330,13 +2474,13 @@ function showBookmarks() {
     const grid = document.getElementById('bookmarkGrid');
 
     if (!bookmarked.length) {
-        grid.innerHTML = '<p style="text-align:center;color:var(--text-light);grid-column:1/-1">Sevimlilar bo\'sh</p>';
+        grid.innerHTML = '<p style="text-align:center;color:var(--text-light);grid-column:1/-1;padding:2rem">💔 Sevimlilar bo\'sh</p>';
     } else {
         grid.innerHTML = bookmarked.map(m => {
             const avg = m.avg_rating || 0;
             const userRate = user ? (userRatings[m.id] || 0) : 0;
             return `<div class="manhva-card" data-id="${m.id}">
-                <div style="position:absolute;top:10px;right:10px;font-size:1.5rem;z-index:1"><i class="fas fa-heart" style="color:var(--error)"></i></div>
+                <div style="position:absolute;top:10px;right:10px;font-size:1.2rem;z-index:1"><i class="fas fa-heart" style="color:var(--error)"></i></div>
                 <img class="manhva-cover" src="${m.cover_url || 'https://via.placeholder.com/300x400?text=' + encodeURIComponent(m.title)}" loading="lazy" alt="${m.title}">
                 <div class="manhva-info">
                     <div class="manhva-title">${m.title}</div>
@@ -1355,6 +2499,7 @@ function showBookmarks() {
 }
 
 async function showLeaderboard() {
+    closeMobileMenu();
     hideAllViews();
     document.getElementById('leaderboard').classList.add('show');
     showLoading(true);
@@ -1409,7 +2554,7 @@ async function showLeaderboard() {
             }).join('');
         }
     } catch (error) {
-        showToast('Liderlar yuklanmadi', 'error');
+        showToast('❌ Liderlar yuklanmadi', 'error');
     } finally {
         showLoading(false);
     }
@@ -1424,9 +2569,11 @@ function hideAllViews() {
 }
 
 function showMain() {
+    closeMobileMenu();
     hideAllViews();
     document.getElementById('mainView').style.display = 'block';
     renderManhvas(manhvas);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 function toggleTheme() {
@@ -1435,6 +2582,7 @@ function toggleTheme() {
     document.body.dataset.theme = next;
     document.getElementById('themeBtn').innerHTML = next === 'light' ? '<i class="fas fa-moon"></i>' : '<i class="fas fa-sun"></i>';
     localStorage.setItem('theme', next);
+    updateMobileThemeText();
 }
 
 const savedTheme = localStorage.getItem('theme');
@@ -1444,6 +2592,7 @@ if (savedTheme) {
 }
 
 function openModal() {
+    closeMobileMenu();
     document.getElementById('authModal').classList.add('show');
     clearAlerts();
 }
